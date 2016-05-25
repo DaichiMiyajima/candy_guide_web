@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mapper">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author"      content="Daichi Miyajima">
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <title>Guide</title>
+    <link rel="canonical" href="http://guide.com" />
+    <link rel="shortcut icon" href="">
+    <!-- firebase url -->
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <!-- sweet alert-->
+    <script src="../public/ext/sweetalert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/ext/sweetalert/sweetalert.css">
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <!-- toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+    <!-- Angular.js -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+</head>
+<body>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar">
+                <a href="#candy_map_tab" class="mdl-tabs__tab is-active"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">add_location</i></button></a>
+                <a href="#candy_chat_tab" class="mdl-tabs__tab"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">chat</i></button></a>
+             </div>
+            <div class="mdl-tabs__panel is-active" id="candy_map_tab">
+                <section class="container-full">
+                    <div id="map"></div>
+                </section>
+                <button id="messagebutton" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" data-upgraded=",MaterialButton" style="margin-top: -90px;position: fixed;right: 60px;">
+                    <i class="material-icons" style="">send</i>
+                </button>
+            </div>
+            <div class="mdl-tabs__panel" id="candy_chat_tab">
+                <div ng-controller="messageController">
+                    <div ng-repeat="message in messages | orderBy:'-time'">
+                        <div ng-if="message.kind === 'message'">
+                            <div class="chat-box">
+                                <div class="chat-face">
+                                    <i class="material-icons mdl-list__item-avatar">person</i>
+                                </div>
+                                <div class="chat-area">
+                                    <div class="chat-hukidashi">
+                                        <div>{{message.name}}</div>
+                                        <span class="mdl-list__item-sub-title">
+                                            {{message.message}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- if end -->
+                        <div ng-if="message.kind === 'attend'">
+                            <div class="chat-attend">
+                                <div>
+                                    {{message.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO32axBK69PMVZMgs_oPjKMltoQa4pKI4"></script> 
+    <script src="../public/js/controll.js"></script>
+    <script src="../public/js/firebase.js"></script>
+    <script src="../public/js/googlemap.js"></script>
+    <script src="../public/js/screenevent.js"></script>
+
+</body>
+</html>

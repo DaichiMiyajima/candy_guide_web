@@ -1,0 +1,79 @@
+/* candy_map_tab */
+#google map
+.container-full {
+    margin: 0 auto; width: 100%; height:100vh;
+}
+#map {
+    width:100%; height:93vh;
+}
+
+#Marker
+img[src*="test"]{
+    padding: 1px;
+    border: 1px solid #999;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+}
+
+
+/* candy_chat_tab */
+#ul_attend{
+  text-align: center;
+}
+#ul_attend li{
+  display: inline-block;
+}
+
+/* common css */
+#toast-container{
+    top : 7vh !important;
+}
+
+
+
+/* チャットレイアウト */
+.chat-box {
+    width: 100%;
+    height: auto;
+    overflow: hidden; /*floatの解除*/
+    margin-bottom: 20px;
+}
+.chat-face {
+    float: left;
+    margin-right: -120px;
+    padding: 15px;
+}
+.chat-face img{
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px #ddd;
+}
+.chat-area {
+    width: 100%;
+    float: right;
+}
+.chat-hukidashi {
+    display: inline-block; /*コメントの文字数に合わせて可変*/
+    padding: 15px 20px;
+    margin-left: 15%;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+.chat-hukidashi div{
+    border-bottom: 1px solid #ccc;
+    font-weight: 600;
+}
+.chat-attend{
+    text-align: center;
+    padding-left: 20%;
+    padding-right: 20%;
+    
+}
+.chat-attend div{
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 20px;
+    background: teal;
+    color: white;
+}
