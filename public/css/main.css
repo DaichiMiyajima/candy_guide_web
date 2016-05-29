@@ -7,6 +7,12 @@
     width:100%; height:93vh;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  ::i-block-chrome, #map {
+        width:100%; height:80vh;
+  }
+}
+
 #Marker
 img[src*="test"]{
     padding: 1px;
