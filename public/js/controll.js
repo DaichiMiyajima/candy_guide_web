@@ -17,8 +17,13 @@ function init() {
     //judge exist or not
     ref.child('sharemap').once("value", function(snapshot) {
         if(snapshot.val() && uniqueurl[2] in snapshot.val()){
+            //Set GroupName
+            var groupname = snapshot.val()[uniqueurl[2]].name;
+            $(".title span").text(groupname);
+            $(".title span").attr("data-shadow-text", groupname);
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
+                    //If session doesn't exist, sweetalert
                     if(!window.sessionStorage.getItem([uniqueurl[2]])){
                         swal({
                             title: "SHARE YOUR LOCATION!",
@@ -80,6 +85,7 @@ function init() {
                     firebasePlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2]);
                     });//forEach
+                    
                 });
             }else{
                  //popup
