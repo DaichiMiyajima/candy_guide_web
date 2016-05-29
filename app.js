@@ -25,7 +25,7 @@ app.use('/public',express.static(__dirname + '/public'));
 app.use('/',index);
 app.get('/sharemap/*',index);
 
-app.listen(8080);
+app.listen(8888);
 
 app.get('/sitemap.xml', function(req, res) {
     var parser = new xml2js.Parser();
