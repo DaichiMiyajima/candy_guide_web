@@ -44,6 +44,11 @@ img[src*="test"]{
     margin-right: -120px;
     padding: 15px;
 }
+.chat-face-your {
+    float: right;
+    margin-right: 10px;
+    padding: 15px;
+}
 .chat-face img{
     border-radius: 30px;
     border: 1px solid #ccc;
@@ -53,6 +58,9 @@ img[src*="test"]{
     width: 100%;
     float: right;
 }
+.chat-area-your {
+    width: 100%;
+}
 .chat-hukidashi {
     display: inline-block; /*コメントの文字数に合わせて可変*/
     padding: 15px 20px;
@@ -61,6 +69,20 @@ img[src*="test"]{
     border-radius: 10px;
 }
 .chat-hukidashi div{
+    border-bottom: 1px solid #ccc;
+    font-weight: 600;
+}
+#yourid {
+    text-align: right;
+}
+.chat-hukidashi-your {
+    display: inline-block; /*コメントの文字数に合わせて可変*/
+    padding: 15px 20px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background: blanchedalmond;
+}
+.chat-hukidashi-your div{
     border-bottom: 1px solid #ccc;
     font-weight: 600;
 }

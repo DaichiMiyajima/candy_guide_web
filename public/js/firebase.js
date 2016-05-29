@@ -7,7 +7,6 @@
                     // onSuccess Geolocation
                     function(position) {
                         //within 50m → update user
-                        console.log(position.coords.accuracy + "(" + new Date());
                         if(position.coords.accuracy <= 100){
                             ref.child('sharemap').child(uniqueurl).child('users').child(window.sessionStorage.getItem([uniqueurl])).update({
                                 latitude : position.coords.latitude,
@@ -46,12 +45,16 @@
         addmessage: {
             func: function addmessage(uniqueurl){
                 //when adding the message
-                ref.child('sharemap').child(uniqueurl).child('message').on('child_added', function(snapshot, addChildKey) {
+                ref.child('sharemap').child(uniqueurl).child('message').limitToLast(5).on('child_added', function(snapshot, addChildKey) {
                     var adddata = snapshot.val();
                     infoPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
                     });
-                    toastr.info("[" + adddata.name + "]" + " : " + adddata.message);
+                    if(adddata.kind=="message"){
+                        toastr.info("[" + adddata.name + "]" + " : " + adddata.message);
+                    }else{
+                        toastr.success(adddata.message);
+                    }
                 });
             }
         }

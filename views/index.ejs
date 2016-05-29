@@ -41,14 +41,14 @@
         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
             <div class="mdl-tabs__tab-bar">
                 <a href="#candy_map_tab" class="mdl-tabs__tab is-active"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">add_location</i></button></a>
-                <a href="#candy_chat_tab" class="mdl-tabs__tab"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">chat</i></button></a>
+                <!--<a href="#candy_chat_tab" class="mdl-tabs__tab"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">chat</i></button></a>-->
              </div>
             <div class="mdl-tabs__panel is-active" id="candy_map_tab">
                 <section class="container-full">
                     <div id="map"></div>
                 </section>
                 <button id="messagebutton" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" data-upgraded=",MaterialButton" style="margin-top: -90px;position: fixed;right: 60px;">
-                    <i class="material-icons" style="">send</i>
+                    <i class="material-icons" style="">forum</i>
                 </button>
             </div>
             <div class="mdl-tabs__panel" id="candy_chat_tab">
@@ -56,15 +56,30 @@
                     <div ng-repeat="message in messages | orderBy:'-time'">
                         <div ng-if="message.kind === 'message'">
                             <div class="chat-box">
-                                <div class="chat-face">
-                                    <i class="material-icons mdl-list__item-avatar">person</i>
+                                <div ng-if="message.key === yourid">
+                                    <div class="chat-face">
+                                        <i class="material-icons mdl-list__item-avatar">person</i>
+                                    </div>
+                                    <div class="chat-area">
+                                        <div class="chat-hukidashi">
+                                            <div>{{message.name}}</div>
+                                            <span class="mdl-list__item-sub-title">
+                                                {{message.message}}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="chat-area">
-                                    <div class="chat-hukidashi">
-                                        <div>{{message.name}}</div>
-                                        <span class="mdl-list__item-sub-title">
-                                            {{message.message}}
-                                        </span>
+                                <div ng-if="message.key !== yourid" id="yourid">
+                                    <div class="chat-face-your">
+                                        <i class="material-icons mdl-list__item-avatar">person</i>
+                                    </div>
+                                    <div class="chat-area-your">
+                                        <div class="chat-hukidashi-your">
+                                            <div>{{message.name}}</div>
+                                            <span class="mdl-list__item-sub-title">
+                                                {{message.message}}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
