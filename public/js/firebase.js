@@ -45,7 +45,7 @@
         addmessage: {
             func: function addmessage(uniqueurl){
                 //when adding the message
-                ref.child('sharemap').child(uniqueurl).child('message').limitToLast(5).on('child_added', function(snapshot, addChildKey) {
+                ref.child('sharemap').child(uniqueurl).child('message').limitToLast(3).on('child_added', function(snapshot, addChildKey) {
                     var adddata = snapshot.val();
                     infoPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());

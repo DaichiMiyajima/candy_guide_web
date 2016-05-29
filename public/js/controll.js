@@ -10,7 +10,7 @@ var myapp = angular.module('mapper', ["firebase"]);
 
 //setting of toastr
 toastr.options.closeButton = true; 
-toastr.options.timeOut = 200000;
+toastr.options.timeOut = 5000;
 
 /* When loading screen */
 function init() {

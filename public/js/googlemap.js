@@ -97,8 +97,8 @@ function markercreate(latitude,longitude,title,key,imagepath) {
             position: new google.maps.LatLng(latitude, longitude),
             map: googlemap,
             icon: imagepath,
-            title: title,
-            draggable: true
+            title: title//,
+            //draggable: true
         });
         markers[key] = marker;
         //google drag event(common)
