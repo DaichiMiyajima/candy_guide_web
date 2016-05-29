@@ -2,7 +2,7 @@
 .title{
     position: absolute;
     margin-top: 10px;
-    left: 2px;
+    right: 2px;
 }
 span, span:after {
     font-weight: 900;
@@ -16,7 +16,6 @@ span, span:after {
 
 span {
     font-size: 1.3em;
-    z-index: 100;
     text-shadow: .04em .04em 0 #9cb8b3;
 }
 
@@ -31,6 +30,7 @@ span:after {
 }
 
 
+/* message tab */
 
 
 /* candy_map_tab */
@@ -81,21 +81,6 @@ img[src*="test"]{
     height: auto;
     overflow: hidden; /*floatの解除*/
     margin-bottom: 20px;
-}
-.chat-face {
-    float: left;
-    margin-right: -120px;
-    padding: 15px;
-}
-.chat-face-your {
-    float: right;
-    margin-right: 10px;
-    padding: 15px;
-}
-.chat-face img{
-    border-radius: 30px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 4px #ddd;
 }
 .chat-area {
     width: 100%;
