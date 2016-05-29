@@ -1,13 +1,11 @@
 (function(){
-    if(window.navigator.userAgent.toLowerCase().indexOf('chrome') != -1){
-    }else if(window.navigator.userAgent.toLowerCase().indexOf('CriOS') != -1){
-    }else if(window.navigator.userAgent.toLowerCase().indexOf('safari') != -1){
-        if(window.navigator.userAgent.toLowerCase().indexOf('iphone') != -1){
-            $("#map").css("height","83vh");
-        }
+    var crios = !!navigator.userAgent.match(/crios/i);
+    var safari = !!navigator.userAgent.match(/safari/i);
+    var iphone = !!navigator.userAgent.match(/iphone/i);
+    if(safari && !crios && iphone){
+        $("#map").css("height","83vh");
     }
-    
-    
+
     $("#messagebutton").click(function(){
         swal({
             title: "SHARE YOUR MESSAGE!",
