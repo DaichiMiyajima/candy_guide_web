@@ -1,8 +1,8 @@
 (function(){
-    console.log(window.navigator.userAgent.toLowerCase());
     if(window.navigator.userAgent.toLowerCase().indexOf('chrome') != -1){
+    }else if(window.navigator.userAgent.toLowerCase().indexOf('CriOS') != -1){
     }else if(window.navigator.userAgent.toLowerCase().indexOf('safari') != -1){
-        if(window.navigator.userAgent.toLowerCase().indexOf('iphone') != -1 && window.navigator.userAgent.toLowerCase().indexOf('CriOS') == -1){
+        if(window.navigator.userAgent.toLowerCase().indexOf('iphone') != -1){
             $("#map").css("height","83vh");
         }
     }
