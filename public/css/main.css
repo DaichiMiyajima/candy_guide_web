@@ -1,21 +1,18 @@
 /* candy_map_tab */
 #google map
 .container-full {
-    margin: 0 auto; width: 100%; height:100vh;
+    margin: 0 auto; width: 100%; height:100%;
 }
 #map {
     width:100%; height:93vh;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-  ::i-block-chrome, 
-  #map {
-      width:100%; height:60vh;
-  }
-  .container-full {
-      margin: 0 auto; width: 100%; height:70vh;
-  }
+    ::i-block-chrome, #map {
+        width:100%; height:83vh;
+    }
 }
+
 
 #Marker
 img[src*="test"]{
