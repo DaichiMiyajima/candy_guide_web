@@ -1,12 +1,13 @@
 /* title */
 .title{
     position: absolute;
-    margin-top: 10px;
-    right: 2px;
+    margin-top: 45px;
+    left: 5px;
+    z-index: 10;
 }
 span, span:after {
     font-weight: 900;
-    color: #F3B4A9;
+    color: rgb(83,109,254);
     white-space: nowrap;
     display: inline-block;
     position: relative;
@@ -21,12 +22,19 @@ span {
 
 span:after {
     content: attr(data-shadow-text);
-    color: rgba(0,0,0,.35);
+    color: rgb(83,109,254);
     text-shadow: none;
     position: absolute;
     left: .0875em;
     top: .0875em;
     z-index: -1;
+}
+
+.messagebox{
+    position: absolute !important;
+    margin-top: 15px;
+    right: 5px;
+    z-index: 10;
 }
 
 

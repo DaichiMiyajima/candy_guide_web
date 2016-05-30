@@ -130,9 +130,6 @@ myapp.controller('messageController', function ($scope, $firebaseArray) {
     var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
     $scope.yourid = window.sessionStorage.getItem([uniqueurl[2]]);
     $scope.messages = $firebaseArray(message);
-    console.log(message);
-    console.log($firebaseArray(message));
-    //console.log($scope.messages);
 });
 
 

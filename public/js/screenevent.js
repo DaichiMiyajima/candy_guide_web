@@ -34,4 +34,27 @@
             }
         });
     });
+
+    $("#currentposition").click(function(){
+        if ("geolocation" in navigator) {
+        console.log("pass2");
+        navigator.geolocation.clearWatch(watchID);
+        watchID = navigator.geolocation.watchPosition(
+            // onSuccess Geolocation
+            function(position) {
+                //within 50m → update user
+                if(position.coords.accuracy <= 100){
+                    ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.sessionStorage.getItem([uniqueurl[2]])).update({
+                        latitude : position.coords.latitude,
+                        longitude : position.coords.longitude
+                    });//set
+                }
+            },
+            // エラー時のコールバック関数は PositionError オブジェクトを受けとる
+            function(error) {console.log(error);},
+            {enableHighAccuracy: true,maximumAge: 0}
+        );
+        }
+    });
+
 })()

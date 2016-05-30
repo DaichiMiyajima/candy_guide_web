@@ -1,3 +1,4 @@
+var watchID;
 (function(){
     var plugins = {
         //when moving to somewhere
