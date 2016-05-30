@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="../public/css/main.css">
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.light_blue-indigo.min.css"/>
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     <!-- sweet alert-->
     <script src="../public/ext/sweetalert/sweetalert.min.js"></script>
@@ -43,7 +43,7 @@
 
 <!-- message tab -->
 <div class="demo-layout-transparent mdl-layout mdl-js-layout">
-    <div class="mdl-layout__drawer">
+    <div class="mdl-layout__drawer" style="z-index: 10000;">
         <div ng-controller="messageController">
             <div ng-repeat="message in messages | orderBy:'-time'">
                 <div ng-if="message.kind === 'message'">
@@ -90,8 +90,11 @@
                 <section class="container-full">
                     <div id="map"></div>
                 </section>
-                <button id="messagebutton" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" data-upgraded=",MaterialButton" style="margin-top: -90px;position: fixed;right: 60px;">
+                <button id="messagebutton" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" data-upgraded=",MaterialButton" style="margin-top: -90px;position: fixed;right: 15px;">
                     <i class="material-icons" style="">forum</i>
+                </button>
+                <button id="" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" data-upgraded=",MaterialButton" style="margin-top: -160px;position: fixed;right: 15px;">
+                    <i class="material-icons" style="">gps_fixed</i>
                 </button>
             </div>
             

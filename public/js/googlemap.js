@@ -12,6 +12,7 @@ var infoWindows = new Array();
                 var mapOptions = {
                     zoom: 16,
                     center: mylatlng,
+                    disableDefaultUI: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
                 googlemap = new google.maps.Map(document.getElementById("map"),mapOptions);
