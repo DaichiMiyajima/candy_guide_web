@@ -5,6 +5,8 @@
     if(safari && !crios && iphone){
         $("#map").css("height","83vh");
     }
+    
+    $('#messagebox_slide').hide();
 
     $("#messagebutton").click(function(){
         swal({
