@@ -14,9 +14,6 @@ toastr.options.timeOut = 5000;
 
 /* When loading screen */
 function init() {
-    console.log($(".mdl-layout__drawer"));
-    $(".mdl-layout__drawer").css('left','""');
-    
     //judge exist or not
     ref.child('sharemap').once("value", function(snapshot) {
         if(snapshot.val() && uniqueurl[2] in snapshot.val()){

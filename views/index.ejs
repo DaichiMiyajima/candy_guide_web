@@ -40,7 +40,44 @@
 <body style="max-height:100vh">
         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
             <div class="title" style=""><span></span></div>
-            <div id="messagebox" class="messagebox material-icons mdl-badge mdl-badge--overlap" data-badge="1">account_box</div>
+            <div id="messageaccount" class="messagebox material-icons mdl-badge mdl-badge--overlap" data-badge="1">account_box</div>
+            <div id="messagebox_slide">
+<!-- message tab -->
+        <div ng-controller="messageController" style="padding-top: 15px;border: 10px solid #5A9AD2;">
+            <div ng-repeat="message in messages | orderBy:'-time'">
+                <div ng-if="message.kind === 'message'">
+                    <div class="chat-box">
+                        <div ng-if="message.key === yourid">
+                            <div class="chat-area">
+                                <div class="chat-hukidashi">
+                                    <div>{{message.name}}</div>
+                                    <span class="mdl-list__item-sub-title">
+                                        {{message.message}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="message.key !== yourid" id="yourid">
+                            <div class="chat-area-your">
+                                <div class="chat-hukidashi-your">
+                                    <div>{{message.name}}</div>
+                                    <span class="mdl-list__item-sub-title">
+                                        {{message.message}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="message.kind === 'attend'">
+                    <div class="chat-attend">
+                        <div>
+                            {{message.message}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div></div>
             <div class="mdl-tabs__tab-bar">
                 <a href="#candy_map_tab" class="mdl-tabs__tab is-active"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">add_location</i></button></a>
                 <!--<a href="#candy_chat_tab" class="mdl-tabs__tab"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">chat</i></button></a>-->

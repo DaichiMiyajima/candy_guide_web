@@ -36,8 +36,7 @@
     });
 
     $("#currentposition").click(function(){
-        if ("geolocation" in navigator) {
-        console.log("pass2");
+        $('#currentposition').css("background","black");
         navigator.geolocation.clearWatch(watchID);
         watchID = navigator.geolocation.watchPosition(
             // onSuccess Geolocation
@@ -49,12 +48,23 @@
                         longitude : position.coords.longitude
                     });//set
                 }
+                $('#currentposition').css("background","rgb(83,109,254)");
             },
             // エラー時のコールバック関数は PositionError オブジェクトを受けとる
             function(error) {console.log(error);},
             {enableHighAccuracy: true,maximumAge: 0}
         );
+    });
+    
+    $(document).click(function(e) {
+        // クリックした場所がmessagebox_slide(領域内とみなす範囲)に無ければmessagebox_slideを消す
+        if(!$.contains($('#messagebox_slide')[0], e.target)){
+            if(!$.contains($('#messageaccount')[0], e.target)){
+                $('#messagebox_slide').hide();
+            }
+            if($.contains($('#messageaccount')[0], e.target)){
+                $('#messagebox_slide').show();
+            }
         }
     });
-
 })()

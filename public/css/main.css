@@ -37,6 +37,17 @@ span:after {
     z-index: 10;
 }
 
+#messagebox_slide{
+    position: absolute;
+    right: 0px;
+    background: rgb(96, 125, 139);
+    width: 40%;
+    height: 100%;
+    z-index: 100;
+    color: rgb(96, 125, 139);
+    overflow: auto;
+}
+
 
 /* message tab */
 
@@ -103,6 +114,8 @@ img[src*="test"]{
     margin-left: 15%;
     border: 1px solid gray;
     border-radius: 10px;
+    background: white;
+    width: 50%;
 }
 .chat-hukidashi div{
     border-bottom: 1px solid #ccc;
