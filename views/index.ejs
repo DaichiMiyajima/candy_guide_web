@@ -43,27 +43,27 @@
             <div id="messageaccount" class="messagebox material-icons mdl-badge mdl-badge--overlap" data-badge="1">account_box</div>
             <div id="messagebox_slide">
 <!-- message tab -->
-        <div ng-controller="messageController" style="padding-top: 15px;border: 10px solid #5A9AD2;">
+        <div ng-controller="messageController" style="padding-top: 15px;">
             <div ng-repeat="message in messages | orderBy:'-time'">
                 <div ng-if="message.kind === 'message'">
                     <div class="chat-box">
                         <div ng-if="message.key === yourid">
                             <div class="chat-area">
                                 <div class="chat-hukidashi">
-                                    <div>{{message.name}}</div>
-                                    <span class="mdl-list__item-sub-title">
+                                    <div class="name">{{message.name}}</div>
+                                    <div class="mdl-list__item-sub-title">
                                         {{message.message}}
-                                    </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div ng-if="message.key !== yourid" id="yourid">
                             <div class="chat-area-your">
                                 <div class="chat-hukidashi-your">
-                                    <div>{{message.name}}</div>
-                                    <span class="mdl-list__item-sub-title">
+                                    <div class="name">{{message.name}}</div>
+                                    <div class="mdl-list__item-sub-title">
                                         {{message.message}}
-                                    </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

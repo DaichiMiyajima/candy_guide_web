@@ -42,7 +42,7 @@ span:after {
     right: 0px;
     background: rgb(96, 125, 139);
     width: 40%;
-    height: 100%;
+    height: 60%;
     z-index: 100;
     color: rgb(96, 125, 139);
     overflow: auto;
@@ -99,7 +99,7 @@ img[src*="test"]{
     width: 100%;
     height: auto;
     overflow: hidden; /*floatの解除*/
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 .chat-area {
     width: 100%;
@@ -110,14 +110,14 @@ img[src*="test"]{
 }
 .chat-hukidashi {
     display: inline-block; /*コメントの文字数に合わせて可変*/
-    padding: 15px 20px;
+    padding: 5px 5px;
     margin-left: 15%;
     border: 1px solid gray;
     border-radius: 10px;
     background: white;
     width: 50%;
 }
-.chat-hukidashi div{
+.chat-hukidashi .name{
     border-bottom: 1px solid #ccc;
     font-weight: 600;
 }
@@ -126,7 +126,7 @@ img[src*="test"]{
 }
 .chat-hukidashi-your {
     display: inline-block; /*コメントの文字数に合わせて可変*/
-    padding: 15px 20px;
+    padding: 5px 5px;
     border: 1px solid gray;
     border-radius: 10px;
     background: blanchedalmond;

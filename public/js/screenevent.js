@@ -1,12 +1,12 @@
 (function(){
+    $('#messagebox_slide').hide();
+
     var crios = !!navigator.userAgent.match(/crios/i);
     var safari = !!navigator.userAgent.match(/safari/i);
     var iphone = !!navigator.userAgent.match(/iphone/i);
     if(safari && !crios && iphone){
         $("#map").css("height","83vh");
     }
-    
-    $('#messagebox_slide').hide();
 
     $("#messagebutton").click(function(){
         swal({
@@ -57,16 +57,12 @@
             {enableHighAccuracy: true,maximumAge: 0}
         );
     });
-    
-    $(document).click(function(e) {
-        // クリックした場所がmessagebox_slide(領域内とみなす範囲)に無ければmessagebox_slideを消す
-        if(!$.contains($('#messagebox_slide')[0], e.target)){
-            if(!$.contains($('#messageaccount')[0], e.target)){
-                $('#messagebox_slide').hide();
-            }
-            if($.contains($('#messageaccount')[0], e.target)){
-                $('#messagebox_slide').show();
-            }
-        }
+
+    $("#messageaccount").click(function(){
+        $('#messagebox_slide').show();
+    });
+
+    $("#map").click(function(){
+        $('#messagebox_slide').hide();
     });
 })()
