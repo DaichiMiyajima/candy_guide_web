@@ -59,6 +59,8 @@
     });
 
     $("#messageaccount").click(function(){
+        toastr.remove();
+        toastr.clear()
         $('#messagebox_slide').show();
     });
 
