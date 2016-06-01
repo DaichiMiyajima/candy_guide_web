@@ -145,7 +145,8 @@ img[src*="test"]{
 .chat-attend div{
     border: 1px solid gray;
     border-radius: 10px;
-    margin: 20px;
+    margin: 6px;
+    padding: 3px;
     background: teal;
     color: white;
 }
