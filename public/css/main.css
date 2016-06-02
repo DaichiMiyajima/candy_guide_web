@@ -1,9 +1,11 @@
-body{
-    max-height: 100vh;
+body {
+    margin: 0;
+    width: 100%;
+    height:100%;
+    text-align: left;
+    position: fixed;
     overflow: hidden;
 }
-
-
 /* title */
 .title{
     position: absolute;
