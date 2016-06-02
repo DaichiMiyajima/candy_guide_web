@@ -1,3 +1,9 @@
+body{
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+
 /* title */
 .title{
     position: absolute;
