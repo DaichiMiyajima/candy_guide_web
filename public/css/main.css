@@ -101,7 +101,22 @@ img[src*="test"]{
 }
 
 
+#messagebox_slide_1{
+        width: 100%;
+        height:100%;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        background: rgba(0,0,0,0.7);
+}
 
+#overlay{
+    left: 0;
+    width: 60%;
+    height: 100%;
+    position: fixed;
+}
 
 /* チャットレイアウト */
 .chat-box {
@@ -124,26 +139,12 @@ img[src*="test"]{
     border: 1px solid gray;
     border-radius: 10px;
     background: white;
-    width: 50%;
+    width: 70%;
 }
 .chat-hukidashi .name{
-    border-bottom: 1px solid #ccc;
-    font-weight: 600;
+    border-bottom: 0.5px solid #E6E3E3;
 }
-#yourid {
-    text-align: right;
-}
-.chat-hukidashi-your {
-    display: inline-block; /*コメントの文字数に合わせて可変*/
-    padding: 5px 5px;
-    border: 1px solid gray;
-    border-radius: 10px;
-    background: blanchedalmond;
-}
-.chat-hukidashi-your div{
-    border-bottom: 1px solid #ccc;
-    font-weight: 600;
-}
+
 .chat-attend{
     text-align: center;
     padding-left: 20%;
