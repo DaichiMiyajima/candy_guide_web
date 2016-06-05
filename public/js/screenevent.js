@@ -50,10 +50,10 @@
                         latitude : position.coords.latitude,
                         longitude : position.coords.longitude
                     });//set
-                    if(count <= 1){
+                    if(count < 1){
                         count = count + 1;
                         //panto
-                        googlemap.panTo(new google.maps.LatLng(latitude,longitude));
+                        googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
                     }
                 }
                 $('#currentposition').css("background","rgb(83,109,254)");
