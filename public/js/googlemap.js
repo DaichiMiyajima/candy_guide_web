@@ -16,6 +16,35 @@ var infoWindows = new Array();
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
                 googlemap = new google.maps.Map(document.getElementById("map"),mapOptions);
+                //style
+                var styleOptions = [
+                    {
+                      "featureType": "transit",
+                      "elementType": "geometry.fill",
+                      "stylers": [
+                        { "hue": "#0044ff" },
+                        { "saturation": 100 },
+                        { "invert_lightness": true },
+                        { "weight": 3.2 },
+                        { "color": "#ff4c00" }
+                      ]
+                    },
+                    {
+                      "featureType": "water",
+                      "stylers": [
+                        { "weight": 7.7 },
+                        { "saturation": 100 },
+                        { "hue": "#0000ff" },
+                        { "visibility": "on" },
+                        { "color": "#2350e2" }
+                      ]
+                    }
+                ];
+                var styledMapOptions = { name: 'Candy' }
+                var sampleType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
+                googlemap.mapTypes.set('sample', sampleType);
+                googlemap.setMapTypeId('sample');
+                
                 ref.child('sharemap').child(uniqueurl).child('users').once("value", function(snapshot) {
                     snapshot.forEach(function(data) {
                         if(data.val() && data.val()["latitude"]){

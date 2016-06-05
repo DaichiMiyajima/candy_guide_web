@@ -1,5 +1,5 @@
 (function(){
-    $('#messagebox_slide_1').hide();
+    $('#messagebox_all').hide();
 
     var crios = !!navigator.userAgent.match(/crios/i);
     var safari = !!navigator.userAgent.match(/safari/i);
@@ -61,10 +61,10 @@
     $("#messageaccount").click(function(){
         toastr.remove();
         toastr.clear()
-        $('#messagebox_slide_1').show();
+        $('#messagebox_all').show();
     });
 
     $("#overlay").click(function(){
-        $('#messagebox_slide_1').hide();
+        $('#messagebox_all').hide();
     });
 })()

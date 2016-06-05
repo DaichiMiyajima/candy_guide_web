@@ -10,7 +10,7 @@ var myapp = angular.module('mapper', ["firebase"]);
 
 //setting of toastr
 toastr.options.closeButton = true; 
-toastr.options.timeOut = 5000;
+toastr.options.timeOut = 35000;
 
 /* When loading screen */
 function init() {
@@ -130,7 +130,7 @@ myapp.controller('messageController', function ($scope, $firebaseArray) {
 });
 
 myapp.controller('messagecon', function ($scope, $firebaseArray) {
-    var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind").equalTo("message");
+    var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
     $scope.messagesnumber = $firebaseArray(messages);
 });
 

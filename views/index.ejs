@@ -45,42 +45,38 @@
                     <div id="messageaccount" class="messagebox material-icons mdl-badge mdl-badge--overlap" data-badge="{{messagesnumber.length}}">chat</div>
             </div>
             
-            <div id="messagebox_slide_1">
-            <div id="overlay">
-            </div>
-            <div id="messagebox_slide">
-                <!-- message tab -->
-                <div ng-controller="messageController" style="padding-top: 15px;">
-                    <div ng-repeat="message in messages | orderBy:'-time'">
-                        <div ng-if="message.kind === 'message'">
-                            <div class="chat-box">
-                                <div ng-if="message.key === yourid">
-                                    <div class="chat-area">
-                                        <div class="chat-hukidashi">
-                                            <div class="name">
-                                                <div class="name">
-                                                    {{message.name}}
-                                                    ({{ message.time | date:'MM/dd h:mma' : timezone}})
-                                                </div>
-                                            </div>
-                                            <div class="mdl-list__item-sub-title">
-                                                {{message.message}}
-                                            </div>
-                                        </div>
+            <div id="messagebox_all">
+                <div id="overlay">
+                </div>
+                <div id="messagebox_slide">
+                    <!-- message tab -->
+                    <div ng-controller="messageController" style="padding-top: 1px;">
+                        <!--<div ng-repeat="(key, value) in messages ">
+                            {{ key }}
+                            <li ng-repeat="player in value">
+                                {{ player.name }} 
+                            </li>
+                        </div>-->
+                        <div ng-repeat="message in messages | orderBy:'-time'">
+                            <div ng-if="message.kind === 'message'">
+                                <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                                    <div class="toast toast-info" style="display: block; text-align: left;float: left;width: 100%;">
+                                        <div class="toast-message">[{{message.name}}] : {{message.message}}</div>
+                                    </div>
+                                    <span>{{ message.time | date:'MM/dd/yyyy hh:mm' : timezone}}</span>
+                                </div>
+                                
+                            </div>
+                            <div ng-if="message.kind === 'attend'">
+                                <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                                    <div class="toast toast-success" style="display: block;width: 100%;">
+                                        <div class="toast-message">{{message.message}}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div ng-if="message.kind === 'attend'">
-                            <div class="chat-attend">
-                                <div>
-                                    {{message.message}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 </div>
-            </div>
+                     </div>
+                </div>
             </div>
             <div class="mdl-tabs__tab-bar">
                 <a href="#candy_map_tab" class="mdl-tabs__tab is-active"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">add_location</i></button></a>

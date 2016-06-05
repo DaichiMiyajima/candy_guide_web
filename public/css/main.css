@@ -13,7 +13,7 @@ body {
     left: 5px;
     z-index: 10;
 }
-span, span:after {
+.title span, span:after {
     font-weight: 900;
     color: rgb(83,109,254);
     white-space: nowrap;
@@ -23,7 +23,7 @@ span, span:after {
     padding: .2em 0 .25em 0;
 }
 
-span {
+.title span {
     font-size: 1.3em;
     text-shadow: .04em .04em 0 #9cb8b3;
     font-family: fantasy;
@@ -49,12 +49,14 @@ span:after {
 #messagebox_slide{
     position: absolute;
     right: 0px;
-    background: rgb(96, 125, 139);
-    width: 40%;
-    height: 60%;
+    background: rgba(2, 2, 2, 0.75);
+    width: 50%;
+    height: 50%;
     z-index: 100;
     color: rgb(96, 125, 139);
     overflow: auto;
+    border-style: inset;
+    border-color: black;
 }
 
 
@@ -101,14 +103,14 @@ img[src*="test"]{
 }
 
 
-#messagebox_slide_1{
+#messagebox_all{
         width: 100%;
         height:100%;
         text-align: center;
         position: fixed;
         top: 0;
         z-index: 100;
-        background: rgba(0,0,0,0.7);
+        background: rgba(0, 0, 0, 0.35);
 }
 
 #overlay{
@@ -119,43 +121,33 @@ img[src*="test"]{
 }
 
 /* チャットレイアウト */
-.chat-box {
-    width: 100%;
-    height: auto;
-    overflow: hidden; /*floatの解除*/
-    margin-bottom: 8px;
-}
-.chat-area {
-    width: 100%;
-    float: right;
-}
-.chat-area-your {
-    width: 100%;
-}
-.chat-hukidashi {
-    display: inline-block; /*コメントの文字数に合わせて可変*/
-    padding: 5px 5px;
-    margin-left: 15%;
-    border: 1px solid gray;
-    border-radius: 10px;
-    background: white;
-    width: 70%;
-}
-.chat-hukidashi .name{
-    border-bottom: 0.5px solid #E6E3E3;
+#toast-container-chat > div {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 0px;
+    padding: 15px 15px 15px 50px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    -moz-box-shadow: 0 0 12px #999999;
+    -webkit-box-shadow: 0 0 12px #999999;
+    box-shadow: 0 0 12px #999999;
+    color: #ffffff;
+    opacity: 0.8;
+    padding: 5px 5px 5px 15px;
 }
 
-.chat-attend{
-    text-align: center;
-    padding-left: 20%;
-    padding-right: 20%;
-    
+#toast-container-chat * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
-.chat-attend div{
-    border: 1px solid gray;
-    border-radius: 10px;
-    margin: 6px;
-    padding: 3px;
-    background: teal;
+
+#toast-container-chat span {
+    float: right;
+    font-size: 10px;
     color: white;
+    font-family: fantasy;
 }
