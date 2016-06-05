@@ -39,6 +39,7 @@
 
     $("#currentposition").click(function(){
         $('#currentposition').css("background","black");
+        var count = 0;
         navigator.geolocation.clearWatch(watchID);
         watchID = navigator.geolocation.watchPosition(
             // onSuccess Geolocation
@@ -49,8 +50,11 @@
                         latitude : position.coords.latitude,
                         longitude : position.coords.longitude
                     });//set
-                    //panto
-                    googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
+                    if(count <= 1){
+                        count = count + 1;
+                        //panto
+                        googlemap.panTo(new google.maps.LatLng(latitude,longitude));
+                    }
                 }
                 $('#currentposition').css("background","rgb(83,109,254)");
             },
