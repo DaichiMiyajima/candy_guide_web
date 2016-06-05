@@ -21,8 +21,8 @@
         }, function(inputValue){
             if (inputValue === false) return false;
             if (inputValue !== "") {
-                var key = window.sessionStorage.getItem([uniqueurl[2]]);
-                var name = window.sessionStorage.getItem([name]);
+                var key = window.localStorage.getItem([uniqueurl[2]]);
+                var name = window.localStorage.getItem([name]);
                 var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("message");
                 var newPostRef = postsRef.push();
                 var postID = newPostRef.key();
@@ -45,10 +45,12 @@
             function(position) {
                 //within 50m → update user
                 if(position.coords.accuracy <= 100){
-                    ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.sessionStorage.getItem([uniqueurl[2]])).update({
+                    ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
                         latitude : position.coords.latitude,
                         longitude : position.coords.longitude
                     });//set
+                    //panto
+                    googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
                 }
                 $('#currentposition').css("background","rgb(83,109,254)");
             },

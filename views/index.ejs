@@ -51,12 +51,6 @@
                 <div id="messagebox_slide">
                     <!-- message tab -->
                     <div ng-controller="messageController" style="padding-top: 1px;">
-                        <!--<div ng-repeat="(key, value) in messages ">
-                            {{ key }}
-                            <li ng-repeat="player in value">
-                                {{ player.name }} 
-                            </li>
-                        </div>-->
                         <div ng-repeat="message in messages | orderBy:'-time'">
                             <div ng-if="message.kind === 'message'">
                                 <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">

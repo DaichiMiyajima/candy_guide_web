@@ -24,7 +24,7 @@ function init() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     //If session doesn't exist, sweetalert
-                    if(!window.sessionStorage.getItem([uniqueurl[2]])){
+                    if(!window.localStorage.getItem([uniqueurl[2]])){
                         swal({
                             title: "SHARE YOUR LOCATION!",
                             text: "Write your name or nickname:",
@@ -58,13 +58,13 @@ function init() {
                                 message : inputValue + " attend"
                             });//set
                             // Store session
-                            window.sessionStorage.setItem([uniqueurl[2]],[postID]);
-                            window.sessionStorage.setItem([name],[inputValue]);
+                            window.localStorage.setItem([uniqueurl[2]],[postID]);
+                            window.localStorage.setItem([name],[inputValue]);
                             swal("Nice!", "You are " + inputValue, "success");
                         });
                     }else{
                         //when re-loading, update location
-                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.sessionStorage.getItem([uniqueurl[2]])).update({
+                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
                             latitude : position.coords.latitude,
                             longitude : position.coords.longitude
                         });//set
@@ -125,7 +125,7 @@ function init() {
 
 myapp.controller('messageController', function ($scope, $firebaseArray) {
     var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
-    $scope.yourid = window.sessionStorage.getItem([uniqueurl[2]]);
+    $scope.yourid = window.localStorage.getItem([uniqueurl[2]]);
     $scope.messages = $firebaseArray(message);
 });
 
