@@ -134,4 +134,61 @@ myapp.controller('messagecon', function ($scope, $firebaseArray) {
     $scope.messagesnumber = $firebaseArray(messages);
 });
 
+/*
+myapp.controller('userController', function ($scope, $q , $firebaseArray) {
+    var your_latitude;
+    var your_longitude;
+    var geocoder = new google.maps.Geocoder;
+    var user = ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("time");
+    var angularuser = $firebaseArray(user);
+    // to take an action after the data loads, use the $loaded() promise
+    angularuser.$loaded().then(function() {
+         var i = 0;
+         var data = [];
+        // To iterate the key/value pairs of the object, use angular.forEach()
+        angular.forEach(angularuser, function(value, key) {
+           if(value.$id == window.localStorage.getItem([uniqueurl[2]])){
+               your_latitude = value.latitude;
+               your_longitude = value.longitude;
+           }
+        });
+        angular.forEach(angularuser, function(value, key) {
+           var _pow = Math.pow( 10 , 2 ) ;
+           if(value.$id == window.localStorage.getItem([uniqueurl[2]])){
+               dist = 0;
+           }else{
+               dist = Math.round( GeoFire.distance([your_latitude,your_longitude], [value.latitude,value.longitude]) * _pow ) / _pow;
+           }
+           angularuser[key].distance = dist;
+           var latlng = {lat: value.latitude, lng: value.longitude};
+           var geo = geocoder.geocode({'location': latlng}, function(results, status) {
+               i = i + 1;
+               if (status === google.maps.GeocoderStatus.OK) {
+                   console.log(results[1].formatted_address);
+                   angularuser[key].address = results[1].formatted_address;
+                   
+                   console.log("pass0");
+                   console.log(angularuser[key]);
+                   console.log(angularuser[key]);
+                   data.push(angularuser[key]);
+                   if(i == angularuser.length){
+                       console.log("pass");
+                       console.log(data);
+                       $scope.users = data;
+                       console.log("pass2");
+                       console.log($scope.users);
+                   }
+               }else{
+                   console.log("error:" + status);
+               }
+           });
+        },data);
+        
+    });
+});
 
+myapp.controller('usercon', function ($scope, $firebaseArray) {
+    var users = ref.child('sharemap').child(uniqueurl[2]).child('users');
+    $scope.usersnumber = $firebaseArray(users);
+});
+*/

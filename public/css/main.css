@@ -39,6 +39,56 @@ span:after {
     z-index: -1;
 }
 
+/* user tab-start */
+#userbox_all{
+        width: 100%;
+        height:100%;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.35);
+}
+
+.userbox{
+    position: absolute !important;
+    margin-top: 15px;
+    right: 55px;
+    z-index: 10;
+}
+
+#userbox_slide{
+    position: absolute;
+    right: 0px;
+    background: rgba(2, 2, 2, 0.75);
+    width: 50%;
+    height: 50%;
+    z-index: 100;
+    color: rgb(96, 125, 139);
+    overflow: auto;
+    border-style: inset;
+    border-color: black;
+}
+
+#userbox_overlay{
+    left: 0;
+    width: 60%;
+    height: 100%;
+    position: fixed;
+}
+/* user tab-end */
+
+/* message tab-start */
+#messagebox_all{
+        width: 100%;
+        height:100%;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.35);
+}
+
 .messagebox{
     position: absolute !important;
     margin-top: 15px;
@@ -59,68 +109,13 @@ span:after {
     border-color: black;
 }
 
-
-/* message tab */
-
-
-/* candy_map_tab */
-#google map
-.container-full {
-    margin: 0 auto; width: 100%; height:100%;
-}
-#map {
-    width:100%; height:93vh;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    ::i-block-chrome, #map {
-        width:100%; height:83vh;
-    }
-}
-
-
-#Marker
-img[src*="test"]{
-    padding: 1px;
-    border: 1px solid #999;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-}
-
-
-/* candy_chat_tab */
-#ul_attend{
-  text-align: center;
-}
-#ul_attend li{
-  display: inline-block;
-}
-
-/* common css */
-#toast-container{
-    top : 7vh !important;
-}
-
-
-#messagebox_all{
-        width: 100%;
-        height:100%;
-        text-align: center;
-        position: fixed;
-        top: 0;
-        z-index: 100;
-        background: rgba(0, 0, 0, 0.35);
-}
-
-#overlay{
+#messagebox_overlay{
     left: 0;
     width: 60%;
     height: 100%;
     position: fixed;
 }
 
-/* チャットレイアウト */
 #toast-container-chat > div {
     position: relative;
     overflow: hidden;
@@ -151,3 +146,47 @@ img[src*="test"]{
     color: white;
     font-family: fantasy;
 }
+/* message tab-end */
+
+
+
+
+/* candy_map_tab */
+#google map
+.container-full {
+    margin: 0 auto; width: 100%; height:100%;
+}
+
+#map {
+    width:100%; height:93vh;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    ::i-block-chrome, #map {
+        width:100%; height:83vh;
+    }
+}
+
+
+#Marker
+img[src*="test"]{
+    padding: 1px;
+    border: 1px solid #999;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+}
+
+
+#ul_attend{
+  text-align: center;
+}
+#ul_attend li{
+  display: inline-block;
+}
+
+/* common css */
+#toast-container{
+    top : 7vh !important;
+}
+

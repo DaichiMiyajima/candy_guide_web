@@ -17,6 +17,8 @@
     <link rel="shortcut icon" href="">
     <!-- firebase url -->
     <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <!-- GeoFire -->
+    <script src="https://cdn.firebase.com/libs/geofire/4.1.1/geofire.min.js"></script>
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
@@ -41,12 +43,29 @@
     <div>
         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
             <div class="title" style=""><span></span></div>
-            <div ng-controller="messagecon">
-                    <div id="messageaccount" class="messagebox material-icons mdl-badge mdl-badge--overlap" data-badge="{{messagesnumber.length}}">chat</div>
+            <!-- User tab -->
+            <!--
+            <div ng-controller="usercon">
+                <div id="usercount" class="userbox material-icons mdl-badge mdl-badge--overlap" data-badge="{{usersnumber.length}}">group</div>
             </div>
-            
+            <div id="userbox_all">
+                <div id="userbox_overlay">
+                </div>
+                <div id="userbox_slide">
+                    <div ng-controller="userController" style="padding-top: 1px;">
+                        <div ng-repeat="user in users">
+                            [{{user.name}}] : {{user.address}} : {{user.distance}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+            <!-- Message tab -->
+            <div ng-controller="messagecon">
+                <div id="messageaccount" class="messagebox material-icons mdl-badge mdl-badge--overlap" data-badge="{{messagesnumber.length}}">chat</div>
+            </div>
             <div id="messagebox_all">
-                <div id="overlay">
+                <div id="messagebox_overlay">
                 </div>
                 <div id="messagebox_slide">
                     <!-- message tab -->
@@ -72,6 +91,7 @@
                      </div>
                 </div>
             </div>
+            <!-- basic tab -->
             <div class="mdl-tabs__tab-bar">
                 <a href="#candy_map_tab" class="mdl-tabs__tab is-active"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">add_location</i></button></a>
                 <!--<a href="#candy_chat_tab" class="mdl-tabs__tab"><button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">chat</i></button></a>-->
@@ -97,6 +117,7 @@
     <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO32axBK69PMVZMgs_oPjKMltoQa4pKI4"></script> 
     <script src="../public/js/controll.js"></script>
+    <script src="../public/js/common.js"></script>
     <script src="../public/js/firebase.js"></script>
     <script src="../public/js/googlemap.js"></script>
     <script src="../public/js/screenevent.js"></script>
