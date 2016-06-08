@@ -52,10 +52,11 @@ function init(callback) {
                 function(error) {
                     if(!window.localStorage.getItem([uniqueurl[2]])){
                         swal_locationoff(uniqueurl[2],ref);
+                    }else{
+                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
+                            share : "off"
+                        });//set
                     }
-                    ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                        share : "off"
-                    });//set
                     //Location on のユーザーがいればそのlocationを参照
                     ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
                         var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
@@ -84,10 +85,11 @@ function init(callback) {
             }else{
                 if(!window.localStorage.getItem([uniqueurl[2]])){
                     swal_locationoff(uniqueurl[2],ref);
+                }else{
+                    ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
+                        share : "off"
+                    });//set
                 }
-                ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                    share : "off"
-                });//set
                 //Location on のユーザーがいればそのlocationを参照
                 ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
                     var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
