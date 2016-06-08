@@ -17,6 +17,12 @@ body::before {
   body::before {
     background-image: url('../img/NYC0099.jpg');
   }
+      .demo-card-wide.mdl-card {
+        width: 80%;
+        margin: 0 auto;
+        top : 100px;
+        text-align: center;
+    }
 }
 @media (min-width: 513px)  and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1.5),
        (min-width: 513px)  and (max-width: 1024px) and (min-resolution: 1.5dppx),
@@ -25,6 +31,12 @@ body::before {
   body::before {
     background-image: url('../img/NYC0099.jpg');
   }
+      .demo-card-wide.mdl-card {
+        width: 50%;
+        margin: 0 auto;
+        top : 100px;
+        text-align: center;
+    }
 }
 @media (min-width: 1025px) and (-webkit-min-device-pixel-ratio: 1.5),
        (min-width: 1025px) and (min-resolution: 1.5dppx),
@@ -33,17 +45,19 @@ body::before {
   body::before {
     background-image: url('../img/NYC0099.jpg');
   }
+      .demo-card-wide.mdl-card {
+        width: 40%;
+        margin: 0 auto;
+        top : 100px;
+        text-align: center;
+    }
 }
 
-.demo-card-wide.mdl-card {
-  width: 80%;
-  margin: 0 auto;
-  top : 100px;
-}
 .demo-card-wide > .mdl-card__title {
   color: #fff;
   height: 176px;
-  background: url('../img/NYC0099.jpg') center / cover;
+  text-align: center;
+  margin : 0 auto;
 }
 .demo-card-wide > .mdl-card__menu {
   color: #fff;

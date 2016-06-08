@@ -1,7 +1,10 @@
-google.maps.event.addDomListener(window, 'load', init);
+(function(){
+    $("[class^=firsthide]").hide();
+    init(show);
+})()
 
 /* When loading screen */
-function init() {
+function init(callback) {
     //judge exist or not
     ref.child('sharemap').once("value", function(snapshot) {
         if(snapshot.val() && uniqueurl[2] in snapshot.val()){
@@ -42,7 +45,8 @@ function init() {
                     firebasePlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2]);
                     });//forEach
-                    
+                    //show function
+                    callback();
                 }, 
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
@@ -73,6 +77,8 @@ function init() {
                         firebasePlugins.forEach(function(plugin){
                             plugin.func.call(function(){},uniqueurl[2]);
                         });//forEach
+                        //show function
+                        callback();
                     })
                 });
             }
@@ -83,6 +89,9 @@ function init() {
     });//end ref(initial)
 }
 
+function show() {
+    $("[class^=firsthide_lastshow]").show();
+}
 
 myapp.controller('messageController', function ($scope, $firebaseArray) {
     var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");

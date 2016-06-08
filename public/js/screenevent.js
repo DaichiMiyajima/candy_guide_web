@@ -1,7 +1,4 @@
 (function(){
-    $('#messagebox_all').hide();
-    $('#userbox_all').hide();
-
     var crios = !!navigator.userAgent.match(/crios/i);
     var safari = !!navigator.userAgent.match(/safari/i);
     var iphone = !!navigator.userAgent.match(/iphone/i);
@@ -36,8 +33,11 @@
                             googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
                         }
                     }
-                    $('#currentposition').css("background","rgb(83,109,254)");
-                    $('#spin').removeClass("is-active");
+                    //最低限1秒続ける
+                    setTimeout(function loop(){
+                        $('#currentposition').css("background","rgb(83,109,254)");
+                        $('#spin').removeClass("is-active");
+                    },1000);
                 },
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {console.log(error);},

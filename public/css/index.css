@@ -148,8 +148,17 @@ span:after {
 }
 /* message tab-end */
 
+#currentposition{
+    margin-top: -160px;
+    position: fixed;
+    right: 15px;"
+}
 
-
+#messagebutton{
+    margin-top: -90px;
+    position: fixed;
+    right: 15px;"
+}
 
 /* candy_map_tab */
 #google map
