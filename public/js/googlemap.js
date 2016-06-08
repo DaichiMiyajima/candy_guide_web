@@ -1,16 +1,11 @@
-var googlemap;
-var markers = new Array();
-var infoWindows = new Array();
-
 (function(){
     var plugins = {
         // click items activation
         sharegeolocation: {
-            func: function sharegeolocation(uniqueurl,position){
-                var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            func: function sharegeolocation(uniqueurl,mylatlng){
                 //create map
                 var mapOptions = {
-                    zoom: 16,
+                    zoom: 15,
                     center: mylatlng,
                     disableDefaultUI: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -41,13 +36,14 @@ var infoWindows = new Array();
                     }
                 ];
                 var styledMapOptions = { name: 'Candy' }
-                var sampleType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
-                googlemap.mapTypes.set('sample', sampleType);
-                googlemap.setMapTypeId('sample');
+                var candyType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
+                googlemap.mapTypes.set('Candy', candyType);
+                googlemap.setMapTypeId('Candy');
                 
-                ref.child('sharemap').child(uniqueurl).child('users').once("value", function(snapshot) {
+                //Show Marker
+                ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").once("value", function(snapshot) {
                     snapshot.forEach(function(data) {
-                        if(data.val() && data.val()["latitude"]){
+                        if(data.val()){
                             createMarker(data.val()["latitude"], data.val()["longitude"], data.val()["name"], data.key(),markercreate);
                         }
                     });

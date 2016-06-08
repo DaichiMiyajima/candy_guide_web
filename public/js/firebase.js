@@ -1,4 +1,3 @@
-var watchID;
 (function(){
     var plugins = {
         //when moving to somewhere
@@ -24,7 +23,7 @@ var watchID;
         //when adding user's
         addusers: {
             func: function addusers(uniqueurl){
-                ref.child('sharemap').child(uniqueurl).child('users').on('child_added', function(snapshot, addChildKey) {
+                ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").on('child_added', function(snapshot, addChildKey) {
                     var adddata = snapshot.val();
                     addPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
@@ -63,9 +62,10 @@ var watchID;
         }
     }
 
-
+    window.locationPlugins = [
+        plugins.watchlocation
+    ];
     window.firebasePlugins = [
-        plugins.watchlocation,
         plugins.addusers,
         plugins.changeusers,
         plugins.addmessage

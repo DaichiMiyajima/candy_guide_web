@@ -12,59 +12,38 @@
     }
 
     $("#messagebutton").click(function(){
-        swal({
-            title: "SHARE YOUR MESSAGE!",
-            text: "Write your message:",
-            type: "input",
-            showCancelButton: true,
-            animation: "slide-from-top",
-            inputPlaceholder: "Write your NAME",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        }, function(inputValue){
-            if (inputValue === false) return false;
-            if (inputValue !== "") {
-                var key = window.localStorage.getItem([uniqueurl[2]]);
-                var name = window.localStorage.getItem([name]);
-                var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("message");
-                var newPostRef = postsRef.push();
-                var postID = newPostRef.key();
-                ref.child('sharemap').child(uniqueurl[2]).child("message").child(postID).set({
-                    key : key ,
-                    name : name,
-                    time : Firebase.ServerValue.TIMESTAMP,
-                    kind : "message",
-                    message : inputValue
-                });//set
-            }
-        });
+        swal_addmessage();
     });
 
     $("#currentposition").click(function(){
         $('#currentposition').css("background","black");
         var count = 0;
-        navigator.geolocation.clearWatch(watchID);
-        watchID = navigator.geolocation.watchPosition(
-            // onSuccess Geolocation
-            function(position) {
-                //within 50m → update user
-                if(position.coords.accuracy <= 100){
-                    ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                        latitude : position.coords.latitude,
-                        longitude : position.coords.longitude
-                    });//set
-                    if(count < 1){
-                        count = count + 1;
-                        //panto
-                        googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
+        if(watchID){
+            navigator.geolocation.clearWatch(watchID);
+            watchID = navigator.geolocation.watchPosition(
+                // onSuccess Geolocation
+                function(position) {
+                    //within 50m → update user
+                    if(position.coords.accuracy <= 100){
+                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
+                            latitude : position.coords.latitude,
+                            longitude : position.coords.longitude
+                        });//set
+                        if(count < 1){
+                            count = count + 1;
+                            //panto
+                            googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
+                        }
                     }
-                }
-                $('#currentposition').css("background","rgb(83,109,254)");
-            },
-            // エラー時のコールバック関数は PositionError オブジェクトを受けとる
-            function(error) {console.log(error);},
-            {enableHighAccuracy: true,maximumAge: 0}
-        );
+                    //$('#currentposition').css("background","rgb(83,109,254)");
+                },
+                // エラー時のコールバック関数は PositionError オブジェクトを受けとる
+                function(error) {console.log(error);},
+                {enableHighAccuracy: true,maximumAge: 0}
+            );
+        }else{
+            swal_relocation();
+        }
     });
 
     $("#messageaccount").click(function(){
@@ -76,7 +55,7 @@
     $("#messagebox_overlay").click(function(){
         $('#messagebox_all').hide();
     });
-    
+    /*
     $("#usercount").click(function(){
         toastr.remove();
         toastr.clear()
@@ -86,4 +65,5 @@
     $("#userbox_overlay").click(function(){
         $('#userbox_all').hide();
     });
+    */
 })()
