@@ -16,7 +16,8 @@
     });
 
     $("#currentposition").click(function(){
-        $('#currentposition').css("background","black");
+        $('#currentposition').css("background","white");
+        $('#spin').addClass("is-active");
         var count = 0;
         if(watchID){
             navigator.geolocation.clearWatch(watchID);
@@ -35,7 +36,8 @@
                             googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
                         }
                     }
-                    //$('#currentposition').css("background","rgb(83,109,254)");
+                    $('#currentposition').css("background","rgb(83,109,254)");
+                    $('#spin').removeClass("is-active");
                 },
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {console.log(error);},
@@ -43,6 +45,8 @@
             );
         }else{
             swal_relocation();
+            $('#currentposition').css("background","rgb(83,109,254)");
+            $('#spin').removeClass("is-active");
         }
     });
 
