@@ -81,6 +81,37 @@ function init(callback) {
                         callback();
                     })
                 });
+            }else{
+                if(!window.localStorage.getItem([uniqueurl[2]])){
+                    swal_locationoff(uniqueurl[2],ref);
+                }
+                ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
+                    share : "off"
+                });//set
+                //Location on のユーザーがいればそのlocationを参照
+                ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
+                    var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
+                    //if length doesn't equal to 0
+                    if(snapshot.val()){
+                        snapshot.forEach(function(data) {
+                            mylatlng = new google.maps.LatLng(data.val().latitude, data.val().longitude);
+                            //ifでもelseでも実行
+                            indexPlugins.forEach(function(plugin){
+                                plugin.func.call(function(){},uniqueurl[2],mylatlng);
+                            });//forEach
+                        });
+                    }else{
+                        //ifでもelseでも実行
+                        indexPlugins.forEach(function(plugin){
+                            plugin.func.call(function(){},uniqueurl[2],mylatlng);
+                        });//forEach
+                    }
+                    firebasePlugins.forEach(function(plugin){
+                        plugin.func.call(function(){},uniqueurl[2]);
+                    });//forEach
+                    //show function
+                    callback();
+                })
             }
         }else{
             //url doesn't exist
