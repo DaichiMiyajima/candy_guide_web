@@ -63,30 +63,32 @@
     });
 
     $("#addlocationbutton").click(function(){
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(yourlatitude, yourlongitude),
-            map: googlemap,
-            draggable: true
-        });
-        markers_meet[window.localStorage.getItem([uniqueurl[2]])] = marker;
-        google.maps.event.addListener(
-            markers[window.localStorage.getItem([uniqueurl[2]])],
-            'drag',
-        function(event) {
-            if(infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])]){
-                infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].close();
-            }
-        });
-        google.maps.event.addListener(
-            markers[window.localStorage.getItem([uniqueurl[2]])],
-            'dragend',
-        function(event) {
-            if(infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])]){
-                infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].position=new google.maps.LatLng(this.position.lat(), this.position.lng());
-                infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].open(googlemap);
-                
-            }
-        });
+        if(!markers_meet[window.localStorage.getItem([uniqueurl[2]])]){
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(yourlatitude, yourlongitude),
+                map: googlemap,
+                draggable: true
+            });
+            markers_meet[window.localStorage.getItem([uniqueurl[2]])] = marker;
+            google.maps.event.addListener(
+                markers[window.localStorage.getItem([uniqueurl[2]])],
+                'drag',
+            function(event) {
+                if(infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])]){
+                    infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].close();
+                }
+            });
+            google.maps.event.addListener(
+                markers[window.localStorage.getItem([uniqueurl[2]])],
+                'dragend',
+            function(event) {
+                if(infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])]){
+                    infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].position=new google.maps.LatLng(this.position.lat(), this.position.lng());
+                    infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].open(googlemap);
+                    
+                }
+            });
+        }
     });
 
     $("#messageaccount").click(function(){
