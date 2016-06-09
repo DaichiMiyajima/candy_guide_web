@@ -32,15 +32,21 @@
                             //panto
                             googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
                         }
+                    }else{
+                        toastr.clear();
+                        toastr.error('Accuracy of gps is bad. Try again!');
                     }
                     //最低限1秒続ける
                     setTimeout(function loop(){
                         $('#currentposition').css("background","rgb(83,109,254)");
                         $('#spin').removeClass("is-active");
-                    },1000);
+                    },2000);
                 },
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
-                function(error) {console.log(error);},
+                function(error) {
+                    toastr.clear();
+                    toastr.error('Accuracy of gps is bad. Try again!');
+                },
                 {enableHighAccuracy: true,maximumAge: 0}
             );
         }else{
@@ -48,6 +54,33 @@
             $('#currentposition').css("background","rgb(83,109,254)");
             $('#spin').removeClass("is-active");
         }
+    });
+
+    $("#addlocationbutton").click(function(){
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng("35.695200055568456", "139.64395133614582"),
+            map: googlemap,
+            draggable: true
+        });
+        markers_meet[window.localStorage.getItem([uniqueurl[2]])] = marker;
+        google.maps.event.addListener(
+            markers[window.localStorage.getItem([uniqueurl[2]])],
+            'drag',
+        function(event) {
+            if(infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])]){
+                infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].close();
+            }
+        });
+        google.maps.event.addListener(
+            markers[window.localStorage.getItem([uniqueurl[2]])],
+            'dragend',
+        function(event) {
+            if(infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])]){
+                infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].position=new google.maps.LatLng(this.position.lat(), this.position.lng());
+                infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].open(googlemap);
+                
+            }
+        });
     });
 
     $("#messageaccount").click(function(){

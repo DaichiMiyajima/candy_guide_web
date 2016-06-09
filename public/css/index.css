@@ -159,7 +159,11 @@ span:after {
     position: fixed;
     right: 15px;"
 }
-
+#addlocationbutton{
+    margin-top: -230px;
+    position: fixed;
+    right: 15px;"
+}
 /* candy_map_tab */
 #google map
 .container-full {
@@ -167,6 +171,7 @@ span:after {
 }
 
 #map {
+    margin-top: 1.5px;
     width:100%; height:93vh;
 }
 

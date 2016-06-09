@@ -8,10 +8,13 @@ var myapp = angular.module('mapper', ["firebase"]);
 
 //setting of toastr
 toastr.options.closeButton = true; 
-toastr.options.timeOut = 35000;
+toastr.options.timeOut = 5000;
+toastr.options.progressBar = true; 
 
 var googlemap;
 var markers = new Array();
+var markers_meet = new Array();
 var infoWindows = new Array();
+var infoWindows_meet = new Array();
 
 var watchID;
