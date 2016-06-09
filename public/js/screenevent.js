@@ -27,18 +27,24 @@
                             latitude : position.coords.latitude,
                             longitude : position.coords.longitude
                         });//set
+                        yourlatitude = position.coords.latitude;
+                        yourlongitude = position.coords.longitude;
+                        
                         if(count < 1){
                             count = count + 1;
                             //panto
                             googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
                         }
                     }else{
-                        toastr.clear();
-                        toastr.error('Accuracy of gps is bad. Try again!');
+                        if(count < 1){
+                            count = count + 1;
+                            toastr.clear();
+                            toastr.error('Accuracy of gps is bad. Try again!');
+                        }
                     }
                     //最低限1秒続ける
                     setTimeout(function loop(){
-                        $('#currentposition').css("background","rgb(83,109,254)");
+                        $('#currentposition').css("background","rgb(255,110,64)");
                         $('#spin').removeClass("is-active");
                     },2000);
                 },
@@ -51,14 +57,14 @@
             );
         }else{
             swal_relocation();
-            $('#currentposition').css("background","rgb(83,109,254)");
+            $('#currentposition').css("background","rgb(255,110,64)");
             $('#spin').removeClass("is-active");
         }
     });
 
     $("#addlocationbutton").click(function(){
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng("35.695200055568456", "139.64395133614582"),
+            position: new google.maps.LatLng(yourlatitude, yourlongitude),
             map: googlemap,
             draggable: true
         });

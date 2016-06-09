@@ -12,6 +12,8 @@
                                 latitude : position.coords.latitude,
                                 longitude : position.coords.longitude
                             });//set
+                            yourlatitude = position.coords.latitude;
+                            yourlongitude = position.coords.longitude;
                         }
                      }, 
                      // エラー時のコールバック関数は PositionError オブジェクトを受けとる

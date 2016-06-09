@@ -17,4 +17,7 @@ var markers_meet = new Array();
 var infoWindows = new Array();
 var infoWindows_meet = new Array();
 
+var yourlatitude;
+var yourlongitude;
+
 var watchID;
