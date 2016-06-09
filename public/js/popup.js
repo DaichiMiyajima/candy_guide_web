@@ -99,7 +99,7 @@ function swal_url(){
 function swal_relocation(){
     swal({
         title: "RIGHT?",
-        text: "You geolocation is off. If you can share your location, you put OK button. And put on ALLOW button.",
+        text: "You geolocation is off. If you can share your location, I would like yout to re-login.",
         type: "warning",
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "OK",
@@ -108,6 +108,7 @@ function swal_relocation(){
         },
     function(isConfirm){
         if (isConfirm) {
+            localStorage.removeItem(uniqueurl);
             window.location.reload();
         }
     });
