@@ -142,3 +142,21 @@ function swal_addmessage(){
         }
     });
 }
+
+
+function swal_remove_meetUpMarker(key){
+    swal({
+        title: "Remove Marker?",
+        type: "warning",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        closeOnConfirm: true,
+        showCancelButton: true
+        },
+    function(isConfirm){
+        if (isConfirm) {
+            ref.child('sharemap').child(uniqueurl[2]).child("meetup").child(key).remove();
+        }
+    });
+}
+

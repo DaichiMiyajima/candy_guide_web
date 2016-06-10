@@ -24,8 +24,6 @@ function init(callback) {
                             longitude : position.coords.longitude,
                             share : "on"
                         });//set
-                        yourlatitude = position.coords.latitude;
-                        yourlongitude = position.coords.longitude;
                     }
                     //ifでもelseでも実行
                     var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -169,22 +167,12 @@ myapp.controller('userController', function ($scope, $q , $firebaseArray) {
            var geo = geocoder.geocode({'location': latlng}, function(results, status) {
                i = i + 1;
                if (status === google.maps.GeocoderStatus.OK) {
-                   console.log(results[1].formatted_address);
                    angularuser[key].address = results[1].formatted_address;
-                   
-                   console.log("pass0");
-                   console.log(angularuser[key]);
-                   console.log(angularuser[key]);
                    data.push(angularuser[key]);
                    if(i == angularuser.length){
-                       console.log("pass");
-                       console.log(data);
                        $scope.users = data;
-                       console.log("pass2");
-                       console.log($scope.users);
                    }
                }else{
-                   console.log("error:" + status);
                }
            });
         },data);

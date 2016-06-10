@@ -27,8 +27,6 @@
                             latitude : position.coords.latitude,
                             longitude : position.coords.longitude
                         });//set
-                        yourlatitude = position.coords.latitude;
-                        yourlongitude = position.coords.longitude;
                         
                         if(count < 1){
                             count = count + 1;
@@ -51,7 +49,7 @@
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
                     toastr.clear();
-                    toastr.error('Accuracy of gps is bad. Try again!');
+                    toastr.error('Gps is error. Try again!');
                 },
                 {enableHighAccuracy: true,maximumAge: 0}
             );
@@ -63,32 +61,16 @@
     });
 
     $("#addlocationbutton").click(function(){
-        if(!markers_meet[window.localStorage.getItem([uniqueurl[2]])]){
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(yourlatitude, yourlongitude),
-                map: googlemap,
-                draggable: true
-            });
-            markers_meet[window.localStorage.getItem([uniqueurl[2]])] = marker;
-            google.maps.event.addListener(
-                markers[window.localStorage.getItem([uniqueurl[2]])],
-                'drag',
-            function(event) {
-                if(infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])]){
-                    infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].close();
-                }
-            });
-            google.maps.event.addListener(
-                markers[window.localStorage.getItem([uniqueurl[2]])],
-                'dragend',
-            function(event) {
-                if(infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])]){
-                    infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].position=new google.maps.LatLng(this.position.lat(), this.position.lng());
-                    infoWindows_meet[window.localStorage.getItem([uniqueurl[2]])].open(googlemap);
-                    
-                }
-            });
-        }
+        var latlng = googlemap.getCenter();
+        var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("meetup");
+        var newPostRef = postsRef.push();
+        var postID = newPostRef.key();
+        //Set meetup
+        ref.child('sharemap').child(uniqueurl[2]).child('meetup').child(postID).update({
+            key : window.localStorage.getItem([uniqueurl[2]]),
+            latitude : latlng.lat(),
+            longitude : latlng.lng()
+        });//set
     });
 
     $("#messageaccount").click(function(){

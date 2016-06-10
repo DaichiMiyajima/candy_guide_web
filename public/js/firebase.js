@@ -12,12 +12,10 @@
                                 latitude : position.coords.latitude,
                                 longitude : position.coords.longitude
                             });//set
-                            yourlatitude = position.coords.latitude;
-                            yourlongitude = position.coords.longitude;
                         }
                      }, 
                      // エラー時のコールバック関数は PositionError オブジェクトを受けとる
-                     function(error) {console.log(error);},
+                     function(error) {},
                      {enableHighAccuracy: false,maximumAge: 0}
                 );
             }
@@ -61,6 +59,39 @@
                     });
                 }
             }
+        },
+        //when adding meetup's
+        addmeetup: {
+            func: function addmeetup(uniqueurl){
+                ref.child('sharemap').child(uniqueurl).child('meetup').on('child_added', function(snapshot, addChildKey) {
+                    var adddata = snapshot.val();
+                    addmeetupPlugins.forEach(function(plugin){
+                        plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
+                    });
+                });
+            }
+        },
+        //when changing meetup's location
+        changemeetup: {
+            func: function changemeetup(uniqueurl){
+                ref.child('sharemap').child(uniqueurl).child('meetup').on('child_changed', function(snapshot, changeChildKey) {
+                    var changedata = snapshot.val();
+                    changemeetupPlugins.forEach(function(plugin){
+                        plugin.func.call(function(){},uniqueurl,changedata,snapshot.key());
+                    });
+                });
+            }
+        },
+        //when changing meetup's location
+        removemeetup: {
+            func: function removemeetup(uniqueurl){
+                ref.child('sharemap').child(uniqueurl).child('meetup').on('child_removed', function(snapshot, changeChildKey) {
+                    var removedata = snapshot.val();
+                    removemeetupPlugins.forEach(function(plugin){
+                        plugin.func.call(function(){},uniqueurl,removedata,snapshot.key());
+                    });
+                });
+            }
         }
     }
 
@@ -70,6 +101,9 @@
     window.firebasePlugins = [
         plugins.addusers,
         plugins.changeusers,
-        plugins.addmessage
+        plugins.addmessage,
+        plugins.addmeetup,
+        plugins.changemeetup,
+        plugins.removemeetup
     ];
 })()

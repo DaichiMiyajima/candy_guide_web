@@ -62,7 +62,6 @@
                     infoWindows[key].position=new google.maps.LatLng(changedata.latitude, changedata.longitude);
                     infoWindows[key].open(googlemap);
                 }
-                
                 markerchange(changedata.latitude, changedata.longitude, key);
             }
         },
@@ -76,6 +75,26 @@
                 if(infoWindows && infoWindows[adddata.key]){
                     infoWindows[adddata.key].open(googlemap);
                 }
+            }
+        },
+        meetupCreateMarkers:{
+            func: function meetupCreateMarkers(uniqueurl,adddata,key){
+                createMeetUpMarker(adddata.latitude, adddata.longitude, adddata.key, key,uniqueurl);
+            }
+        },
+        meetupChangeMarkers:{
+            func: function meetupChangeMarkers(uniqueurl,changedata,key){
+                if(infoWindows[key]){
+                    infoWindows[key].close();
+                    infoWindows[key].position=new google.maps.LatLng(changedata.latitude, changedata.longitude);
+                    infoWindows[key].open(googlemap);
+                }
+                markerMeetUpchange(changedata.latitude, changedata.longitude, key);
+            }
+        },
+        meetupRemoveMarkers:{
+            func: function meetupRemoveMarkers(uniqueurl,removedata,key){
+                markers_meet[key].setMap(null);
             }
         }
     }
@@ -94,8 +113,14 @@
         plugins.createinfowindow,
         plugins.handleInfoWindow
     ];
-     window.dragmarkerPlugins = [
-        plugins.dragMarker
+    window.addmeetupPlugins = [
+        plugins.meetupCreateMarkers
+    ];
+     window.changemeetupPlugins = [
+        plugins.meetupChangeMarkers
+    ];
+    window.removemeetupPlugins = [
+        plugins.meetupRemoveMarkers
     ];
 })()
 
@@ -149,10 +174,67 @@ function markercreate(latitude,longitude,title,key,imagepath) {
     }
 }
 
+// marker作成
+function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
+    if(!markers_meet[key]){
+        if(userkey == window.localStorage.getItem([uniqueurl])){
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(latitude, longitude),
+                map: googlemap,
+                icon : "../img/meetUpMarker.png",
+                draggable: true
+            });
+            markers_meet[key] = marker;
+            google.maps.event.addListener(
+                markers_meet[key],
+                'drag',
+            function(event) {
+                if(infoWindows[key]){
+                    infoWindows[key].close();
+                }
+                //update
+                ref.child('sharemap').child(uniqueurl).child('meetup').child(key).update({
+                    latitude : this.position.lat(),
+                    longitude : this.position.lng()
+                });//set
+            });
+            google.maps.event.addListener(
+                markers_meet[key],
+                'dragend',
+            function(event) {
+                if(infoWindows[key]){
+                    infoWindows[key].position=new google.maps.LatLng(this.position.lat(), this.position.lng());
+                    infoWindows[key].open(googlemap);
+                }
+                //update
+                ref.child('sharemap').child(uniqueurl).child('meetup').child(key).update({
+                    latitude : this.position.lat(),
+                    longitude : this.position.lng()
+                });//set
+            });
+            google.maps.event.addListener(
+                markers_meet[key],
+                'click',
+            function(event) {
+                swal_remove_meetUpMarker(key);
+            });
+        }else{
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(latitude, longitude),
+                map: googlemap
+            });
+            markers_meet[key] = marker;
+        }
+    }
+}
+
 // marker changeposition
 function markerchange(latitude,longitude,key) {
     markers[key].setPosition(new google.maps.LatLng(latitude, longitude));
-    
+}
+// marker_meet changeposition
+function markerMeetUpchange(latitude,longitude,key) {
+    markers_meet[key].setPosition(new google.maps.LatLng(latitude, longitude));
 }
 
 // canvasでimage加工
