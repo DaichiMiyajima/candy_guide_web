@@ -80,7 +80,7 @@
                                 </div>
                                 
                             </div>
-                            <div ng-if="message.kind === 'attend'">
+                            <div ng-if="message.kind === 'attend' || message.kind == 'meetup'">
                                 <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
                                     <div class="toast toast-success" style="display: block;width: 100%;">
                                         <div class="toast-message">{{message.message}}</div>
