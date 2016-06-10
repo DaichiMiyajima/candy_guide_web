@@ -30,7 +30,6 @@ function init(callback) {
                     indexPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2],mylatlng);
                     });//forEach
-                    
                     //create infowindow(common)
                     ref.child('sharemap').child(uniqueurl[2]).child('message').once("value", function(snapshot) {
                         snapshot.forEach(function(data) {

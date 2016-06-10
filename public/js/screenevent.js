@@ -71,6 +71,19 @@
             latitude : latlng.lat(),
             longitude : latlng.lng()
         });//set
+
+        var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
+        var newmessagePostRef = postsmessageRef.push();
+        var messagepostID = newmessagePostRef.key();
+        console.log(window.localStorage.getItem([name]));
+        //set message
+        ref.child('sharemap').child(uniqueurl[2]).child('message').child(messagepostID).set({
+            key : window.localStorage.getItem([uniqueurl[2]]),
+            name : window.localStorage.getItem([name]),
+            time : Firebase.ServerValue.TIMESTAMP,
+            kind : "meetup",
+            message : window.localStorage.getItem([name]) + " add marker"
+        });//set
     });
 
     $("#messageaccount").click(function(){
