@@ -10,6 +10,9 @@ body::before {
     top: 0;
     position: fixed;
 }
+.card_title{
+     text-align: right;
+}
 @media (max-width: 512px)  and (-webkit-min-device-pixel-ratio: 1.5),
        (max-width: 512px)  and (min-resolution: 1.5dppx),
        (max-width: 600px) and (-webkit-max-device-pixel-ratio: 1.5),
@@ -18,7 +21,7 @@ body::before {
     background-image: url('../img/NYC0099.jpg');
   }
       .demo-card-wide.mdl-card {
-        width: 80%;
+        width: 75%;
         margin: 0 auto;
         top : 100px;
         text-align: center;
@@ -32,7 +35,7 @@ body::before {
     background-image: url('../img/NYC0099.jpg');
   }
       .demo-card-wide.mdl-card {
-        width: 50%;
+        width: 45%;
         margin: 0 auto;
         top : 100px;
         text-align: center;
@@ -46,7 +49,7 @@ body::before {
     background-image: url('../img/NYC0099.jpg');
   }
       .demo-card-wide.mdl-card {
-        width: 40%;
+        width: 35%;
         margin: 0 auto;
         top : 100px;
         text-align: center;
