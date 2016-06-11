@@ -22,7 +22,7 @@
                 // onSuccess Geolocation
                 function(position) {
                     //within 50m → update user
-                    if(position.coords.accuracy <= 100){
+                    if(position.coords.accuracy <= 5000){
                         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
                             latitude : position.coords.latitude,
                             longitude : position.coords.longitude
@@ -51,7 +51,7 @@
                     toastr.clear();
                     toastr.error('Gps is error. Try again!');
                 },
-                {enableHighAccuracy: true,maximumAge: 0}
+                {enableHighAccuracy: true,maximumAge: 1}
             );
         }else{
             swal_relocation();
