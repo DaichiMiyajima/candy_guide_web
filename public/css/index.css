@@ -15,7 +15,7 @@ body {
 }
 .title span, span:after {
     font-weight: 900;
-    color: rgb(83,109,254);
+    color: rgb(66,66,66);
     white-space: nowrap;
     display: inline-block;
     position: relative;

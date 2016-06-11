@@ -17,11 +17,11 @@
                       "featureType": "transit",
                       "elementType": "geometry.fill",
                       "stylers": [
-                        { "hue": "#0044ff" },
+                        { "hue": "#0044f" },
                         { "saturation": 100 },
                         { "invert_lightness": true },
                         { "weight": 3.2 },
-                        { "color": "#ff4c00" }
+                        { "color": "#FFA07A" }
                       ]
                     },
                     {
@@ -31,7 +31,7 @@
                         { "saturation": 100 },
                         { "hue": "#0000ff" },
                         { "visibility": "on" },
-                        { "color": "#2350e2" }
+                        { "color": "#AFEEEE" }
                       ]
                     }
                 ];
