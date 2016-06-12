@@ -242,6 +242,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                     //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
                     var rendererOptions = {
                         suppressMarkers:true,
+                        preserveViewport: true,
                         polylineOptions : {
                             strokeColor : "#8b0000"
                         }
@@ -279,6 +280,7 @@ function markerchange(latitude,longitude,key) {
                 //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
                 var rendererOptions = {
                     suppressMarkers:true,
+                    preserveViewport: true,
                     polylineOptions : {
                         strokeColor : "#8b0000"
                     }
