@@ -196,6 +196,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                 icon : "../img/meetUpMarker.png",
                 draggable: true
             });
+            setmarkerlocation(latitude, longitude);
             markers_meet[key] = marker;
             google.maps.event.addListener(
                 markers_meet[key],
@@ -233,7 +234,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
             function(event) {
                 //swal_remove_meetUpMarker(key);
                 new google.maps.DirectionsService().route({
-                    origin: {lat: yourlatitude, lng: yourlongtitude},
+                    origin: {lat: yourlatitude, lng: yourlongitude},
                     destination: {lat: this.position.lat(), lng: this.position.lng()},
                     travelMode: google.maps.TravelMode.WALKING
                 }, function(result, status) {
@@ -268,10 +269,9 @@ function markerchange(latitude,longitude,key) {
     //Delete route
     if(directionsDisplay){
         directionsDisplay.setMap(null);
-        directionsDisplay.setDirections(null);
     }
     new google.maps.DirectionsService().route({
-        origin: {lat: yourlatitude, lng: yourlongtitude},
+        origin: {lat: yourlatitude, lng: yourlongitude},
         destination: {lat: markerlatitude, lng: markerlongitude},
         travelMode: google.maps.TravelMode.WALKING
     }, function(result, status) {
@@ -296,10 +296,9 @@ function markerMeetUpchange(latitude,longitude,key) {
     //Delete route
     if(directionsDisplay){
         directionsDisplay.setMap(null);
-        directionsDisplay.setDirections(null);
     }
     new google.maps.DirectionsService().route({
-        origin: {lat: yourlatitude, lng: yourlongtitude},
+        origin: {lat: yourlatitude, lng: yourlongitude},
         destination: {lat: latitude, lng: longitude},
         travelMode: google.maps.TravelMode.WALKING
     }, function(result, status) {

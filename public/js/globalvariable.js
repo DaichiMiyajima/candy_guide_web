@@ -18,21 +18,21 @@ var infoWindows_meet = new Array();
 var watchID;
 
 var yourlatitude;
-var yourlongtitude;
+var yourlongitude;
 
 var markerlatitude;
-var markerlongtitude;
+var markerlongitude;
 
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
 
-function setlocation(latitude,longtitude){
+function setlocation(latitude,longitude){
     yourlatitude = latitude;
-    yourlongtitude = longtitude;
+    yourlongitude = longitude;
 }
 
-function setmarkerlocation(latitude,longtitude){
+function setmarkerlocation(latitude,longitude){
     markerlatitude = latitude;
-    markerlongtitude = longtitude;
+    markerlongitude = longitude;
 }
