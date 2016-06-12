@@ -224,8 +224,6 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                     destination: {lat: this.position.lat(), lng: this.position.lng()},
                     travelMode: google.maps.TravelMode.WALKING
                 }, function(result, status) {
-                    console.log(result);
-                    console.log(status);
                   if (status == google.maps.DirectionsStatus.OK) {
                     //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
                     var rendererOptions = {
