@@ -175,6 +175,7 @@ function swal_remove_meetUpMarkers(){
             //Delete route
             if(directionsDisplay){
                 directionsDisplay.setMap(null);
+                directionsDisplay.setDirections(null);
             }
             var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
             var newmessagePostRef = postsmessageRef.push();
