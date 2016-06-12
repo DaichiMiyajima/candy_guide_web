@@ -73,6 +73,9 @@
                 latitude : latlng.lat(),
                 longitude : latlng.lng()
             });//set
+            
+            setmarkerlocation(latlng.lat(),latlng.lng());
+            
             var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
             var newmessagePostRef = postsmessageRef.push();
             var messagepostID = newmessagePostRef.key();

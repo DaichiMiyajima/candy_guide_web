@@ -225,6 +225,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                     latitude : this.position.lat(),
                     longitude : this.position.lng()
                 });//set
+                setmarkerlocation(this.position.lat(),this.position.lng());
             });
             google.maps.event.addListener(
                 markers_meet[key],
@@ -271,7 +272,7 @@ function markerchange(latitude,longitude,key) {
     }
     new google.maps.DirectionsService().route({
         origin: {lat: yourlatitude, lng: yourlongtitude},
-        destination: {lat: latitude, lng: longitude},
+        destination: {lat: markerlatitude, lng: markerlongitude},
         travelMode: google.maps.TravelMode.WALKING
     }, function(result, status) {
         if (status == google.maps.DirectionsStatus.OK) {

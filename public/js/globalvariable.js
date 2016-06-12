@@ -20,6 +20,9 @@ var watchID;
 var yourlatitude;
 var yourlongtitude;
 
+var markerlatitude;
+var markerlongtitude;
+
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
@@ -27,4 +30,9 @@ var directionsService = new google.maps.DirectionsService();
 function setlocation(latitude,longtitude){
     yourlatitude = latitude;
     yourlongtitude = longtitude;
+}
+
+function setmarkerlocation(latitude,longtitude){
+    markerlatitude = latitude;
+    markerlongtitude = longtitude;
 }
