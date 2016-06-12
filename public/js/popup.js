@@ -172,7 +172,11 @@ function swal_remove_meetUpMarkers(){
     function(isConfirm){
         if (isConfirm) {
             ref.child('sharemap').child(uniqueurl[2]).child("meetup").remove();
-            
+            //Delete route
+            if(directionsDisplay){
+                directionsDisplay.setMap(null);
+                directionsDisplay.setDirections(null);
+            }
             var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
             var newmessagePostRef = postsmessageRef.push();
             var messagepostID = newmessagePostRef.key();
