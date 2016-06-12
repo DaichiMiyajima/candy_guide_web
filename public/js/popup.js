@@ -160,3 +160,30 @@ function swal_remove_meetUpMarker(key){
     });
 }
 
+function swal_remove_meetUpMarkers(){
+    swal({
+        title: "Remove Marker?",
+        type: "warning",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        closeOnConfirm: true,
+        showCancelButton: true
+        },
+    function(isConfirm){
+        if (isConfirm) {
+            ref.child('sharemap').child(uniqueurl[2]).child("meetup").remove();
+            
+            var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
+            var newmessagePostRef = postsmessageRef.push();
+            var messagepostID = newmessagePostRef.key();
+            ref.child('sharemap').child(uniqueurl[2]).child('message').child(messagepostID).set({
+                key : window.localStorage.getItem([uniqueurl[2]]),
+                name : window.localStorage.getItem([name]),
+                time : Firebase.ServerValue.TIMESTAMP,
+                kind : "meetupremove",
+                message : window.localStorage.getItem([name]) + " remove marker"
+            });//set
+        }
+    });
+}
+

@@ -16,3 +16,15 @@ var markers_meet = new Array();
 var infoWindows = new Array();
 var infoWindows_meet = new Array();
 var watchID;
+
+var yourlatitude;
+var yourlongtitude;
+
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+
+
+function setlocation(latitude,longtitude){
+    yourlatitude = latitude;
+    yourlongtitude = longtitude;
+}

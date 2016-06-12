@@ -95,6 +95,8 @@
         meetupRemoveMarkers:{
             func: function meetupRemoveMarkers(uniqueurl,removedata,key){
                 markers_meet[key].setMap(null);
+                delete markers_meet[key];
+                
             }
         }
     }
@@ -216,11 +218,30 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                 markers_meet[key],
                 'click',
             function(event) {
-                swal_remove_meetUpMarker(key);
+                //swal_remove_meetUpMarker(key);
+                new google.maps.DirectionsService().route({
+                    origin: {lat: yourlatitude, lng: yourlongtitude},
+                    destination: {lat: this.position.lat(), lng: this.position.lng()},
+                    travelMode: google.maps.TravelMode.WALKING
+                }, function(result, status) {
+                    console.log(result);
+                    console.log(status);
+                  if (status == google.maps.DirectionsStatus.OK) {
+                    //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
+                    var rendererOptions = {
+                        suppressMarkers:true
+                    };
+                    var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                    directionsDisplay.setMap(googlemap);
+                    directionsDisplay.setDirections(result);
+                  }
+                });
+
             });
         }else{
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(latitude, longitude),
+                icon : "../img/meetUpMarker.png",
                 map: googlemap
             });
             markers_meet[key] = marker;
