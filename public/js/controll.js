@@ -24,6 +24,8 @@ function init(callback) {
                             longitude : position.coords.longitude,
                             share : "on"
                         });//set
+                        //set location into variable
+                        setlocation(position.coords.latitude,position.coords.longitude);
                     }
                     //ifでもelseでも実行
                     var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);

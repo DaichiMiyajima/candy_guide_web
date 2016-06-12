@@ -21,7 +21,7 @@
                         { "saturation": 100 },
                         { "invert_lightness": true },
                         { "weight": 3.2 },
-                        { "color": "#FFA07A" }
+                        { "color": "#dcdcdc" }
                       ]
                     },
                     {
@@ -32,6 +32,16 @@
                         { "hue": "#0000ff" },
                         { "visibility": "on" },
                         { "color": "#AFEEEE" }
+                      ]
+                    },
+                    {
+                      "featureType": "road.local",
+                      "stylers": [
+                        { "hue": "#0044f" },
+                        { "saturation": 100 },
+                        { "invert_lightness": true },
+                        { "weight": 0.1 },
+                        { "color": "#ffffff" }
                       ]
                     }
                 ];
@@ -95,6 +105,8 @@
         meetupRemoveMarkers:{
             func: function meetupRemoveMarkers(uniqueurl,removedata,key){
                 markers_meet[key].setMap(null);
+                delete markers_meet[key];
+                
             }
         }
     }
@@ -184,6 +196,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                 icon : "../img/meetUpMarker.png",
                 draggable: true
             });
+            setmarkerlocation(latitude, longitude);
             markers_meet[key] = marker;
             google.maps.event.addListener(
                 markers_meet[key],
@@ -192,11 +205,13 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                 if(infoWindows[key]){
                     infoWindows[key].close();
                 }
+                /*
                 //update
                 ref.child('sharemap').child(uniqueurl).child('meetup').child(key).update({
                     latitude : this.position.lat(),
                     longitude : this.position.lng()
                 });//set
+                */
             });
             google.maps.event.addListener(
                 markers_meet[key],
@@ -211,16 +226,37 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                     latitude : this.position.lat(),
                     longitude : this.position.lng()
                 });//set
+                setmarkerlocation(this.position.lat(),this.position.lng());
             });
             google.maps.event.addListener(
                 markers_meet[key],
                 'click',
             function(event) {
-                swal_remove_meetUpMarker(key);
+                //swal_remove_meetUpMarker(key);
+                new google.maps.DirectionsService().route({
+                    origin: {lat: yourlatitude, lng: yourlongitude},
+                    destination: {lat: this.position.lat(), lng: this.position.lng()},
+                    travelMode: google.maps.TravelMode.WALKING
+                }, function(result, status) {
+                  if (status == google.maps.DirectionsStatus.OK) {
+                    //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
+                    var rendererOptions = {
+                        suppressMarkers:true,
+                        preserveViewport: true,
+                        polylineOptions : {
+                            strokeColor : "#8b0000"
+                        }
+                    };
+                    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                    directionsDisplay.setMap(googlemap);
+                    directionsDisplay.setDirections(result);
+                  }
+                });
             });
         }else{
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(latitude, longitude),
+                icon : "../img/meetUpMarker.png",
                 map: googlemap
             });
             markers_meet[key] = marker;
@@ -231,10 +267,58 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
 // marker changeposition
 function markerchange(latitude,longitude,key) {
     markers[key].setPosition(new google.maps.LatLng(latitude, longitude));
+    //Delete route
+    if(directionsDisplay){
+        directionsDisplay.setMap(null);
+        directionsDisplay.setDirections(null);
+        new google.maps.DirectionsService().route({
+            origin: {lat: yourlatitude, lng: yourlongitude},
+            destination: {lat: markerlatitude, lng: markerlongitude},
+            travelMode: google.maps.TravelMode.WALKING
+        }, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
+                var rendererOptions = {
+                    suppressMarkers:true,
+                    preserveViewport: true,
+                    polylineOptions : {
+                        strokeColor : "#8b0000"
+                    }
+                };
+                directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                directionsDisplay.setMap(googlemap);
+                directionsDisplay.setDirections(result);
+            }
+        });
+    }
 }
+
 // marker_meet changeposition
 function markerMeetUpchange(latitude,longitude,key) {
     markers_meet[key].setPosition(new google.maps.LatLng(latitude, longitude));
+    //Delete route
+    if(directionsDisplay){
+        directionsDisplay.setMap(null);
+        directionsDisplay.setDirections(null);
+        new google.maps.DirectionsService().route({
+            origin: {lat: yourlatitude, lng: yourlongitude},
+            destination: {lat: latitude, lng: longitude},
+            travelMode: google.maps.TravelMode.WALKING
+        }, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
+                var rendererOptions = {
+                    suppressMarkers:true,
+                    polylineOptions : {
+                        strokeColor : "#8b0000"
+                    }
+                };
+                directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                directionsDisplay.setMap(googlemap);
+                directionsDisplay.setDirections(result);
+            }
+        });
+    }
 }
 
 // canvasでimage加工

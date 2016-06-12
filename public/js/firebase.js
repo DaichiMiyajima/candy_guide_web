@@ -12,6 +12,8 @@
                                 latitude : position.coords.latitude,
                                 longitude : position.coords.longitude
                             });//set
+                            //set location into variable
+                            setlocation(position.coords.latitude,position.coords.longitude);
                         }
                      }, 
                      // エラー時のコールバック関数は PositionError オブジェクトを受けとる
@@ -53,8 +55,10 @@
                         });
                         if(adddata.kind=="message"){
                             toastr.info("[" + adddata.name + "]" + " : " + adddata.message);
-                        }else{
+                        }else if(adddata.kind=="attend" || adddata.kind=="meetup"){
                             toastr.success(adddata.message);
+                        }else if(adddata.kind=="meetupremove"){
+                            toastr.error(adddata.message);
                         }
                     });
                 }

@@ -87,6 +87,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <div ng-if="message.kind === 'meetupremove'">
+                                <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                                    <div class="toast toast-error" style="display: block;width: 100%;">
+                                        <div class="toast-message">{{message.message}}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                      </div>
                 </div>
@@ -99,6 +106,9 @@
                 <section class="container-full">
                     <div id="map"></div>
                 </section>
+                <div id="directionsPanel" style="float:right;width:30%;height 100%"></div>
+                
+                
                 <button id="messagebutton" class="firsthide_lastshow mdl-button mdl-js-button mdl-button--fab mdl-button--colored" data-upgraded=",MaterialButton">
                     <i class="material-icons" style="">forum</i>
                 </button>
