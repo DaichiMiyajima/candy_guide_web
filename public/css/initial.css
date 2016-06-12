@@ -65,3 +65,22 @@ body::before {
 .demo-card-wide > .mdl-card__menu {
   color: #fff;
 }
+
+#explanation {
+    margin-top : -50px;
+	margin-bottom : 100px
+}
+
+#exp {
+    width : 90% !important;
+}
+
+#dropdown_1 {
+    margin-top: 150px;
+    text-align: center;
+}
+
+#dropdown_icon_1 {
+    font-size: 70px;
+    color: white;
+}
