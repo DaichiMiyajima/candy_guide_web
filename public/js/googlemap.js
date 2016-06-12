@@ -269,25 +269,26 @@ function markerchange(latitude,longitude,key) {
     //Delete route
     if(directionsDisplay){
         directionsDisplay.setMap(null);
+        directionsDisplay.setDirections(null);
+        new google.maps.DirectionsService().route({
+            origin: {lat: yourlatitude, lng: yourlongitude},
+            destination: {lat: markerlatitude, lng: markerlongitude},
+            travelMode: google.maps.TravelMode.WALKING
+        }, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
+                var rendererOptions = {
+                    suppressMarkers:true,
+                    polylineOptions : {
+                        strokeColor : "#8b0000"
+                    }
+                };
+                directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                directionsDisplay.setMap(googlemap);
+                directionsDisplay.setDirections(result);
+            }
+        });
     }
-    new google.maps.DirectionsService().route({
-        origin: {lat: yourlatitude, lng: yourlongitude},
-        destination: {lat: markerlatitude, lng: markerlongitude},
-        travelMode: google.maps.TravelMode.WALKING
-    }, function(result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
-            var rendererOptions = {
-                suppressMarkers:true,
-                polylineOptions : {
-                    strokeColor : "#8b0000"
-                }
-            };
-            directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-            directionsDisplay.setMap(googlemap);
-            directionsDisplay.setDirections(result);
-        }
-    });
 }
 
 // marker_meet changeposition
@@ -296,25 +297,26 @@ function markerMeetUpchange(latitude,longitude,key) {
     //Delete route
     if(directionsDisplay){
         directionsDisplay.setMap(null);
+        directionsDisplay.setDirections(null);
+        new google.maps.DirectionsService().route({
+            origin: {lat: yourlatitude, lng: yourlongitude},
+            destination: {lat: latitude, lng: longitude},
+            travelMode: google.maps.TravelMode.WALKING
+        }, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
+                var rendererOptions = {
+                    suppressMarkers:true,
+                    polylineOptions : {
+                        strokeColor : "#8b0000"
+                    }
+                };
+                directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                directionsDisplay.setMap(googlemap);
+                directionsDisplay.setDirections(result);
+            }
+        });
     }
-    new google.maps.DirectionsService().route({
-        origin: {lat: yourlatitude, lng: yourlongitude},
-        destination: {lat: latitude, lng: longitude},
-        travelMode: google.maps.TravelMode.WALKING
-    }, function(result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
-            var rendererOptions = {
-                suppressMarkers:true,
-                polylineOptions : {
-                    strokeColor : "#8b0000"
-                }
-            };
-            directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-            directionsDisplay.setMap(googlemap);
-            directionsDisplay.setDirections(result);
-        }
-    });
 }
 
 // canvasでimage加工
