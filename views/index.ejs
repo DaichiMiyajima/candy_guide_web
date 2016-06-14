@@ -40,7 +40,7 @@
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
 </head>
 <body>
-    <div>
+    <div ng-controller="candyController">
         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
             <div class="title firsthide_lastshow" style=""><span></span></div>
             <!-- User tab -->
@@ -61,7 +61,7 @@
             </div>
             -->
             <!-- Message tab -->
-            <div class ="firsthide_lastshow" ng-controller="messagecon">
+            <div class ="firsthide_lastshow">
                 <div id="messageaccount" class="messagebox material-icons mdl-badge mdl-badge--overlap" data-badge="{{messagesnumber.length}}">chat</div>
             </div>
             <div id="messagebox_all" class="firsthide">
@@ -69,7 +69,7 @@
                 </div>
                 <div id="messagebox_slide" class="firsthide_lastshow">
                     <!-- message tab -->
-                    <div ng-controller="messageController" style="padding-top: 1px;">
+                    <div style="padding-top: 1px;">
                         <div ng-repeat="message in messages | orderBy:'-time'">
                             <div ng-if="message.kind === 'message'">
                                 <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
@@ -98,6 +98,39 @@
                      </div>
                 </div>
             </div>
+            <div id="placeSearch" class="firsthide">
+                <div style="padding-top: 1px;">
+                    <div style="position: fixed;top: 5px; !important;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                            <label class="mdl-button mdl-js-button mdl-button--icon" for="search_place">
+                                <i class="material-icons">search</i>
+                            </label>
+                            <div class="mdl-textfield__expandable-holder">
+                                <input class="mdl-textfield__input" type="text" id="search_place" ng-keyup="searchPlace(text)" ng-model="text">
+                                <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="repeat_places">
+                <div ng-repeat="place in places">
+                    <div class="card-square mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <img src={{place.icon}} style="height: 15px;margin: 0 auto;"></img>
+                            <label class="">{{place.name}}</label>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            {{place.formatted_address}}
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                View Updates
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
             <!-- basic tab -->
             <div class="mdl-tabs__tab-bar">
                 <a href="#candy_map_tab" class="mdl-tabs__tab is-active"><img src="../public/img/location.png" style="height: 70%;"></img></a>
@@ -107,8 +140,6 @@
                     <div id="map"></div>
                 </section>
                 <div id="directionsPanel" style="float:right;width:30%;height 100%"></div>
-                
-                
                 <button id="messagebutton" class="firsthide_lastshow mdl-button mdl-js-button mdl-button--fab mdl-button--colored" data-upgraded=",MaterialButton">
                     <i class="material-icons" style="">forum</i>
                 </button>
@@ -123,7 +154,7 @@
         </div>
     </div>
     <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO32axBK69PMVZMgs_oPjKMltoQa4pKI4"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO32axBK69PMVZMgs_oPjKMltoQa4pKI4&libraries=places"></script>
     <script src="../public/js/globalvariable.js"></script>
     <script src="../public/js/controll.js"></script>
     <script src="../public/js/firebase.js"></script>

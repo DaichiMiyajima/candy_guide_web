@@ -1,7 +1,40 @@
-(function(){
+myapp.controller('candyController', function ($scope, $firebaseArray) {
+
     $("[class^=firsthide]").hide();
     init(show);
-})()
+
+    var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
+    $scope.yourid = window.localStorage.getItem([uniqueurl[2]]);
+    $scope.messages = $firebaseArray(message);
+    
+    var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
+    $scope.messagesnumber = $firebaseArray(messages);
+    
+    var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
+    $scope.messagesnumber = $firebaseArray(messages);
+
+    //SearchPlace
+    $scope.searchPlace = function(text){
+        if($("#search_place").val() && $("#search_place").val().length > 0){
+            var request = {
+                location: googlemap.getCenter(),
+                radius: '500',
+                query: $("#search_place").val()
+            };
+            service = new google.maps.places.PlacesService(googlemap);
+            service.textSearch(request, function(results, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                      var place = results[i];
+                    }
+                    $scope.places = results;
+                }
+                
+            });
+        }
+    }
+});
+
 
 /* When loading screen */
 function init(callback) {
@@ -127,16 +160,6 @@ function show() {
     $("[class^=firsthide_lastshow]").show();
 }
 
-myapp.controller('messageController', function ($scope, $firebaseArray) {
-    var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
-    $scope.yourid = window.localStorage.getItem([uniqueurl[2]]);
-    $scope.messages = $firebaseArray(message);
-});
-
-myapp.controller('messagecon', function ($scope, $firebaseArray) {
-    var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
-    $scope.messagesnumber = $firebaseArray(messages);
-});
 
 /*
 myapp.controller('userController', function ($scope, $q , $firebaseArray) {

@@ -78,6 +78,9 @@ span:after {
 }
 /* user tab-end */
 
+
+
+
 /* message tab-start */
 #messagebox_all{
         width: 100%;
@@ -147,6 +150,40 @@ span:after {
     font-family: fantasy;
 }
 /* message tab-end */
+
+
+
+
+
+
+/*PlaceSearch-start */
+#placeSearch{
+    width: 100%;
+    height:100%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    background: #FFFFFF;
+    overflow: scroll;
+}
+
+.repeat_places{
+    margin-top: 65px;
+}
+
+.card-square{
+    margin: 5px auto;
+    min-height: 150px !important;
+}
+.mdl-card__title{
+    padding : 0 !important;
+    margin : 0 auto;
+    
+}
+
+/* PlaceSearch-end */
+
+
 
 #currentposition{
     margin-top: -160px;
