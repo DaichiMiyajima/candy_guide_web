@@ -11,6 +11,11 @@ input{
     font-size: 16px !important;
 }
 
+.toast{
+    min-height: 30px !important; 
+    margin-top : 4px !important;
+}
+
 #toast-container{
     max-height : 0%;
     right :  0px;
@@ -18,7 +23,7 @@ input{
 
 #toast-container .message{
     width : 50%;
-    background-color: #ee6e73;
+    background-color: rgba(238, 110, 115, 0.8);
     font-size : 14px;
 }
 
@@ -28,9 +33,15 @@ input{
     font-size : 14px;
 }
 
-#toast-container .kind{
+#toast-container .attend{
     width : 50%;
     background-color: #4db6ac;
+    font-size : 14px;
+}
+
+#toast-container .meetupremove{
+    width : 50%;
+    background-color: #d84315;
     font-size : 14px;
 }
 

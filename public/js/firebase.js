@@ -53,11 +53,11 @@
                         plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
                     });
                     if(adddata.kind=="message"){
-                        Materialize.toast("[" + adddata.name + "]" + " : " + adddata.message, 5000, 'rounded message') 
+                        Materialize.toast("[" + adddata.name + "]" + " : " + adddata.message, 35000, 'rounded message') 
                     }else if(adddata.kind=="attend" || adddata.kind=="meetup"){
-                        Materialize.toast(adddata.message , 5000, 'rounded attend');
+                        Materialize.toast(adddata.message , 5000, 'rounded attend meetup');
                     }else if(adddata.kind=="meetupremove"){
-                        Materialize.toast(adddata.message , 5000, 'rounded meetup');
+                        Materialize.toast(adddata.message , 5000, 'rounded meetupremove');
                     }
                 });
             }
