@@ -66,21 +66,25 @@ body::before {
   color: #fff;
 }
 
+#title {
+    margin-top : 50px;
+	//margin-bottom : 50px;
+	margin-right : auto;
+	margin-left : auto;
+    width : 85%;
+	float : none;
+
+}
+
 #explanation {
-    margin-top : -50px;
-	margin-bottom : 100px
+    margin-top : 50px;
+	margin-bottom : 50px;
+	margin-right : auto;
+	margin-left : auto;
+    width : 80%;
 }
 
-#exp {
-    width : 90% !important;
+.collapsible-body {
+	background-color : #26a69a !important;
 }
 
-#dropdown_1 {
-    margin-top: 150px;
-    text-align: center;
-}
-
-#dropdown_icon_1 {
-    font-size: 70px;
-    color: white;
-}
