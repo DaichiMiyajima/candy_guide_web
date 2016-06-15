@@ -7,6 +7,10 @@ body {
     overflow: hidden;
 }
 
+input{
+    font-size: 16px !important;
+}
+
 #toast-container{
     max-height : 0%;
     right :  0px;
