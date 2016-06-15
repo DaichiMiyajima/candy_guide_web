@@ -9,9 +9,6 @@ myapp.controller('candyController', function ($scope, $firebaseArray) {
     
     var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
     $scope.messagesnumber = $firebaseArray(messages);
-    
-    var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
-    $scope.messagesnumber = $firebaseArray(messages);
 
     //SearchPlace
     $scope.searchPlace = function(text){
@@ -28,11 +25,13 @@ myapp.controller('candyController', function ($scope, $firebaseArray) {
                       var place = results[i];
                     }
                     $scope.places = results;
+                    $('.collapsible').collapsible();
                 }
                 
             });
         }
     }
+    
 });
 
 
@@ -43,8 +42,8 @@ function init(callback) {
         if(snapshot.val() && uniqueurl[2] in snapshot.val()){
             //Set GroupName
             var groupname = snapshot.val()[uniqueurl[2]].name;
-            $(".title span").text(groupname);
-            $(".title span").attr("data-shadow-text", groupname);
+            $(".groupname").text(groupname);
+            //$(".title span").attr("data-shadow-text", groupname);
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     //If session doesn't exist, sweetalert

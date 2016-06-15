@@ -5,11 +5,6 @@ var uniqueurl = pathname.split("/");
 var mes = new Array();
 var myapp = angular.module('mapper', ["firebase"]);
 
-//setting of toastr
-toastr.options.closeButton = true; 
-toastr.options.timeOut = 5000;
-toastr.options.progressBar = true; 
-
 var googlemap;
 var markers = new Array();
 var markers_meet = new Array();

@@ -6,6 +6,30 @@ body {
     position: fixed;
     overflow: hidden;
 }
+
+#toast-container{
+    max-height : 0%;
+    right :  0px;
+}
+
+#toast-container .message{
+    width : 50%;
+    background-color: #ee6e73;
+    font-size : 14px;
+}
+
+#toast-container .meetup{
+    width : 50%;
+    background-color: #5c6bc0 ;
+    font-size : 14px;
+}
+
+#toast-container .kind{
+    width : 50%;
+    background-color: #4db6ac;
+    font-size : 14px;
+}
+
 /* title */
 .title{
     position: absolute;
@@ -167,10 +191,6 @@ span:after {
     overflow: scroll;
 }
 
-.repeat_places{
-    margin-top: 65px;
-}
-
 .card-square{
     margin: 5px auto;
     min-height: 150px !important;
@@ -185,22 +205,6 @@ span:after {
 
 
 
-#currentposition{
-    margin-top: -160px;
-    position: fixed;
-    right: 15px;"
-}
-
-#messagebutton{
-    margin-top: -90px;
-    position: fixed;
-    right: 15px;"
-}
-#addlocationbutton{
-    margin-top: -230px;
-    position: fixed;
-    right: 15px;"
-}
 /* candy_map_tab */
 #google map
 .container-full {
