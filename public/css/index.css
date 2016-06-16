@@ -10,6 +10,9 @@ body {
 input{
     font-size: 16px !important;
 }
+.input{
+    font-size: 16px !important;
+}
 
 .toast{
     min-height: 30px !important; 
