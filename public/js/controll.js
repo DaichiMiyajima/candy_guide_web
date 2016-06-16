@@ -33,7 +33,19 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     }
     //Make pin from SearchPlace
     $scope.makeMeetUpMarker = function(place){
-        candyService.registerMeetUpMarker(place);
+        if(Object.keys(markers_meet).length < 1){
+            candyService.registerMeetUpMarker(place);
+        }else{
+            swal_remove_meetUpMarkers();
+        }
+    }
+    //Make pin from Nothing
+    $scope.addlocationbutton = function(){
+        if(Object.keys(markers_meet).length < 1){
+            candyService.registerMeetUpMarkerNothing();
+        }else{
+            swal_remove_meetUpMarkers();
+        }
     }
     
     //sendMessage

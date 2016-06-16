@@ -28,4 +28,18 @@ myapp.service('candyService', function () {
             kind : "search"
         });//set
     }
+    //Add MeetUp MArker from nothing
+    this.registerMeetUpMarkerNothing = function () {
+        var latlng = googlemap.getCenter();
+        var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("meetup");
+        var newPostRef = postsRef.push();
+        var postID = newPostRef.key();
+        //Set meetup
+        ref.child('sharemap').child(uniqueurl[2]).child('meetup').child(postID).update({
+            key : window.localStorage.getItem([uniqueurl[2]]),
+            latitude : latlng.lat(),
+            longitude : latlng.lng(),
+            kind : "nothing"
+        });//set
+    }
 })
