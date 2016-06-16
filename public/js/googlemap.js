@@ -228,13 +228,6 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                 if(infoWindows[key]){
                     infoWindows[key].close();
                 }
-                /*
-                //update
-                ref.child('sharemap').child(uniqueurl).child('meetup').child(key).update({
-                    latitude : this.position.lat(),
-                    longitude : this.position.lng()
-                });//set
-                */
             });
             google.maps.event.addListener(
                 markers_meet[key],

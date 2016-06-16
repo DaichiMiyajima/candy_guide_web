@@ -1,8 +1,8 @@
-myapp.controller('candyController', function ($scope, $firebaseArray) {
+myapp.controller('candyController', function ($scope, $firebaseArray,candyService) {
 
     $("[class^=firsthide]").hide();
     init(show);
-
+    
     var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
     $scope.yourid = window.localStorage.getItem([uniqueurl[2]]);
     $scope.messages = $firebaseArray(message);
@@ -31,7 +31,17 @@ myapp.controller('candyController', function ($scope, $firebaseArray) {
             });
         }
     }
+    //Make pin from SearchPlace
+    $scope.makeMeetUpMarker = function(place){
+        candyService.registerMeetUpMarker(place);
+    }
     
+    //sendMessage
+    $scope.sendMessage = function(messageInput){
+        if(messageInput && messageInput.length > 0){
+            candyService.registerMessage(messageInput);
+        }
+    }
 });
 
 

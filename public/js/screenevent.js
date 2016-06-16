@@ -62,7 +62,6 @@
     });
 
     $("#addlocationbutton").click(function(){
-        toastr.clear();
         $('#placeSearch').show();
         /*
         if(Object.keys(markers_meet).length < 1){
