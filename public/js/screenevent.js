@@ -37,8 +37,7 @@
                     }else{
                         if(count < 1){
                             count = count + 1;
-                            toastr.clear();
-                            toastr.error('Accuracy of gps is bad. Try again!');
+                            Materialize.toast('Accuracy of gps is bad. Try again!' , 5000, 'rounded meetupremove');
                         }
                     }
                     //最低限1秒続ける

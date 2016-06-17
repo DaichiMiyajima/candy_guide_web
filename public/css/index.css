@@ -63,7 +63,22 @@ span:after {
 
 /* message tab-start */
 #modal1{
-    height : 50%;
+    min-height : 60%;
+    max-height: 60%;
+}
+.messageTextArea{
+    position: fixed;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    z-index: 1000000;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+textarea{
+    max-height: 30px !important;
+    overflow-y: scroll !important;
+}
+.modal-content{
+    margin-top: 100px;
 }
 
 #messageInputField{
@@ -72,7 +87,7 @@ span:after {
 }
 
 #sendButton{
-    margin-top: -80px;
+    margin-top: -100px;
 }
 
 #messagebox_all{
@@ -113,10 +128,6 @@ span:after {
 }
 
 #toast-container-chat > div {
-    position: relative;
-    overflow: hidden;
-    margin: 0 0 0px;
-    padding: 15px 15px 15px 50px;
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;
     border-radius: 3px 3px 3px 3px;
@@ -127,7 +138,6 @@ span:after {
     box-shadow: 0 0 12px #999999;
     color: #ffffff;
     opacity: 0.8;
-    padding: 5px 5px 5px 15px;
 }
 
 #toast-container-chat * {
@@ -142,6 +152,7 @@ span:after {
     color: white;
     font-family: fantasy;
     margin-left : 3px;
+    margin-top: 6px;
 }
 .messagelist{
     display: block; 
@@ -149,6 +160,17 @@ span:after {
     float: left;
     width: 80%;
     margin-bottom: 7px !important;
+    white-space: pre-line;
+    word-wrap: break-word;
+    line-height: 1 ;
+    padding: 2px;
+}
+.toast-name{
+    padding: 4px;
+    border-bottom: 1px solid;
+    margin-top: -15px;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 .toast-info{
     background : rgba(39, 0, 255, 0.75);
@@ -165,7 +187,8 @@ span:after {
 
 /*PlaceSearch-start */
 #modal2{
-    height : 50%;
+    min-height : 60%;
+    max-height: 60%;
 }
 #placeSearch{
     width: 100%;
