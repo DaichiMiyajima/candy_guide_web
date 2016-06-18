@@ -358,8 +358,8 @@ function directionsToMarker(origin,destination,travelMode,kind) {
                 if(response.rows[0].elements[0].status =="ZERO_RESULTS"){
                     swal_cannot_read_direction();
                 }else{
-                    $('#direction_distance').text("Distance : " + response.rows[0].elements[0].distance.text + "(" + response.rows[0].elements[0].distance.value + " m)");
-                    $('#direction_duration').text("Duration : " + response.rows[0].elements[0].duration.text);
+                    $('#direction_distance').text(response.rows[0].elements[0].distance.text + "(" + response.rows[0].elements[0].distance.value + " m)");
+                    $('#direction_duration').text(response.rows[0].elements[0].duration.text);
                 }
             }
         });

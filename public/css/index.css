@@ -7,6 +7,10 @@ body {
     overflow: hidden;
 }
 
+.fixed-action-btn.horizontal ul li{
+    margin: 8px 8px 0 0 !important;
+}
+
 /* prevent copy */
 .btn-floating {
     -webkit-user-select: none;
@@ -247,6 +251,11 @@ textarea{
     margin-left: 20px;
     margin-top: 10px;
     font-family: cursive;
+}
+.direction{
+    width: 70%;
+    height: 44px;
+    float: left;
 }
 
 #directionTime .btn-floating{

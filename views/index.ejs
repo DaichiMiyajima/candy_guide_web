@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="user-scalable=no">
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author"      content="Daichi Miyajima">
@@ -144,8 +145,10 @@
 
             <!-- DirectionTime -->
             <div id="directionTime" class="firsthide">
-                <div id="direction_distance" class="matrix"></div>
-                <div id="direction_duration" class="matrix"></div>
+                <div class="direction">
+                    <div id="direction_distance" class="matrix"></div>
+                    <div id="direction_duration" class="matrix"></div>
+                </div>
                 <a class="btn-floating" ng-click="directionDone()"><i class="small material-icons">done</i></a>
             </div>
             <!-- DirectionTime end-->
