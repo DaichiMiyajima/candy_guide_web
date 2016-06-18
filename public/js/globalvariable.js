@@ -20,6 +20,9 @@ var markerlongitude;
 
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
+var travelMode = google.maps.TravelMode.WALKING;
+
+var distanceService = new google.maps.DistanceMatrixService();
 
 
 function setlocation(latitude,longitude){

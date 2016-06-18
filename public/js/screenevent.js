@@ -8,13 +8,7 @@
         $("#map").css("height","83vh");
     }
 
-    $("#messagebutton").click(function(){
-        swal_addmessage();
-    });
-
     $("#currentposition").click(function(){
-        $('#currentposition').css("background","white");
-        $('#spin').addClass("is-active");
         var count = 0;
         if(watchID){
             navigator.geolocation.clearWatch(watchID);
@@ -40,23 +34,15 @@
                             Materialize.toast('Accuracy of gps is bad. Try again!' , 5000, 'rounded meetupremove');
                         }
                     }
-                    //最低限1秒続ける
-                    setTimeout(function loop(){
-                        $('#currentposition').css("background","rgb(255,110,64)");
-                        $('#spin').removeClass("is-active");
-                    },2000);
                 },
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
-                    toastr.clear();
-                    toastr.error('Gps is error. Try again!');
+                    Materialize.toast('Gps is error. Try again!' , 5000, 'rounded meetupremove');
                 },
                 {enableHighAccuracy: true,maximumAge: 1}
             );
         }else{
             swal_relocation();
-            $('#currentposition').css("background","rgb(255,110,64)");
-            $('#spin').removeClass("is-active");
         }
     });
 
@@ -100,25 +86,4 @@
     $("#serchplacebutton").click(function(){
         $('#modal2').openModal();
     });
-
-    $("#messageaccount").click(function(){
-        toastr.remove();
-        toastr.clear()
-        $('#messagebox_all').show();
-    });
-
-    $("#messagebox_overlay").click(function(){
-        $('#messagebox_all').hide();
-    });
-    /*
-    $("#usercount").click(function(){
-        toastr.remove();
-        toastr.clear()
-        $('#userbox_all').show();
-    });
-
-    $("#userbox_overlay").click(function(){
-        $('#userbox_all').hide();
-    });
-    */
 })()

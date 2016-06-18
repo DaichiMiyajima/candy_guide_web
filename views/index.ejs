@@ -49,7 +49,7 @@
                     </div>
                     <a class="btn-floating red" id="sendButton"><i class="small material-icons" ng-click="sendMessage(messageInput)">send</i></a>
                 </div>
-                <div class="modal-content">
+                <div class="modal-content modalMessage">
                     <!-- message tab -->
                     <div style="padding-top: 1px;">
                         <div ng-repeat="message in messages | orderBy:'-time'">
@@ -87,10 +87,12 @@
             
             <!-- Place Search -->
             <div id="modal2" class="modal bottom-sheet">
-                <div class="modal-content">
-                    <div>
+                <div class="searchPlaceTextArea">
+                    <div id="searchPlaceInputField">
                         <input class="input" placeholder="Search Place" type="text" id="search_place" ng-keyup="searchPlace(text)" ng-model="text">
                     </div>
+                </div>
+                <div class="modal-content modalPlace">
                     <div>
                         <ul class="collapsible popout" data-collapsible="accordion" watch>
                             <li ng-repeat="place in places">
@@ -113,38 +115,65 @@
             </div>
             <!-- Place Search end -->
 
+            <!-- Select Way of TravelMode -->
+            <div id="travelModeModal" class="modal">
+                <div class="modal-content">
+                    <h4>You choose travelMode</h4>
+                    <ul>
+                        <li><a class="btn-floating green" ng-click="direction_car()"><img src="../public/img/car.png"></a></li>
+                        <li><a class="btn-floating blue" ng-click="direction_walk()"><img src="../public/img/walk.png"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Select Way of TravelMode end-->
 
-            <!-- Navvar -->
+            <!-- NavBar -->
             <nav>
                 <div class="nav-wrapper">
                     <a href="#" class="groupname brand-logo center"></a>
-                    <ul id="nav-mobile" class="left hide-on-med-and-down">
-                        <li><a href="sass.html">Sass</a></li>
-                        <li><a href="badges.html">Components</a></li>
-                        <li><a href="collapsible.html">JavaScript</a></li>
-                    </ul>
                 </div>
             </nav>
+            <!-- NavBar end -->
+
+            <!-- Geolocation OFF -->
+            <div id="geolocationOff" class="firsthide">
+                <label>Your location services are unavailable.</label><br/>
+                <label>Settings → Privacy → Location Service → Safari WebSites</label>
+            </div>
+            <!-- Geolocation OFF end-->
+
+            <!-- DirectionTime -->
+            <div id="directionTime" class="firsthide">
+                <div id="direction_distance" class="matrix"></div>
+                <div id="direction_duration" class="matrix"></div>
+                <a class="btn-floating" ng-click="directionDone()"><i class="small material-icons">done</i></a>
+            </div>
+            <!-- DirectionTime end-->
+            
+            <!-- Google Map -->
             <div class="mdl-tabs__panel is-active" id="candy_map_tab">
                 <section class="container-full">
                     <div id="map"></div>
                 </section>
             </div>
-            <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 24px;">
+            <!-- Google Map end-->
+            <div class="fixed-action-btn horizontal click-to-toggle firsthide_lastshow" style="bottom: 45px; right: 24px;">
                 <a class="btn-floating btn-large red">
                     <i class="material-icons">menu</i>
                 </a>
                 <ul>
                     <li><a class="btn-floating red" id="currentposition"><i class="large material-icons">my_location</i></a></li>
                     <li><a class="btn-floating green" id="addlocationbutton" ng-click="addlocationbutton()"><i class="large material-icons">location_on</i></a></li>
+                    <li><a class="btn-floating yellow" id="direction" ng-click="direction()"><i class="large material-icons">navigation</i></a></li>
                     <li><a class="btn-floating blue" id="messagelist"><i class="large material-icons">comment</i></a></li>
                     <li><a class="btn-floating pink" id="serchplacebutton"><i class="large material-icons">search</i></a></li>
+                    <li><a class="btn-floating amber" id=""><i class="large material-icons">perm_identity</i></a></li>
                 </ul>
             </div>
         </div>
     </div>
     <!-- Google Maps -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO32axBK69PMVZMgs_oPjKMltoQa4pKI4&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO32axBK69PMVZMgs_oPjKMltoQa4pKI4&libraries=geometry,places"></script>
     <script src="../public/js/globalvariable.js"></script>
     <script src="../public/js/firebaseService.js"></script>
     <script src="../public/js/controll.js"></script>

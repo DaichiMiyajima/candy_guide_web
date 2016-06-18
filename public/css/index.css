@@ -7,6 +7,12 @@ body {
     overflow: hidden;
 }
 
+/* prevent copy */
+.btn-floating {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 input{
     font-size: 16px !important;
 }
@@ -29,7 +35,7 @@ textarea{
 
 #toast-container .message{
     width : 50%;
-    background-color: rgba(238, 110, 115, 0.8);
+    background-color: rgba(39, 0, 255, 0.75);
     font-size : 14px;
 }
 
@@ -41,13 +47,13 @@ textarea{
 
 #toast-container .attend{
     width : 50%;
-    background-color: #4db6ac;
+    background-color: rgba(0, 255, 137, 0.62);
     font-size : 14px;
 }
 
 #toast-container .meetupremove{
     width : 50%;
-    background-color: #d84315;
+    background-color: rgba(255, 0, 0, 0.62);
     font-size : 14px;
 }
 
@@ -77,7 +83,7 @@ textarea{
     max-height: 30px !important;
     overflow-y: scroll !important;
 }
-.modal-content{
+.modalMessage{
     margin-top: 100px;
 }
 
@@ -88,43 +94,6 @@ textarea{
 
 #sendButton{
     margin-top: -100px;
-}
-
-#messagebox_all{
-        width: 100%;
-        height:100%;
-        text-align: center;
-        position: fixed;
-        top: 0;
-        z-index: 100;
-        background: rgba(0, 0, 0, 0.35);
-}
-
-.messagebox{
-    position: absolute !important;
-    margin-top: 15px;
-    right: 5px;
-    z-index: 10;
-}
-
-#messagebox_slide{
-    position: absolute;
-    right: 0px;
-    background: rgba(2, 2, 2, 0.75);
-    width: 50%;
-    height: 50%;
-    z-index: 100;
-    color: rgb(96, 125, 139);
-    overflow: auto;
-    border-style: inset;
-    border-color: black;
-}
-
-#messagebox_overlay{
-    left: 0;
-    width: 60%;
-    height: 100%;
-    position: fixed;
 }
 
 #toast-container-chat > div {
@@ -199,6 +168,16 @@ textarea{
     background: #FFFFFF;
     overflow: scroll;
 }
+.searchPlaceTextArea{
+    position: fixed;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    z-index: 1000000;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+.modalPlace{
+    margin-top :40px;
+}
 
 .placeUl{
     text-align : center;
@@ -211,6 +190,71 @@ textarea{
     display: inline-block !important;
 }
 /* PlaceSearch-end */
+
+
+/* Travel Mode */
+#travelModeModal{
+    top: 40% !important;
+}
+#travelModeModal .modal-content{
+    text-align: center;
+}
+#travelModeModal ul{
+    display: inline-flex;
+}
+#travelModeModal ul li{
+    margin-left : 15px;
+}
+
+
+/* Travel Mode end */
+
+
+
+
+/* Geolocation OFF */
+#geolocationOff{
+    height : 70px;
+    background : rgba(0, 0, 0, 0.44);
+    width : 100%;
+    z-index : 1;
+    position : fixed;
+    text-align: center;
+}
+#geolocationOff label {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.88);
+}
+/* Geolocation OFF end*/
+
+
+/* DirectionTime */
+
+#directionTime{
+    height : 44px;
+    background : rgb(171, 171, 171);
+    width : 100%;
+    z-index : 1;
+    position : fixed;
+    text-align: center;
+    box-shadow: 0 16px 28px 0 rgba(0,0,0,0.22),0 25px 55px 0 rgba(0,0,0,0.21);
+    bottom: 0px;
+}
+#directionTime .matrix{
+    color: #fff;
+    font-size: 1.2rem;
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-family: cursive;
+}
+
+#directionTime .btn-floating{
+    margin-top : 3px;
+    background-color: rgb(171, 171, 171) !important;
+}
+/* DirectionTime end */
+
 
 
 

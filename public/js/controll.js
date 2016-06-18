@@ -4,7 +4,6 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     init(show);
     
     var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
-    $scope.yourid = window.localStorage.getItem([uniqueurl[2]]);
     $scope.messages = $firebaseArray(message);
     
     var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
@@ -35,6 +34,9 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     $scope.makeMeetUpMarker = function(place){
         if(Object.keys(markers_meet).length < 1){
             candyService.registerMeetUpMarker(place);
+            //panto
+            googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
+            $('#modal2').closeModal();
         }else{
             swal_remove_meetUpMarkers();
         }
@@ -51,11 +53,32 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     //sendMessage
     $scope.sendMessage = function(messageInput){
         if(messageInput && messageInput.length > 0){
-            console.log(messageInput);
             candyService.registerMessage(messageInput);
             $scope.messageInput = "";
             
         }
+    }
+    
+    //Direction
+    $scope.direction = function(){
+        if(Object.keys(markers_meet).length > 0){
+            $('#travelModeModal').openModal();
+        }else{
+            swal_must_register_meetupMarker();
+        }
+    }
+    $scope.direction_car = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.DRIVING,"navigation");
+        travelMode = google.maps.TravelMode.DRIVING;
+        $('#travelModeModal').closeModal();
+    }
+    $scope.direction_walk = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigation");
+        travelMode = google.maps.TravelMode.WALKING;
+        $('#travelModeModal').closeModal();
+    }
+    $scope.directionDone = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
     }
 });
 
@@ -115,6 +138,7 @@ function init(callback) {
                             share : "off"
                         });//set
                     }
+                    $("[id = geolocationOff]").show();
                     //Location on のユーザーがいればそのlocationを参照
                     ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
                         var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
@@ -148,6 +172,7 @@ function init(callback) {
                         share : "off"
                     });//set
                 }
+                $("[id = geolocationOff]").show();
                 //Location on のユーザーがいればそのlocationを参照
                 ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
                     var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
