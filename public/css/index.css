@@ -1,5 +1,7 @@
 html {
     -ms-touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 body {
@@ -9,6 +11,8 @@ body {
     text-align: left;
     position: fixed;
     overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .fixed-action-btn.horizontal ul li{
@@ -247,6 +251,8 @@ textarea{
     text-align: center;
     box-shadow: 0 16px 28px 0 rgba(0,0,0,0.22),0 25px 55px 0 rgba(0,0,0,0.21);
     bottom: 0px;
+    -webkit-user-select: none;
+    user-select: none;
 }
 #directionTime .matrix{
     color: #fff;
