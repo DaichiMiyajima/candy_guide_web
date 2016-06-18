@@ -322,6 +322,8 @@ function createMarker(latitude,longitude,title,key,callback) {
 function directionsToMarker(origin,destination,travelMode,kind) {
     if(directionsDisplay){
         directionsDisplay.setMap(null);
+        directionsDisplay.setDirections({routes: []});
+        directionsDisplay.setDirections(null);
         directionsDisplay = null;
         $('#directionTime').hide();
         if(kind == "positionchange" || kind == "navigation" || kind == "markerchange"){
