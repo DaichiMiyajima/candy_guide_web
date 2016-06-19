@@ -261,10 +261,12 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
     }
 }
 
-// marker changeposition
+// marker changeposition : yourposition
 function markerchange(latitude,longitude,key) {
     markers[key].setPosition(new google.maps.LatLng(latitude, longitude));
-    directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
+    if(directionsDisplay){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
+    }
 }
 
 // marker_meet changeposition
