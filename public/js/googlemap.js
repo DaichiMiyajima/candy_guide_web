@@ -325,9 +325,13 @@ function directionsToMarker(origin,destination,travelMode,kind) {
         directionsDisplay.setDirections({routes: []});
         directionsDisplay.setDirections(null);
         directionsDisplay = null;
-        $('#directionTime').hide();
-        if(kind == "positionchange" || kind == "navigation" || kind == "markerchange"){
+        if(kind == "positionchange" || kind == "navigation"){
             directionsToMarker(origin,destination,travelMode,"");
+            $('#directionTime').hide();
+        }else if(kind == "markerchange"){
+            directionsToMarker(origin,destination,travelMode,"");
+        }else{
+            $('#directionTime').hide();
         }
     }else{
         directionsService.route({
