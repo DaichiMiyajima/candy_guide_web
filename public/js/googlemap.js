@@ -264,7 +264,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
 // marker changeposition
 function markerchange(latitude,longitude,key) {
     markers[key].setPosition(new google.maps.LatLng(latitude, longitude));
-    directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"positionchange");
+    directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
 }
 
 // marker_meet changeposition
@@ -272,7 +272,7 @@ function markerMeetUpchange(latitude,longitude,key) {
     markers_meet[key].setPosition(new google.maps.LatLng(latitude, longitude));
     if(directionsDisplay){
         //Delete route
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: latitude, lng: longitude},travelMode,"markerchange");
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: latitude, lng: longitude},travelMode,"markerMeetUpchange");
     }
 }
 
@@ -325,10 +325,7 @@ function directionsToMarker(origin,destination,travelMode,kind) {
         directionsDisplay.setDirections({routes: []});
         directionsDisplay.setDirections(null);
         directionsDisplay = null;
-        if(kind == "positionchange" || kind == "navigation"){
-            directionsToMarker(origin,destination,travelMode,"");
-            $('#directionTime').hide();
-        }else if(kind == "markerchange"){
+        if(kind == "markerchange" || kind == "navigation" || kind == "markerMeetUpchange"){
             directionsToMarker(origin,destination,travelMode,"");
         }else{
             $('#directionTime').hide();
