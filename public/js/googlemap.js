@@ -264,7 +264,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
 // marker changeposition : yourposition
 function markerchange(latitude,longitude,key) {
     markers[key].setPosition(new google.maps.LatLng(latitude, longitude));
-    if(directionsDisplay){
+    if(directionsDisplayArray[direction_number-1]){
         directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
     }
 }
@@ -272,7 +272,7 @@ function markerchange(latitude,longitude,key) {
 // marker_meet changeposition
 function markerMeetUpchange(latitude,longitude,key) {
     markers_meet[key].setPosition(new google.maps.LatLng(latitude, longitude));
-    if(directionsDisplay){
+    if(directionsDisplayArray[direction_number-1]){
         //Delete route
         directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: latitude, lng: longitude},travelMode,"markerMeetUpchange");
     }
@@ -322,17 +322,20 @@ function createMarker(latitude,longitude,title,key,callback) {
 
 //Dipict Direction
 function directionsToMarker(origin,destination,travelMode,kind) {
-    if(directionsDisplay){
+    if(directionsDisplayArray[direction_number-1] && kind != "redipict"){
         //Dipict Display
         if(kind == "markerchange" || kind == "navigation" || kind == "markerMeetUpchange"){
             directionsToMarker(origin,destination,travelMode,"redipict");
         }else{
             $('#directionTime').hide();
-            //Delete Display
-            directionsDisplay.setMap(null);
-            directionsDisplay.setDirections({routes: []});
-            directionsDisplay.setDirections(null);
-            directionsDisplay = null;
+            for(var i = 0 ; i < direction_number ; i++){
+                if(directionsDisplayArray[i]){
+                    directionsDisplayArray[i].setMap(null);
+                    directionsDisplayArray[i].setDirections({routes: []});
+                    directionsDisplayArray[i].setDirections(null);
+                    directionsDisplayArray[i] = null;
+                }
+            }
         }
     }else{
         directionsService.route({
@@ -341,24 +344,29 @@ function directionsToMarker(origin,destination,travelMode,kind) {
             travelMode: travelMode
         }, function(result, status) {
             if (status == google.maps.DirectionsStatus.OK) {
+            console.log("passRe");
                 var rendererOptions = {
                     suppressMarkers:true,
                     preserveViewport: true,
                     polylineOptions : {
-                    strokeColor : "#8b0000"
+                        strokeColor : "#8b0000"
+                    }
+                };
+                directionsDisplayArray[direction_number] = new google.maps.DirectionsRenderer(rendererOptions);
+                directionsDisplayArray[direction_number].setMap(googlemap);
+                directionsDisplayArray[direction_number].setDirections(result);
+                if(kind == "redipict"){
+                    for(var i = 0 ; i < direction_number ; i++){
+                        if(directionsDisplayArray[i]){
+                            directionsDisplayArray[i].setMap(null);
+                            directionsDisplayArray[i].setDirections({routes: []});
+                            directionsDisplayArray[i].setDirections(null);
+                            directionsDisplayArray[i] = null;
+                        }
+                    }
                 }
-            };
-            directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-            directionsDisplay.setMap(googlemap);
-            directionsDisplay.setDirections(result);
-            $('#directionTime').show();
-            if(kind == "redipict"){
-                //Delete Display
-                directionsDisplay.setMap(null);
-                directionsDisplay.setDirections({routes: []});
-                directionsDisplay.setDirections(null);
-                directionsDisplay = null;
-            }
+                direction_number = direction_number + 1;
+                $('#directionTime').show();
             }
         });
         distanceService.getDistanceMatrix({

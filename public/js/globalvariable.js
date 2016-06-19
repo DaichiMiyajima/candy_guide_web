@@ -22,6 +22,9 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var travelMode = google.maps.TravelMode.WALKING;
 
+var directionsDisplayArray = new Array();
+var direction_number = 0;
+
 var distanceService = new google.maps.DistanceMatrixService();
 
 
