@@ -323,15 +323,17 @@ function createMarker(latitude,longitude,title,key,callback) {
 //Dipict Direction
 function directionsToMarker(origin,destination,travelMode,kind) {
     if(directionsDisplay){
-        directionsDisplay.setMap(null);
-        directionsDisplay.setDirections({routes: []});
-        directionsDisplay.setDirections(null);
-        directionsDisplay = null;
+        //Dipict Display
         if(kind == "markerchange" || kind == "navigation" || kind == "markerMeetUpchange"){
             directionsToMarker(origin,destination,travelMode,"");
         }else{
             $('#directionTime').hide();
         }
+        //Delete Display
+        directionsDisplay.setMap(null);
+        directionsDisplay.setDirections({routes: []});
+        directionsDisplay.setDirections(null);
+        directionsDisplay = null;
     }else{
         directionsService.route({
             origin: origin,
