@@ -325,15 +325,15 @@ function directionsToMarker(origin,destination,travelMode,kind) {
     if(directionsDisplay){
         //Dipict Display
         if(kind == "markerchange" || kind == "navigation" || kind == "markerMeetUpchange"){
-            directionsToMarker(origin,destination,travelMode,"");
+            directionsToMarker(origin,destination,travelMode,"redipict");
         }else{
             $('#directionTime').hide();
+            //Delete Display
+            directionsDisplay.setMap(null);
+            directionsDisplay.setDirections({routes: []});
+            directionsDisplay.setDirections(null);
+            directionsDisplay = null;
         }
-        //Delete Display
-        directionsDisplay.setMap(null);
-        directionsDisplay.setDirections({routes: []});
-        directionsDisplay.setDirections(null);
-        directionsDisplay = null;
     }else{
         directionsService.route({
             origin: origin,
@@ -352,7 +352,14 @@ function directionsToMarker(origin,destination,travelMode,kind) {
             directionsDisplay.setMap(googlemap);
             directionsDisplay.setDirections(result);
             $('#directionTime').show();
-          }
+            if(kind == "redipict"){
+                //Delete Display
+                directionsDisplay.setMap(null);
+                directionsDisplay.setDirections({routes: []});
+                directionsDisplay.setDirections(null);
+                directionsDisplay = null;
+            }
+            }
         });
         distanceService.getDistanceMatrix({
             origins: [origin],
