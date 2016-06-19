@@ -344,12 +344,11 @@ function directionsToMarker(origin,destination,travelMode,kind) {
             travelMode: travelMode
         }, function(result, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-            console.log("passRe");
                 var rendererOptions = {
                     suppressMarkers:true,
                     preserveViewport: true,
                     polylineOptions : {
-                        strokeColor : "#8b0000"
+                        strokeColor : "rgba(76, 175, 80, 0.75)"
                     }
                 };
                 directionsDisplayArray[direction_number] = new google.maps.DirectionsRenderer(rendererOptions);
@@ -386,3 +385,19 @@ function directionsToMarker(origin,destination,travelMode,kind) {
     }
 }
 
+function distanceMatrix(origin,destination,travelMode) {
+    distanceService.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: travelMode
+    }, function(response, status) {
+        if (status == google.maps.DistanceMatrixStatus.OK) {
+        if(response.rows[0].elements[0].status =="ZERO_RESULTS"){
+            swal_cannot_read_direction();
+        }else{
+            $('#direction_distance').text(response.rows[0].elements[0].distance.text + "(" + response.rows[0].elements[0].distance.value + " m)");
+            $('#direction_duration').text(response.rows[0].elements[0].duration.text);
+        }
+        }
+    });
+}

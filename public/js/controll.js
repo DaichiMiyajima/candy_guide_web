@@ -1,5 +1,4 @@
 myapp.controller('candyController', function ($scope, $firebaseArray,candyService) {
-
     $("[class^=firsthide]").hide();
     init(show);
     
@@ -17,8 +16,8 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
                 radius: '500',
                 query: $("#search_place").val()
             };
-            service = new google.maps.places.PlacesService(googlemap);
-            service.textSearch(request, function(results, status) {
+            placeService = new google.maps.places.PlacesService(googlemap);
+            placeService.textSearch(request, function(results, status) {
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                     for (var i = 0; i < results.length; i++) {
                       var place = results[i];
@@ -30,6 +29,33 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
             });
         }
     }
+    //Click More
+    $scope.placeclick = function(place){
+        var request = {
+            placeId: place.place_id
+        };
+        placeService.getDetails(request, function(placeDetail, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                console.log(placeDetail);
+                console.log(placeDetail.photos);
+                $('#modalPlaceDetail').openModal();
+                if(placeDetail.photos){
+                    console.log("pass photo");
+                    console.log(placeDetail.photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35}));
+                    $scope.placeDetailPhoto1 = placeDetail.photos[0].getUrl({'maxWidth': 300, 'maxHeight': 350});
+                    $scope.placeDetailPhoto2 = placeDetail.photos[1].getUrl({'maxWidth': 300, 'maxHeight': 350});
+                    $scope.placeDetailPhoto3 = placeDetail.photos[2].getUrl({'maxWidth': 300, 'maxHeight': 350});
+                    $scope.placeDetailPhoto4 = placeDetail.photos[3].getUrl({'maxWidth': 300, 'maxHeight': 350});
+                    $scope.placeDetailPhoto5 = placeDetail.photos[4].getUrl({'maxWidth': 300, 'maxHeight': 350});
+                    $scope.placeDetailPhotos = placeDetail.photos;
+                }
+                $scope.placeDetails = placeDetail;
+                console.log(placeDetail.name);
+                $scope.placeName = placeDetail.name;
+                
+            }
+        });
+    }
     //Make pin from SearchPlace
     $scope.makeMeetUpMarker = function(place){
         if(Object.keys(markers_meet).length < 1){
@@ -40,6 +66,18 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
         }else{
             swal_remove_meetUpMarkers();
         }
+    }
+    //Only Panto
+    $scope.navigation = function(place){
+        googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
+    }
+    
+    
+    
+    // Direction Done.Delete Render
+    $scope.directionDone = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
+        $('#modal2').closeModal();
     }
     //Make pin from Nothing
     $scope.addlocationbutton = function(){

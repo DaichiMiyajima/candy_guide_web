@@ -200,6 +200,7 @@ textarea{
 }
 .placeIconAcordion{
     display: inline-block !important;
+    margin-left: 15px;
 }
 /* PlaceSearch-end */
 
@@ -277,7 +278,12 @@ textarea{
 /* DirectionTime end */
 
 
-
+/* Modal Place Detail */
+.imagCarousel{
+    height: 200px;
+    width : 200px !important;
+}
+/* Modal Place Detail end*/
 
 /* candy_map_tab */
 #google map
@@ -318,4 +324,3 @@ img[src*="test"]{
 #toast-container{
     top : 7vh !important;
 }
-

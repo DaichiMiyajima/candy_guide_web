@@ -84,7 +84,8 @@
                 </div>
             </div>
             <!-- Modal Structure end -->
-            
+
+
             <!-- Place Search -->
             <div id="modal2" class="modal bottom-sheet">
                 <div class="searchPlaceTextArea">
@@ -99,13 +100,13 @@
                                 <div class="collapsible-header">
                                     <img id="placeIcon" src={{place.icon}} style=""></img>
                                     {{place.name}}
-                                    
                                 </div>
                                 <div class="collapsible-body">
                                     {{place.formatted_address}}
                                     <ul class="placeUl">
-                                        <li class="placeIconAcordion"><a class="btn-floating red"><i class="large material-icons">my_location</i></a></li>
+                                        <li class="placeIconAcordion"><a class="btn-floating red" ng-click="navigation(place)"><i class="large material-icons">navigation</i></a></li>
                                         <li class="placeIconAcordion"><a class="btn-floating green" ng-click="makeMeetUpMarker(place)"><i class="large material-icons">location_on</i></a></li>
+                                        <li class="placeIconAcordion"><a class="waves-effect waves-light btn-large" ng-click="placeclick(place)">More</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -114,6 +115,37 @@
                 </div>
             </div>
             <!-- Place Search end -->
+
+
+            <!-- Modal Place Detail -->
+            <div id="modalPlaceDetail" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <h4>{{placeDetails.name}}</h4>
+                    <p>{{placeName}}</p>
+                    <div ng-model="placeDetails.name"></div>
+                    <!--
+                    <div class="carousel" watch>
+                        <a ng-repeat="placeDetailPhoto in placeDetailPhotos" class="carousel-item" href="">
+                            <img src={{placeDetailPhoto.getUrl({"maxWidth": 35, "maxHeight": 35})}}>
+                        </a>
+                    </div>
+                    -->
+                    <div class="carousel">
+                        <a class="carousel-item" href="#one!"><img class="imagCarousel" src={{placeDetailPhoto1}}></a>
+                        <a class="carousel-item" href="#two!"><img class="imagCarousel" src={{placeDetailPhoto2}}></a>
+                        <a class="carousel-item" href="#three!"><img class="imagCarousel" src={{placeDetailPhoto3}}></a>
+                        <a class="carousel-item" href="#four!"><img class="imagCarousel" src={{placeDetailPhoto4}}></a>
+                        <a class="carousel-item" href="#five!"><img class="imagCarousel" src={{placeDetailPhoto5}}></a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <ul class="">
+                        <li class=""><a class="btn-floating red" ng-click="navigation(place)"><i class="large material-icons">navigation</i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Modal Place Detail end-->
+
 
             <!-- Select Way of TravelMode -->
             <div id="travelModeModal" class="modal">
@@ -126,6 +158,7 @@
                 </div>
             </div>
             <!-- Select Way of TravelMode end-->
+
 
             <!-- NavBar -->
             <nav>
@@ -141,6 +174,7 @@
                 <label>Settings → Privacy → Location Service → Safari WebSites</label>
             </div>
             <!-- Geolocation OFF end-->
+
 
             <!-- DirectionTime -->
             <div id="directionTime" class="firsthide">
@@ -184,7 +218,10 @@
     <script src="../public/js/screenevent.js"></script>
     <script src="../public/js/popup.js"></script>
     
-    <script>$('.collapsible').collapsible();</script>
+    <script>
+        $('.collapsible').collapsible();
+        $('.carousel').carousel();
+    </script>
 
 </body>
 </html>
