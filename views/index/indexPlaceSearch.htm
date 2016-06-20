@@ -11,10 +11,10 @@
                 <li ng-repeat="place in places">
                     <div class="collapsible-header">
                         <img id="placeIcon" src={{place.icon}} style=""></img>
-                                    {{place.name}}
+                        {{place.name}}
                     </div>
                     <div class="collapsible-body">
-                                    {{place.formatted_address}}
+                       {{place.formatted_address}}
                         <ul class="placeUl">
                             <li class="placeIconAcordion"><a class="btn-floating red" ng-click="navigation(place)"><i class="large material-icons">navigation</i></a></li>
                             <li class="placeIconAcordion"><a class="btn-floating green" ng-click="makeMeetUpMarker(place)"><i class="large material-icons">location_on</i></a></li>

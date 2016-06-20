@@ -1,0 +1,235 @@
+@charset "UTF-8";
+.rate {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+  font-size: 20px;
+}
+.rate:before, .rate:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+}
+.rate:before {
+  color: #ddd;
+}
+.rate:after {
+  color: #ffa500;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index : 10;
+}
+
+.rate0_0:after {
+  width: 0px;
+}
+
+.rate0_1:after {
+  width: 2px;
+}
+
+.rate0_2:after {
+  width: 4px;
+}
+
+.rate0_3:after {
+  width: 6px;
+}
+
+.rate0_4:after {
+  width: 8px;
+}
+
+.rate0_5:after {
+  width: 10px;
+}
+
+.rate0_6:after {
+  width: 12px;
+}
+
+.rate0_7:after {
+  width: 14px;
+}
+
+.rate0_8:after {
+  width: 16px;
+}
+
+.rate0_9:after {
+  width: 18px;
+}
+
+.rate1_0:after {
+  width: 20px;
+}
+
+.rate1_1:after {
+  width: 22px;
+}
+
+.rate1_2:after {
+  width: 24px;
+}
+
+.rate1_3:after {
+  width: 26px;
+}
+
+.rate1_4:after {
+  width: 28px;
+}
+
+.rate1_5:after {
+  width: 30px;
+}
+
+.rate1_6:after {
+  width: 32px;
+}
+
+.rate1_7:after {
+  width: 34px;
+}
+
+.rate1_8:after {
+  width: 36px;
+}
+
+.rate1_9:after {
+  width: 38px;
+}
+
+.rate2_0:after {
+  width: 40px;
+}
+
+.rate2_1:after {
+  width: 42px;
+}
+
+.rate2_2:after {
+  width: 44px;
+}
+
+.rate2_3:after {
+  width: 46px;
+}
+
+.rate2_4:after {
+  width: 48px;
+}
+
+.rate2_5:after {
+  width: 50px;
+}
+
+.rate2_6:after {
+  width: 52px;
+}
+
+.rate2_7:after {
+  width: 54px;
+}
+
+.rate2_8:after {
+  width: 56px;
+}
+
+.rate2_9:after {
+  width: 58px;
+}
+
+.rate3_0:after {
+  width: 60px;
+}
+
+.rate3_1:after {
+  width: 62px;
+}
+
+.rate3_2:after {
+  width: 64px;
+}
+
+.rate3_3:after {
+  width: 66px;
+}
+
+.rate3_4:after {
+  width: 68px;
+}
+
+.rate3_5:after {
+  width: 70px;
+}
+
+.rate3_6:after {
+  width: 72px;
+}
+
+.rate3_7:after {
+  width: 74px;
+}
+
+.rate3_8:after {
+  width: 76px;
+}
+
+.rate3_9:after {
+  width: 78px;
+}
+
+.rate4_0:after {
+  width: 80px;
+}
+
+.rate4_1:after {
+  width: 82px;
+}
+
+.rate4_2:after {
+  width: 84px;
+}
+
+.rate4_3:after {
+  width: 86px;
+}
+
+.rate4_4:after {
+  width: 88px;
+}
+
+.rate4_5:after {
+  width: 90px;
+}
+
+.rate4_6:after {
+  width: 92px;
+}
+
+.rate4_7:after {
+  width: 94px;
+}
+
+.rate4_8:after {
+  width: 96px;
+}
+
+.rate4_9:after {
+  width: 98px;
+}
+
+.rate5_0:after {
+  width: 100px;
+}
+
+.wrap {
+  width: 80px;
+  margin: 0 auto;
+}

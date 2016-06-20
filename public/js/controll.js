@@ -1,5 +1,6 @@
 myapp.controller('candyController', function ($scope, $firebaseArray,candyService) {
     $("[class^=firsthide]").hide();
+    $('.collapsible').collapsible();
     init(show);
     
     var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
@@ -37,22 +38,24 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
         placeService.getDetails(request, function(placeDetail, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 console.log(placeDetail);
-                console.log(placeDetail.photos);
+                if(placeDetail.rating){
+                    var rating = "rate rate" + Math.floor(placeDetail.rating) + "_" + Math.floor((placeDetail.rating - Math.floor(placeDetail.rating)) * 10);
+                    $scope.rating = rating;
+                }else{
+                    $scope.rating = "error"
+                }
                 $('#modalPlaceDetail').openModal();
                 if(placeDetail.photos){
-                    console.log("pass photo");
-                    console.log(placeDetail.photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35}));
-                    $scope.placeDetailPhoto1 = placeDetail.photos[0].getUrl({'maxWidth': 300, 'maxHeight': 350});
-                    $scope.placeDetailPhoto2 = placeDetail.photos[1].getUrl({'maxWidth': 300, 'maxHeight': 350});
-                    $scope.placeDetailPhoto3 = placeDetail.photos[2].getUrl({'maxWidth': 300, 'maxHeight': 350});
-                    $scope.placeDetailPhoto4 = placeDetail.photos[3].getUrl({'maxWidth': 300, 'maxHeight': 350});
-                    $scope.placeDetailPhoto5 = placeDetail.photos[4].getUrl({'maxWidth': 300, 'maxHeight': 350});
-                    $scope.placeDetailPhotos = placeDetail.photos;
+                    var photos = new Array();
+                    angular.forEach(placeDetail.photos, function(value, key) {
+                        photos[key] = value.getUrl({'maxWidth': 300, 'maxHeight': 300});
+                    });
+                    $scope.photos = photos;
+                    $scope.$apply();
                 }
-                $scope.placeDetails = placeDetail;
-                console.log(placeDetail.name);
-                $scope.placeName = placeDetail.name;
+                $scope.placeDetail = placeDetail;
                 $scope.$apply();
+                $('.carousel').carousel();
             }
         });
     }
