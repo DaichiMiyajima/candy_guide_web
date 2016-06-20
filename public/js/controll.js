@@ -52,7 +52,7 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
                 $scope.placeDetails = placeDetail;
                 console.log(placeDetail.name);
                 $scope.placeName = placeDetail.name;
-                
+                $scope.$apply();
             }
         });
     }
