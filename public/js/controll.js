@@ -45,14 +45,13 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
                     $scope.rating = "error"
                 }
                 $('#modalPlaceDetail').openModal();
+                var photos = new Array();
                 if(placeDetail.photos){
-                    var photos = new Array();
                     angular.forEach(placeDetail.photos, function(value, key) {
                         photos[key] = value.getUrl({'maxWidth': 300, 'maxHeight': 300});
                     });
-                    $scope.photos = photos;
-                    $scope.$apply();
                 }
+                $scope.photos = photos;
                 $scope.placeDetail = placeDetail;
                 $scope.$apply();
                 $('.carousel').carousel();
