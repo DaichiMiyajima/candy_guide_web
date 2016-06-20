@@ -1,0 +1,29 @@
+<!-- Place Search -->
+<div id="modal2" class="modal bottom-sheet">
+    <div class="searchPlaceTextArea">
+        <div id="searchPlaceInputField">
+            <input class="input" placeholder="Search Place" type="text" id="search_place" ng-keyup="searchPlace(text)" ng-model="text">
+        </div>
+    </div>
+    <div class="modal-content modalPlace">
+        <div>
+            <ul class="collapsible popout" data-collapsible="accordion" watch>
+                <li ng-repeat="place in places">
+                    <div class="collapsible-header">
+                        <img id="placeIcon" src={{place.icon}} style=""></img>
+                                    {{place.name}}
+                    </div>
+                    <div class="collapsible-body">
+                                    {{place.formatted_address}}
+                        <ul class="placeUl">
+                            <li class="placeIconAcordion"><a class="btn-floating red" ng-click="navigation(place)"><i class="large material-icons">navigation</i></a></li>
+                            <li class="placeIconAcordion"><a class="btn-floating green" ng-click="makeMeetUpMarker(place)"><i class="large material-icons">location_on</i></a></li>
+                            <li class="placeIconAcordion"><a class="waves-effect waves-light btn-large" ng-click="placeclick(place)">More</a></li>
+                        </ul>
+                    </div>
+                </li>
+            <ul>
+        </div>
+    </div>
+</div>
+<!-- Place Search end -->
