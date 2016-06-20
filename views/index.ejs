@@ -40,126 +40,14 @@
 <body class="">
     <div ng-controller="candyController">
         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal bottom-sheet">
-                <div class="messageTextArea">
-                    <!-- text-area -->
-                    <div input-field id="messageInputField">
-                        <textarea ng-model="messageInput" class="input materialize-textarea" placeholder="message"></textarea>
-                    </div>
-                    <a class="btn-floating red" id="sendButton"><i class="small material-icons" ng-click="sendMessage(messageInput)">send</i></a>
-                </div>
-                <div class="modal-content modalMessage">
-                    <!-- message tab -->
-                    <div style="padding-top: 1px;">
-                        <div ng-repeat="message in messages | orderBy:'-time'">
-                            <div ng-if="message.kind === 'message'">
-                                  <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
-                                    <div class="messagelist toast-info">
-                                        <div class="toast-name">{{message.name}}</div>
-                                        <div class="toast-message">{{message.message}}</div>
-                                    </div>
-                                    <span style="color: black;">{{ message.time | date:'MM/dd hh:mm' : timezone}}</span>
-                                </div>
-                            </div>
-                            <div ng-if="message.kind === 'attend' || message.kind == 'meetup'">
-                                <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
-                                    <div class="messagelist toast-success">
-                                        <div class="toast-message">{{message.message}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div ng-if="message.kind === 'meetupremove'">
-                                <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
-                                    <div class="messagelist toast-error">
-                                        <div class="toast-message">{{message.message}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a class=" modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">swap_vert</i></a>
-                </div>
-            </div>
-            <!-- Modal Structure end -->
-
-
-            <!-- Place Search -->
-            <div id="modal2" class="modal bottom-sheet">
-                <div class="searchPlaceTextArea">
-                    <div id="searchPlaceInputField">
-                        <input class="input" placeholder="Search Place" type="text" id="search_place" ng-keyup="searchPlace(text)" ng-model="text">
-                    </div>
-                </div>
-                <div class="modal-content modalPlace">
-                    <div>
-                        <ul class="collapsible popout" data-collapsible="accordion" watch>
-                            <li ng-repeat="place in places">
-                                <div class="collapsible-header">
-                                    <img id="placeIcon" src={{place.icon}} style=""></img>
-                                    {{place.name}}
-                                </div>
-                                <div class="collapsible-body">
-                                    {{place.formatted_address}}
-                                    <ul class="placeUl">
-                                        <li class="placeIconAcordion"><a class="btn-floating red" ng-click="navigation(place)"><i class="large material-icons">navigation</i></a></li>
-                                        <li class="placeIconAcordion"><a class="btn-floating green" ng-click="makeMeetUpMarker(place)"><i class="large material-icons">location_on</i></a></li>
-                                        <li class="placeIconAcordion"><a class="waves-effect waves-light btn-large" ng-click="placeclick(place)">More</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        <ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Place Search end -->
-
-
-            <!-- Modal Place Detail -->
-            <div id="modalPlaceDetail" class="modal modal-fixed-footer">
-                <div class="modal-content">
-                    <h4>{{placeDetails.name}}</h4>
-                    <p>{{placeName}}</p>
-                    <div ng-model="placeDetails.name"></div>
-                    <!--
-                    <div class="carousel" watch>
-                        <a ng-repeat="placeDetailPhoto in placeDetailPhotos" class="carousel-item" href="">
-                            <img src={{placeDetailPhoto.getUrl({"maxWidth": 35, "maxHeight": 35})}}>
-                        </a>
-                    </div>
-                    -->
-                    <div class="carousel">
-                        <a class="carousel-item" href="#one!"><img class="imagCarousel" src={{placeDetailPhoto1}}></a>
-                        <a class="carousel-item" href="#two!"><img class="imagCarousel" src={{placeDetailPhoto2}}></a>
-                        <a class="carousel-item" href="#three!"><img class="imagCarousel" src={{placeDetailPhoto3}}></a>
-                        <a class="carousel-item" href="#four!"><img class="imagCarousel" src={{placeDetailPhoto4}}></a>
-                        <a class="carousel-item" href="#five!"><img class="imagCarousel" src={{placeDetailPhoto5}}></a>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <ul class="">
-                        <li class=""><a class="btn-floating red" ng-click="navigation(place)"><i class="large material-icons">navigation</i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Modal Place Detail end-->
-
-
-            <!-- Select Way of TravelMode -->
-            <div id="travelModeModal" class="modal">
-                <div class="modal-content">
-                    <h4>You choose travelMode</h4>
-                    <ul>
-                        <li><a class="btn-floating green" ng-click="direction_car()"><img src="../public/img/car.png"></a></li>
-                        <li><a class="btn-floating blue" ng-click="direction_walk()"><img src="../public/img/walk.png"></a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Select Way of TravelMode end-->
-
-
+            <!-- Message Include-->
+            <div ng-include = "'/views/index/indexMessage.htm'"></div>
+            <!-- Place Search Include-->
+            <div ng-include = "'/views/index/indexPlaceSearch.htm'"></div>
+            <!-- Place Detail Include-->
+            <div ng-include = "'/views/index/indexPlaceDetail.htm'"></div>
+            <!-- TravelMode Include-->
+            <div ng-include = "'/views/index/indexTravelMode.htm'"></div>
             <!-- NavBar -->
             <nav>
                 <div class="nav-wrapper">
@@ -167,15 +55,12 @@
                 </div>
             </nav>
             <!-- NavBar end -->
-
             <!-- Geolocation OFF -->
             <div id="geolocationOff" class="firsthide">
                 <label>Your location services are unavailable.</label><br/>
                 <label>Settings → Privacy → Location Service → Safari WebSites</label>
             </div>
             <!-- Geolocation OFF end-->
-
-
             <!-- DirectionTime -->
             <div id="directionTime" class="firsthide">
                 <div class="direction">
@@ -185,7 +70,6 @@
                 <a class="btn-floating" ng-click="directionDone()"><i class="small material-icons">done</i></a>
             </div>
             <!-- DirectionTime end-->
-            
             <!-- Google Map -->
             <div class="mdl-tabs__panel is-active" id="candy_map_tab">
                 <section class="container-full">

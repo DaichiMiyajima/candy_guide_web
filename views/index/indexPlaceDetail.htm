@@ -1,0 +1,28 @@
+<!-- Modal Place Detail -->
+<div id="modalPlaceDetail" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>{{placeDetails.name}}</h4>
+        <p>{{placeName}}</p>
+        <div ng-model="placeDetails.name"></div>
+        <!--
+        <div class="carousel" watch>
+            <a ng-repeat="placeDetailPhoto in placeDetailPhotos" class="carousel-item" href="">
+                <img src={{placeDetailPhoto.getUrl({"maxWidth": 35, "maxHeight": 35})}}>
+            </a>
+        </div>
+        -->
+        <div class="carousel">
+            <a class="carousel-item" href="#one!"><img class="imagCarousel" src={{placeDetailPhoto1}}></a>
+            <a class="carousel-item" href="#two!"><img class="imagCarousel" src={{placeDetailPhoto2}}></a>
+            <a class="carousel-item" href="#three!"><img class="imagCarousel" src={{placeDetailPhoto3}}></a>
+            <a class="carousel-item" href="#four!"><img class="imagCarousel" src={{placeDetailPhoto4}}></a>
+            <a class="carousel-item" href="#five!"><img class="imagCarousel" src={{placeDetailPhoto5}}></a>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <ul class="">
+            <li class=""><a class="btn-floating red" ng-click="navigation(place)"><i class="large material-icons">navigation</i></a></li>
+        </ul>
+    </div>
+</div>
+<!-- Modal Place Detail end-->
