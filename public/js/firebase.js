@@ -46,22 +46,20 @@
         },
         addmessage: {
             func: function addmessage(uniqueurl){
-                if($('#messagebox_all').css('display')=='none'){
-                    //when adding the message
-                    ref.child('sharemap').child(uniqueurl).child('message').limitToLast(3).on('child_added', function(snapshot, addChildKey) {
-                        var adddata = snapshot.val();
-                        infoPlugins.forEach(function(plugin){
-                            plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
-                        });
-                        if(adddata.kind=="message"){
-                            toastr.info("[" + adddata.name + "]" + " : " + adddata.message);
-                        }else if(adddata.kind=="attend" || adddata.kind=="meetup"){
-                            toastr.success(adddata.message);
-                        }else if(adddata.kind=="meetupremove"){
-                            toastr.error(adddata.message);
-                        }
+                //when adding the message
+                ref.child('sharemap').child(uniqueurl).child('message').limitToLast(3).on('child_added', function(snapshot, addChildKey) {
+                    var adddata = snapshot.val();
+                    infoPlugins.forEach(function(plugin){
+                        plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
                     });
-                }
+                    if(adddata.kind=="message"){
+                        Materialize.toast("[" + adddata.name + "]" + " : " + adddata.message, 5000, 'rounded message') 
+                    }else if(adddata.kind=="attend" || adddata.kind=="meetup"){
+                        Materialize.toast(adddata.message , 5000, 'rounded attend meetup');
+                    }else if(adddata.kind=="meetupremove"){
+                        Materialize.toast(adddata.message , 5000, 'rounded meetupremove');
+                    }
+                });
             }
         },
         //when adding meetup's

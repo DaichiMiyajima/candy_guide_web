@@ -62,6 +62,8 @@
     });
 
     $("#addlocationbutton").click(function(){
+        $('#placeSearch').show();
+        /*
         if(Object.keys(markers_meet).length < 1){
             var latlng = googlemap.getCenter();
             var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("meetup");
@@ -90,6 +92,14 @@
         }else{
             swal_remove_meetUpMarkers();
         }
+        */
+    });
+
+    $("#messagelist").click(function(){
+        $('#modal1').openModal();
+    });
+    $("#serchplacebutton").click(function(){
+        $('#modal2').openModal();
     });
 
     $("#messageaccount").click(function(){

@@ -6,27 +6,49 @@ body {
     position: fixed;
     overflow: hidden;
 }
-/* title */
-.title{
-    position: absolute;
-    margin-top: 15px;
-    left: 5px;
-    z-index: 10;
+
+input{
+    font-size: 16px !important;
 }
-.title span, span:after {
-    font-weight: 900;
-    color: rgb(66,66,66);
-    white-space: nowrap;
-    display: inline-block;
-    position: relative;
-    letter-spacing: .1em;
-    padding: .2em 0 .25em 0;
+.input{
+    font-size: 16px !important;
+}
+textarea{
+    font-size: 16px !important;
 }
 
-.title span {
-    font-size: 1.3em;
-    text-shadow: .04em .04em 0 #9cb8b3;
-    font-family: fantasy;
+.toast{
+    min-height: 30px !important; 
+    margin-top : 4px !important;
+}
+
+#toast-container{
+    max-height : 0%;
+    right :  0px;
+}
+
+#toast-container .message{
+    width : 50%;
+    background-color: rgba(238, 110, 115, 0.8);
+    font-size : 14px;
+}
+
+#toast-container .meetup{
+    width : 50%;
+    background-color: #5c6bc0 ;
+    font-size : 14px;
+}
+
+#toast-container .attend{
+    width : 50%;
+    background-color: #4db6ac;
+    font-size : 14px;
+}
+
+#toast-container .meetupremove{
+    width : 50%;
+    background-color: #d84315;
+    font-size : 14px;
 }
 
 span:after {
@@ -39,46 +61,20 @@ span:after {
     z-index: -1;
 }
 
-/* user tab-start */
-#userbox_all{
-        width: 100%;
-        height:100%;
-        text-align: center;
-        position: fixed;
-        top: 0;
-        z-index: 100;
-        background: rgba(0, 0, 0, 0.35);
-}
-
-.userbox{
-    position: absolute !important;
-    margin-top: 15px;
-    right: 55px;
-    z-index: 10;
-}
-
-#userbox_slide{
-    position: absolute;
-    right: 0px;
-    background: rgba(2, 2, 2, 0.75);
-    width: 50%;
-    height: 50%;
-    z-index: 100;
-    color: rgb(96, 125, 139);
-    overflow: auto;
-    border-style: inset;
-    border-color: black;
-}
-
-#userbox_overlay{
-    left: 0;
-    width: 60%;
-    height: 100%;
-    position: fixed;
-}
-/* user tab-end */
-
 /* message tab-start */
+#modal1{
+    height : 50%;
+}
+
+#messageInputField{
+    display: inline-block;
+    width: 80%;
+}
+
+#sendButton{
+    margin-top: -80px;
+}
+
 #messagebox_all{
         width: 100%;
         height:100%;
@@ -141,29 +137,60 @@ span:after {
 }
 
 #toast-container-chat span {
-    float: right;
+    float: left;
     font-size: 10px;
     color: white;
     font-family: fantasy;
+    margin-left : 3px;
+}
+.messagelist{
+    display: block; 
+    text-align: left;
+    float: left;
+    width: 80%;
+    margin-bottom: 7px !important;
+}
+.toast-info{
+    background : rgba(39, 0, 255, 0.75);
+}
+.toast-success{
+    background : rgba(0, 255, 137, 0.62);
+}
+.toast-error{
+    background : rgba(255, 0, 0, 0.62);
 }
 /* message tab-end */
 
-#currentposition{
-    margin-top: -160px;
+
+
+/*PlaceSearch-start */
+#modal2{
+    height : 50%;
+}
+#placeSearch{
+    width: 100%;
+    height:100%;
     position: fixed;
-    right: 15px;"
+    top: 0;
+    z-index: 100;
+    background: #FFFFFF;
+    overflow: scroll;
 }
 
-#messagebutton{
-    margin-top: -90px;
-    position: fixed;
-    right: 15px;"
+.placeUl{
+    text-align : center;
 }
-#addlocationbutton{
-    margin-top: -230px;
-    position: fixed;
-    right: 15px;"
+#placeIcon{
+    height: 15px;
+    margin: 0 auto;
 }
+.placeIconAcordion{
+    display: inline-block !important;
+}
+/* PlaceSearch-end */
+
+
+
 /* candy_map_tab */
 #google map
 .container-full {
