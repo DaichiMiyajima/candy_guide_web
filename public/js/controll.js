@@ -2,13 +2,6 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     $("[class^=firsthide]").hide();
     $('.collapsible').collapsible();
     init(show);
-    
-    var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
-    $scope.messages = $firebaseArray(message);
-    
-    var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
-    $scope.messagesnumber = $firebaseArray(messages);
-
     //SearchPlace
     $scope.searchPlace = function(text){
         if($("#search_place").val() && $("#search_place").val().length > 0){
@@ -73,9 +66,6 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     $scope.navigation = function(place){
         googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
     }
-    
-    
-    
     // Direction Done.Delete Render
     $scope.directionDone = function(){
         directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
@@ -89,16 +79,6 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
             swal_remove_meetUpMarkers();
         }
     }
-    
-    //sendMessage
-    $scope.sendMessage = function(messageInput){
-        if(messageInput && messageInput.length > 0){
-            candyService.registerMessage(messageInput);
-            $scope.messageInput = "";
-            
-        }
-    }
-    
     //Direction
     $scope.direction = function(){
         if(Object.keys(markers_meet).length > 0){
@@ -122,6 +102,20 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     }
 });
 
+
+myapp.controller('messageController', function ($scope, $firebaseArray,candyService) {
+    var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
+    $scope.messages = $firebaseArray(message);
+    
+    //sendMessage
+    $scope.sendMessage = function(messageInput){
+        if(messageInput && messageInput.length > 0){
+            candyService.registerMessage(messageInput);
+            $scope.messageInput = "";
+            
+        }
+    }
+});
 
 /* When loading screen */
 function init(callback) {
