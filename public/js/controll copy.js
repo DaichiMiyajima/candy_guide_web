@@ -1,6 +1,7 @@
 myapp.controller('candyController', function ($scope, $firebaseArray,candyService) {
     $("[class^=firsthide]").hide();
     $('.collapsible').collapsible();
+    $('.carousel').carousel();
     init(show);
     //SearchPlace
     $scope.searchPlace = function(text){
@@ -25,13 +26,13 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     }
     //Click More
     $scope.placeclick = function(place){
+        $scope.rating ="error";
+        $scope.photos = null;
+        $scope.placeDetail = null;
         var request = {
             placeId: place.place_id
         };
         placeService.getDetails(request, function(placeDetail, status) {
-            $scope.rating ="error";
-            $scope.photos = null;
-            $scope.placeDetail = null;
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 console.log(placeDetail);
                 if(placeDetail.rating){
@@ -51,6 +52,7 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
                 $scope.placeDetail = placeDetail;
                 $scope.$apply();
                 $('.carousel').carousel();
+                
             }
         });
     }
@@ -82,6 +84,19 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
             swal_remove_meetUpMarkers();
         }
     }
+<<<<<<< HEAD
+=======
+    
+    //sendMessage
+    $scope.sendMessage = function(messageInput){
+        if(messageInput && messageInput.length > 0){
+            candyService.registerMessage(messageInput);
+            $scope.messageInput = '';
+            $scope.$apply();
+        }
+    }
+    
+>>>>>>> origin/master
     //Direction
     $scope.direction = function(){
         if(Object.keys(markers_meet).length > 0){

@@ -6,13 +6,22 @@
         <div ng-if="rating !== 'error'">
             <span class={{rating}}></span>
         </div>
-        <p><a class="waves-effect waves-light btn" href="tel:{{placeDetail.formatted_phone_number}}"><i class="material-icons left">call</i>Phone</a></p>
-        <p><a target="_blank" href={{placeDetail.website}}>{{placeDetail.website}}</a></p>
-        <div ng-model="placeDetails.name"></div>
-        <div class="carousel" watch>
-            <a ng-repeat="photo in photos" class="carousel-item" href="">
-                <img class="imagCarousel" src={{photo}}>
-            </a>
+        <div ng-if="placeDetail.formatted_phone_number != null">
+            <p>
+                <a class="waves-effect waves-light btn" href="tel:{{placeDetail.formatted_phone_number}}"><i class="material-icons left">call</i>Phone</a>
+            </p>
+        </div>
+        <div ng-if="placeDetail.website != null">
+            <p>
+                <a target="_blank" class="waves-effect waves-light btn" href={{placeDetail.website}}><i class="material-icons left">cloud</i>WebSite</a>
+            </p>
+        </div>
+        <div ng-if="photos.length !==0">
+            <div class="carousel" watch>
+                <a ng-repeat="photo in photos" class="carousel-item" href="">
+                    <img class="imagCarousel" src={{photo}}>
+                </a>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
