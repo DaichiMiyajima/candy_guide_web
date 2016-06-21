@@ -33,6 +33,9 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     }
     //Click More
     $scope.placeclick = function(place){
+        $scope.rating ="error";
+        $scope.photos = null;
+        $scope.placeDetail = null;
         var request = {
             placeId: place.place_id
         };
@@ -55,6 +58,7 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
                 $scope.photos = photos;
                 $scope.placeDetail = placeDetail;
                 $scope.$apply();
+                $('.carousel').carousel();
                 
             }
         });
