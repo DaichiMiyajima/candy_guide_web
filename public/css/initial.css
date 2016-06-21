@@ -75,7 +75,7 @@ body::before {
 	float : none;
 
 }
-
+<--
 #explanation {
     margin-top : 50px;
 	margin-bottom : 50px;
@@ -83,6 +83,7 @@ body::before {
 	margin-left : auto;
     width : 80%;
 }
+-->
 
 .collapsible-body {
 	background-color : #26a69a !important;
