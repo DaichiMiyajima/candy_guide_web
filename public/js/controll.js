@@ -1,6 +1,7 @@
 myapp.controller('candyController', function ($scope, $firebaseArray,candyService) {
     $("[class^=firsthide]").hide();
     $('.collapsible').collapsible();
+    $('.carousel').carousel();
     init(show);
     
     var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
@@ -54,7 +55,7 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
                 $scope.photos = photos;
                 $scope.placeDetail = placeDetail;
                 $scope.$apply();
-                $('.carousel').carousel();
+                
             }
         });
     }
