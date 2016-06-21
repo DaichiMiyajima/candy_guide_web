@@ -7,7 +7,7 @@
             <span class={{rating}}></span>
         </div>
         <p><a class="waves-effect waves-light btn" href="tel:{{placeDetail.formatted_phone_number}}"><i class="material-icons left">call</i>Phone</a></p>
-        <p><a target="_blank" href={{placeDetail.website}}>{{placeDetail.website}}</a></p>
+        <p><a target="_blank" class="waves-effect waves-light btn" href={{placeDetail.website}}"><i class="material-icons left">cloud</i>WebSite</a></p>
         <div ng-model="placeDetails.name"></div>
         <div ng-if="photos.length !==0">
             <div class="carousel" watch>
