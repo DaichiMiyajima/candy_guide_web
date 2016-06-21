@@ -99,7 +99,7 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     $scope.sendMessage = function(messageInput){
         if(messageInput && messageInput.length > 0){
             candyService.registerMessage(messageInput);
-            $scope.messageInput = "";
+            $scope.messageInput = '';
             $scope.$apply();
         }
     }
