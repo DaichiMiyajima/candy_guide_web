@@ -80,7 +80,7 @@ span:after {
 }
 
 /* message tab-start */
-#modal1{
+#messageModal{
     min-height : 60%;
     max-height: 60%;
 }
@@ -89,23 +89,31 @@ span:after {
     width: 100%;
     background: rgb(255, 255, 255);
     z-index: 1000000;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    bottom: 0px;
+    background: #fafafa;
+    border-top: 0.1px solid #d2d2d2;
 }
 textarea{
     max-height: 30px !important;
     overflow-y: scroll !important;
 }
 .modalMessage{
-    margin-top: 100px;
+    margin-top: -15px;
 }
 
 #messageInputField{
     display: inline-block;
-    width: 80%;
+    width: 85%;
+}
+
+#messageInputField textarea{
+    padding: 0.6rem 0;
+    margin-bottom: 0px;
 }
 
 #sendButton{
-    margin-top: -100px;
+    margin-top: -55px;
 }
 
 #toast-container-chat > div {
@@ -167,7 +175,7 @@ textarea{
 
 
 /*PlaceSearch-start */
-#modal2{
+#placeModal{
     min-height : 60%;
     max-height: 60%;
 }
@@ -185,10 +193,18 @@ textarea{
     width: 100%;
     background: rgb(255, 255, 255);
     z-index: 1000000;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    bottom: 0px;
+    background: #fafafa;
+    border-top: 0.1px solid #d2d2d2;
+}
+
+#searchPlaceInputField input{
+    padding: 0.6rem 0;
+    margin-bottom: 3px;
 }
 .modalPlace{
-    margin-top :40px;
+    margin-top: -15px;
 }
 
 .placeUl{

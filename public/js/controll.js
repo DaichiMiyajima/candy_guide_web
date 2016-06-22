@@ -2,6 +2,14 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     $("[class^=firsthide]").hide();
     $('.collapsible').collapsible();
     init(show);
+    //Open messageModal
+    $scope.messageModal = function(){
+        $('#messageModal').openModal();
+    }
+    //Open placeModal
+    $scope.placeModal = function(){
+        $('#placeModal').openModal();
+    }
     //Make pin from SearchPlace
     $scope.makeMeetUpMarker = function(place){
         if(Object.keys(markers_meet).length < 1){
@@ -85,6 +93,7 @@ myapp.controller('placeController', function ($scope, $firebaseArray,candyServic
                       var place = results[i];
                     }
                     $scope.places = results;
+                    $scope.$apply();
                     $('.collapsible').collapsible();
                 }
                 

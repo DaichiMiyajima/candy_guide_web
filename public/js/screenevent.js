@@ -79,11 +79,4 @@
         }
         */
     });
-
-    $("#messagelist").click(function(){
-        $('#modal1').openModal();
-    });
-    $("#serchplacebutton").click(function(){
-        $('#modal2').openModal();
-    });
 })()
