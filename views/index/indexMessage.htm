@@ -1,12 +1,7 @@
 <div ng-controller="messageController as message">
     <!-- Modal Structure -->
-    <div id="messageModal" class="modal bottom-sheet">
+    <div id="messageModal" class="modal bottom-sheet modal-fixed-footer">
         <div class="messageTextArea">
-            <!-- text-area -->
-            <div input-field id="messageInputField">
-                <textarea ng-model="messageInput" class="input materialize-textarea" placeholder="message"></textarea>
-            </div>
-            <a class="btn-floating red" id="sendButton"><i class="small material-icons" ng-click="sendMessage(messageInput)">send</i></a>
         </div>
         <div class="modal-content modalMessage">
             <!-- message tab -->
@@ -39,7 +34,11 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a class=" modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">swap_vert</i></a>
+            <!-- text-area -->
+            <div input-field id="messageInputField">
+                <textarea ng-model="messageInput" class="input materialize-textarea" placeholder="message"></textarea>
+            </div>
+            <a class="btn-floating red" id="sendButton"><i class="small material-icons" ng-click="sendMessage(messageInput)">send</i></a>
         </div>
     </div>
     <!-- Modal Structure end -->

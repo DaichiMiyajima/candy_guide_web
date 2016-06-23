@@ -1,11 +1,6 @@
 <div ng-controller="placeController as placeSearch">
     <!-- Place Search -->
-    <div id="placeModal" class="modal bottom-sheet">
-        <div class="searchPlaceTextArea">
-            <div id="searchPlaceInputField">
-                <input class="input" placeholder="Search Place" type="text" id="search_place" ng-keyup="searchPlace(text)" ng-model="text">
-            </div>
-        </div>
+    <div id="placeModal" class="modal bottom-sheet modal-fixed-footer">
         <div class="modal-content modalPlace">
             <div>
                 <ul class="collapsible popout" data-collapsible="accordion" watch>
@@ -24,6 +19,11 @@
                         </div>
                     </li>
                 <ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div id="searchPlaceInputField">
+                <input class="input" placeholder="Search Place" type="text" id="search_place" ng-keyup="searchPlace(text)" ng-model="text">
             </div>
         </div>
     </div>

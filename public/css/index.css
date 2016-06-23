@@ -83,16 +83,16 @@ span:after {
 #messageModal{
     min-height : 60%;
     max-height: 60%;
+    background: rgba(247, 247, 247, 0.34);
 }
-.messageTextArea{
-    position: fixed;
-    width: 100%;
-    background: rgb(255, 255, 255);
-    z-index: 1000000;
+.modal-footer{
+    height: 90px !important;
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-    bottom: 0px;
-    background: #fafafa;
+    background: rgba(247, 247, 247, 0.34) !important;
     border-top: 0.1px solid #d2d2d2;
+}
+.modal-content{
+    height: calc(100% - 75px) !important;
 }
 textarea{
     max-height: 30px !important;
@@ -109,6 +109,7 @@ textarea{
 
 #messageInputField textarea{
     padding: 0.6rem 0;
+    border-bottom: 1px solid #212121;
 }
 
 #sendButton{
