@@ -152,7 +152,8 @@ function init(callback) {
                         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
                             latitude : position.coords.latitude,
                             longitude : position.coords.longitude,
-                            share : "on"
+                            share : "on",
+                            time : Firebase.ServerValue.TIMESTAMP
                         });//set
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);
@@ -185,7 +186,8 @@ function init(callback) {
                         swal_locationoff(uniqueurl[2],ref);
                     }else{
                         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                            share : "off"
+                            share : "off",
+                            time : Firebase.ServerValue.TIMESTAMP
                         });//set
                     }
                     $("[id = geolocationOff]").show();
@@ -219,7 +221,8 @@ function init(callback) {
                     swal_locationoff(uniqueurl[2],ref);
                 }else{
                     ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                        share : "off"
+                        share : "off",
+                        time : Firebase.ServerValue.TIMESTAMP
                     });//set
                 }
                 $("[id = geolocationOff]").show();

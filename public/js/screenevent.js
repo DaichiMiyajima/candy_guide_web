@@ -19,7 +19,8 @@
                     if(position.coords.accuracy <= 5000){
                         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
                             latitude : position.coords.latitude,
-                            longitude : position.coords.longitude
+                            longitude : position.coords.longitude,
+                            time : Firebase.ServerValue.TIMESTAMP
                         });//set
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);

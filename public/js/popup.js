@@ -20,7 +20,8 @@ function swal_init_on(uniqueurl,ref,position){
             name : inputValue,
             latitude : position.coords.latitude,
             longitude : position.coords.longitude,
-            share : "on"
+            share : "on",
+            time : Firebase.ServerValue.TIMESTAMP
         });//set
         var postsmessageRef = ref.child("sharemap").child(uniqueurl).child('message');
         var newmessagePostRef = postsmessageRef.push();
@@ -61,7 +62,8 @@ function swal_locationoff(uniqueurl,ref){
             name : inputValue,
             latitude : "",
             longitude : "",
-            share : "off"
+            share : "off",
+            time : Firebase.ServerValue.TIMESTAMP
         });//set
         var postsmessageRef = ref.child("sharemap").child(uniqueurl).child('message');
         var newmessagePostRef = postsmessageRef.push();
