@@ -1,43 +1,34 @@
 myapp.controller('candyController', function ($scope, $firebaseArray,candyService) {
-
     $("[class^=firsthide]").hide();
+    $('.collapsible').collapsible();
     init(show);
-    
-    var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
-    $scope.yourid = window.localStorage.getItem([uniqueurl[2]]);
-    $scope.messages = $firebaseArray(message);
-    
-    var messages = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("kind");
-    $scope.messagesnumber = $firebaseArray(messages);
-
-    //SearchPlace
-    $scope.searchPlace = function(text){
-        if($("#search_place").val() && $("#search_place").val().length > 0){
-            var request = {
-                location: googlemap.getCenter(),
-                radius: '500',
-                query: $("#search_place").val()
-            };
-            service = new google.maps.places.PlacesService(googlemap);
-            service.textSearch(request, function(results, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                    for (var i = 0; i < results.length; i++) {
-                      var place = results[i];
-                    }
-                    $scope.places = results;
-                    $('.collapsible').collapsible();
-                }
-                
-            });
-        }
+    //Open messageModal
+    $scope.messageModal = function(){
+        $('#messageModal').openModal();
+    }
+    //Open placeModal
+    $scope.placeModal = function(){
+        $('#placeModal').openModal();
     }
     //Make pin from SearchPlace
     $scope.makeMeetUpMarker = function(place){
         if(Object.keys(markers_meet).length < 1){
             candyService.registerMeetUpMarker(place);
+            //panto
+            googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
+            $('#modal2').closeModal();
         }else{
             swal_remove_meetUpMarkers();
         }
+    }
+    //Only Panto
+    $scope.navigation = function(place){
+        googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
+    }
+    // Direction Done.Delete Render
+    $scope.directionDone = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
+        $('#modal2').closeModal();
     }
     //Make pin from Nothing
     $scope.addlocationbutton = function(){
@@ -47,15 +38,100 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
             swal_remove_meetUpMarkers();
         }
     }
+    //Direction
+    $scope.direction = function(){
+        if(Object.keys(markers_meet).length > 0){
+            $('#travelModeModal').openModal();
+        }else{
+            swal_must_register_meetupMarker();
+        }
+    }
+    $scope.direction_car = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.DRIVING,"navigation");
+        travelMode = google.maps.TravelMode.DRIVING;
+        $('#travelModeModal').closeModal();
+    }
+    $scope.direction_walk = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigation");
+        travelMode = google.maps.TravelMode.WALKING;
+        $('#travelModeModal').closeModal();
+    }
+    $scope.directionDone = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
+    }
+});
+
+//Message Include
+myapp.controller('messageController', function ($scope, $firebaseArray,candyService) {
+    var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
+    $scope.messages = $firebaseArray(message);
     
     //sendMessage
     $scope.sendMessage = function(messageInput){
         if(messageInput && messageInput.length > 0){
             candyService.registerMessage(messageInput);
+            $scope.messageInput = "";
+            
         }
     }
 });
 
+//Place Include
+myapp.controller('placeController', function ($scope, $firebaseArray,candyService) {
+    //SearchPlace
+    $scope.searchPlace = function(text){
+        if($("#search_place").val() && $("#search_place").val().length > 0){
+            var request = {
+                location: googlemap.getCenter(),
+                radius: '500',
+                query: $("#search_place").val()
+            };
+            placeService = new google.maps.places.PlacesService(googlemap);
+            placeService.textSearch(request, function(results, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                      var place = results[i];
+                    }
+                    $scope.places = results;
+                    $scope.$apply();
+                    $('.collapsible').collapsible();
+                }
+                
+            });
+        }
+    }
+    //Click More
+    $scope.placeclick = function(place){
+        var request = {
+            placeId: place.place_id
+        };
+        placeService.getDetails(request, function(placeDetail, status) {
+            $scope.rating ="error";
+            $scope.photos = null;
+            $scope.placeDetail = null;
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                console.log(placeDetail);
+                if(placeDetail.rating){
+                    var rating = "rate rate" + Math.floor(placeDetail.rating) + "_" + Math.floor((placeDetail.rating - Math.floor(placeDetail.rating)) * 10);
+                    $scope.rating = rating;
+                }else{
+                    $scope.rating = "error"
+                }
+                $('#modalPlaceDetail').openModal();
+                var photos = new Array();
+                if(placeDetail.photos){
+                    angular.forEach(placeDetail.photos, function(value, key) {
+                        photos[key] = value.getUrl({'maxWidth': 300, 'maxHeight': 300});
+                    });
+                }
+                $scope.photos = photos;
+                $scope.placeDetail = placeDetail;
+                $scope.$apply();
+                $('.carousel').carousel();
+            }
+        });
+    }
+});
 
 /* When loading screen */
 function init(callback) {
@@ -76,7 +152,8 @@ function init(callback) {
                         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
                             latitude : position.coords.latitude,
                             longitude : position.coords.longitude,
-                            share : "on"
+                            share : "on",
+                            time : Firebase.ServerValue.TIMESTAMP
                         });//set
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);
@@ -109,9 +186,11 @@ function init(callback) {
                         swal_locationoff(uniqueurl[2],ref);
                     }else{
                         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                            share : "off"
+                            share : "off",
+                            time : Firebase.ServerValue.TIMESTAMP
                         });//set
                     }
+                    $("[id = geolocationOff]").show();
                     //Location on のユーザーがいればそのlocationを参照
                     ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
                         var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
@@ -142,9 +221,11 @@ function init(callback) {
                     swal_locationoff(uniqueurl[2],ref);
                 }else{
                     ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                        share : "off"
+                        share : "off",
+                        time : Firebase.ServerValue.TIMESTAMP
                     });//set
                 }
+                $("[id = geolocationOff]").show();
                 //Location on のユーザーがいればそのlocationを参照
                 ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
                     var mylatlng = new google.maps.LatLng("35.690921", "139.700258");

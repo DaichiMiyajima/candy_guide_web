@@ -248,26 +248,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                 markers_meet[key],
                 'click',
             function(event) {
-                //swal_remove_meetUpMarker(key);
-                new google.maps.DirectionsService().route({
-                    origin: {lat: yourlatitude, lng: yourlongitude},
-                    destination: {lat: this.position.lat(), lng: this.position.lng()},
-                    travelMode: google.maps.TravelMode.WALKING
-                }, function(result, status) {
-                  if (status == google.maps.DirectionsStatus.OK) {
-                    //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
-                    var rendererOptions = {
-                        suppressMarkers:true,
-                        preserveViewport: true,
-                        polylineOptions : {
-                            strokeColor : "#8b0000"
-                        }
-                    };
-                    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-                    directionsDisplay.setMap(googlemap);
-                    directionsDisplay.setDirections(result);
-                  }
-                });
+                directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: this.position.lat(), lng: this.position.lng()},travelMode,"click");
             });
         }else{
             var marker = new google.maps.Marker({
@@ -280,60 +261,20 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
     }
 }
 
-// marker changeposition
+// marker changeposition : yourposition
 function markerchange(latitude,longitude,key) {
     markers[key].setPosition(new google.maps.LatLng(latitude, longitude));
-    //Delete route
-    if(directionsDisplay){
-        directionsDisplay.setMap(null);
-        directionsDisplay.setDirections(null);
-        new google.maps.DirectionsService().route({
-            origin: {lat: yourlatitude, lng: yourlongitude},
-            destination: {lat: markerlatitude, lng: markerlongitude},
-            travelMode: google.maps.TravelMode.WALKING
-        }, function(result, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
-                var rendererOptions = {
-                    suppressMarkers:true,
-                    preserveViewport: true,
-                    polylineOptions : {
-                        strokeColor : "#8b0000"
-                    }
-                };
-                directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-                directionsDisplay.setMap(googlemap);
-                directionsDisplay.setDirections(result);
-            }
-        });
+    if(directionsDisplayArray[direction_number-1]){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
     }
 }
 
 // marker_meet changeposition
 function markerMeetUpchange(latitude,longitude,key) {
     markers_meet[key].setPosition(new google.maps.LatLng(latitude, longitude));
-    //Delete route
-    if(directionsDisplay){
-        directionsDisplay.setMap(null);
-        directionsDisplay.setDirections(null);
-        new google.maps.DirectionsService().route({
-            origin: {lat: yourlatitude, lng: yourlongitude},
-            destination: {lat: latitude, lng: longitude},
-            travelMode: google.maps.TravelMode.WALKING
-        }, function(result, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                //new google.maps.DirectionsRenderer({map: googlemap}).setDirections(result);
-                var rendererOptions = {
-                    suppressMarkers:true,
-                    polylineOptions : {
-                        strokeColor : "#8b0000"
-                    }
-                };
-                directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-                directionsDisplay.setMap(googlemap);
-                directionsDisplay.setDirections(result);
-            }
-        });
+    if(directionsDisplayArray[direction_number-1]){
+        //Delete route
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: latitude, lng: longitude},travelMode,"markerMeetUpchange");
     }
 }
 
@@ -377,4 +318,86 @@ function createMarker(latitude,longitude,title,key,callback) {
         bgCtx.strokeText(title, 15, 39,39);
     }
     callback(latitude,longitude,title,key,bg.toDataURL());
+}
+
+//Dipict Direction
+function directionsToMarker(origin,destination,travelMode,kind) {
+    if(directionsDisplayArray[direction_number-1] && kind != "redipict"){
+        //Dipict Display
+        if(kind == "markerchange" || kind == "navigation" || kind == "markerMeetUpchange"){
+            directionsToMarker(origin,destination,travelMode,"redipict");
+        }else{
+            $('#directionTime').hide();
+            for(var i = 0 ; i < direction_number ; i++){
+                if(directionsDisplayArray[i]){
+                    directionsDisplayArray[i].setMap(null);
+                    directionsDisplayArray[i].setDirections({routes: []});
+                    directionsDisplayArray[i].setDirections(null);
+                    directionsDisplayArray[i] = null;
+                }
+            }
+        }
+    }else{
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: travelMode
+        }, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                var rendererOptions = {
+                    suppressMarkers:true,
+                    preserveViewport: true,
+                    polylineOptions : {
+                        strokeColor : "rgba(76, 175, 80, 0.75)"
+                    }
+                };
+                directionsDisplayArray[direction_number] = new google.maps.DirectionsRenderer(rendererOptions);
+                directionsDisplayArray[direction_number].setMap(googlemap);
+                directionsDisplayArray[direction_number].setDirections(result);
+                if(kind == "redipict"){
+                    for(var i = 0 ; i < direction_number ; i++){
+                        if(directionsDisplayArray[i]){
+                            directionsDisplayArray[i].setMap(null);
+                            directionsDisplayArray[i].setDirections({routes: []});
+                            directionsDisplayArray[i].setDirections(null);
+                            directionsDisplayArray[i] = null;
+                        }
+                    }
+                }
+                direction_number = direction_number + 1;
+                $('#directionTime').show();
+            }
+        });
+        distanceService.getDistanceMatrix({
+            origins: [origin],
+            destinations: [destination],
+            travelMode: travelMode
+        }, function(response, status) {
+            if (status == google.maps.DistanceMatrixStatus.OK) {
+                if(response.rows[0].elements[0].status =="ZERO_RESULTS"){
+                    swal_cannot_read_direction();
+                }else{
+                    $('#direction_distance').text(response.rows[0].elements[0].distance.text + "(" + response.rows[0].elements[0].distance.value + " m)");
+                    $('#direction_duration').text(response.rows[0].elements[0].duration.text);
+                }
+            }
+        });
+    }
+}
+
+function distanceMatrix(origin,destination,travelMode) {
+    distanceService.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: travelMode
+    }, function(response, status) {
+        if (status == google.maps.DistanceMatrixStatus.OK) {
+        if(response.rows[0].elements[0].status =="ZERO_RESULTS"){
+            swal_cannot_read_direction();
+        }else{
+            $('#direction_distance').text(response.rows[0].elements[0].distance.text + "(" + response.rows[0].elements[0].distance.value + " m)");
+            $('#direction_duration').text(response.rows[0].elements[0].duration.text);
+        }
+        }
+    });
 }

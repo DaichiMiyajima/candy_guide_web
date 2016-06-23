@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public',express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'views')));
+app.use('/views',express.static(__dirname + '/views'));
 
 // Register the callback to be fired every time auth state changes
 app.use('/',index);

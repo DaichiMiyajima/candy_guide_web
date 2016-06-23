@@ -8,13 +8,7 @@
         $("#map").css("height","83vh");
     }
 
-    $("#messagebutton").click(function(){
-        swal_addmessage();
-    });
-
     $("#currentposition").click(function(){
-        $('#currentposition').css("background","white");
-        $('#spin').addClass("is-active");
         var count = 0;
         if(watchID){
             navigator.geolocation.clearWatch(watchID);
@@ -25,7 +19,8 @@
                     if(position.coords.accuracy <= 5000){
                         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
                             latitude : position.coords.latitude,
-                            longitude : position.coords.longitude
+                            longitude : position.coords.longitude,
+                            time : Firebase.ServerValue.TIMESTAMP
                         });//set
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);
@@ -37,27 +32,18 @@
                     }else{
                         if(count < 1){
                             count = count + 1;
-                            toastr.clear();
-                            toastr.error('Accuracy of gps is bad. Try again!');
+                            Materialize.toast('Accuracy of gps is bad. Try again!' , 5000, 'rounded meetupremove');
                         }
                     }
-                    //最低限1秒続ける
-                    setTimeout(function loop(){
-                        $('#currentposition').css("background","rgb(255,110,64)");
-                        $('#spin').removeClass("is-active");
-                    },2000);
                 },
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
-                    toastr.clear();
-                    toastr.error('Gps is error. Try again!');
+                    Materialize.toast('Gps is error. Try again!' , 5000, 'rounded meetupremove');
                 },
                 {enableHighAccuracy: true,maximumAge: 1}
             );
         }else{
             swal_relocation();
-            $('#currentposition').css("background","rgb(255,110,64)");
-            $('#spin').removeClass("is-active");
         }
     });
 
@@ -94,32 +80,4 @@
         }
         */
     });
-
-    $("#messagelist").click(function(){
-        $('#modal1').openModal();
-    });
-    $("#serchplacebutton").click(function(){
-        $('#modal2').openModal();
-    });
-
-    $("#messageaccount").click(function(){
-        toastr.remove();
-        toastr.clear()
-        $('#messagebox_all').show();
-    });
-
-    $("#messagebox_overlay").click(function(){
-        $('#messagebox_all').hide();
-    });
-    /*
-    $("#usercount").click(function(){
-        toastr.remove();
-        toastr.clear()
-        $('#userbox_all').show();
-    });
-
-    $("#userbox_overlay").click(function(){
-        $('#userbox_all').hide();
-    });
-    */
 })()

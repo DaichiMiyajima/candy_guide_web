@@ -18,8 +18,17 @@ var yourlongitude;
 var markerlatitude;
 var markerlongitude;
 
-var directionsDisplay;
+//For placeService
+var placeService;
+
+// For Direction
 var directionsService = new google.maps.DirectionsService();
+var travelMode = google.maps.TravelMode.WALKING;
+var directionsDisplayArray = new Array();
+var direction_number = 0;
+//For Distance and time
+var distanceService = new google.maps.DistanceMatrixService();
+
 
 
 function setlocation(latitude,longitude){

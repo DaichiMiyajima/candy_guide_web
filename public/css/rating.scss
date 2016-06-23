@@ -1,0 +1,42 @@
+//レート評価 変数
+$starFull    : 20px;            //星1個の幅
+
+.rate{
+  position: relative;
+  display: inline-block;
+  width: $starFull * 5;
+  height: $starFull;
+  font-size: $starFull;
+  &:before,&:after{
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    display: inline-block;
+    height: $starFull;
+    line-height: $starFull;
+  }
+  &:before{
+  color: #ddd;
+  }
+  &:after{
+  color: #ffa500;
+  overflow: hidden;
+  white-space: nowrap;//これがないと改行されて星の半分（0.5）が表現できなくなる
+  }
+}
+
+$i: 0;
+@while $i <= 5 {
+$k: 0;
+    @while $k <= 9 {
+      .rate#{$i}_#{$k}:after { width : $starFull * $i + ($starFull/10) * $k ; }
+      $k: $k + 1;
+    }
+    $i: $i + 1;
+}
+
+.wrap{
+  width: 80px;
+  margin: 0 auto;
+}

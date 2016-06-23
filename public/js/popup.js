@@ -20,7 +20,8 @@ function swal_init_on(uniqueurl,ref,position){
             name : inputValue,
             latitude : position.coords.latitude,
             longitude : position.coords.longitude,
-            share : "on"
+            share : "on",
+            time : Firebase.ServerValue.TIMESTAMP
         });//set
         var postsmessageRef = ref.child("sharemap").child(uniqueurl).child('message');
         var newmessagePostRef = postsmessageRef.push();
@@ -61,7 +62,8 @@ function swal_locationoff(uniqueurl,ref){
             name : inputValue,
             latitude : "",
             longitude : "",
-            share : "off"
+            share : "off",
+            time : Firebase.ServerValue.TIMESTAMP
         });//set
         var postsmessageRef = ref.child("sharemap").child(uniqueurl).child('message');
         var newmessagePostRef = postsmessageRef.push();
@@ -148,6 +150,7 @@ function swal_remove_meetUpMarker(key){
     swal({
         title: "Remove Marker?",
         type: "warning",
+        text: "You can put only one marker within group:",
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "OK",
         closeOnConfirm: true,
@@ -156,6 +159,7 @@ function swal_remove_meetUpMarker(key){
     function(isConfirm){
         if (isConfirm) {
             ref.child('sharemap').child(uniqueurl[2]).child("meetup").child(key).remove();
+            delete(markers_meet);
         }
     });
 }
@@ -164,6 +168,7 @@ function swal_remove_meetUpMarkers(){
     swal({
         title: "Remove Marker?",
         type: "warning",
+        text: "You can put only one marker within your group:",
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "OK",
         closeOnConfirm: true,
@@ -172,6 +177,7 @@ function swal_remove_meetUpMarkers(){
     function(isConfirm){
         if (isConfirm) {
             ref.child('sharemap').child(uniqueurl[2]).child("meetup").remove();
+            delete(markers_meet);
             //Delete route
             if(directionsDisplay){
                 directionsDisplay.setMap(null);
@@ -191,3 +197,24 @@ function swal_remove_meetUpMarkers(){
     });
 }
 
+function swal_must_register_meetupMarker(){
+    swal({
+        title: "RIGHT?",
+        text: "Marker doesn't exist! Register Marker!",
+        type: "warning",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        closeOnConfirm: false
+        });
+}
+
+function swal_cannot_read_direction(){
+    swal({
+        title: "Sorry",
+        text: "I cannot read this direction. Sorry !!",
+        type: "warning",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        closeOnConfirm: false
+        });
+}
