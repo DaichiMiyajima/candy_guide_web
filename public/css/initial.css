@@ -89,3 +89,32 @@ body::before {
 	background-color : #26a69a !important;
 }
 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+/* label color */
+   .input-field label {
+     color: white !important;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: white !important;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid white !important;
+     box-shadow: 0 1px 0 0 white !important;
+   }
+
+/* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid white !important;
+     box-shadow: 0 1px 0 0 white !important;
+   }
