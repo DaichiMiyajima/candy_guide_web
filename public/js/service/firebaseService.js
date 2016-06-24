@@ -1,15 +1,18 @@
 myapp.service('candyService', function () {
+    //select Message
+    this.referenceMessage = function (uniqueurl) {
+        return ref.child('sharemap').child(uniqueurl).child('message').orderByChild("time");
+    }
     //Addmarker
     this.registerMessage = function (messageInput) {
         console.log('call method:' + messageInput);
         var key = window.localStorage.getItem([uniqueurl[2]]);
-        var name = window.localStorage.getItem([name]);
         var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("message");
         var newPostRef = postsRef.push();
         var postID = newPostRef.key();
         ref.child('sharemap').child(uniqueurl[2]).child("message").child(postID).set({
             key : key ,
-            name : name,
+            name : yourname,
             time : Firebase.ServerValue.TIMESTAMP,
             kind : "message",
             message : messageInput

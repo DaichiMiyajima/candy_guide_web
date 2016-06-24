@@ -63,9 +63,8 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
 
 //Message Include
 myapp.controller('messageController', function ($scope, $firebaseArray,candyService) {
-    var message = ref.child('sharemap').child(uniqueurl[2]).child('message').orderByChild("time");
+    var message = candyService.referenceMessage(uniqueurl[2]);
     $scope.messages = $firebaseArray(message);
-    
     //sendMessage
     $scope.sendMessage = function(messageInput){
         if(messageInput && messageInput.length > 0){
@@ -148,6 +147,7 @@ function init(callback) {
                     if(!window.localStorage.getItem([uniqueurl[2]])){
                         swal_init_on(uniqueurl[2],ref,position);
                     }else{
+                        yourname = window.localStorage.getItem([uniqueurl[2]+"name"]);
                         //when re-loading, update location
                         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
                             latitude : position.coords.latitude,

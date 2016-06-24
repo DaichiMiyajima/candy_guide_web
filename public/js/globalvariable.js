@@ -1,3 +1,14 @@
+(function(){
+    var crios = !!navigator.userAgent.match(/crios/i);
+    var safari = !!navigator.userAgent.match(/safari/i);
+    var iphone = !!navigator.userAgent.match(/iphone/i);
+    var line = !!navigator.userAgent.match(/Line/i);
+    
+    if(safari && !crios && iphone && !line){
+        $("#map").css("height","83vh");
+    }
+})()
+
 // Firebase
 var ref = new Firebase("https://candyguide.firebaseio.com/");
 var pathname = window.location.pathname;
@@ -11,6 +22,8 @@ var markers_meet = new Array();
 var infoWindows = new Array();
 var infoWindows_meet = new Array();
 var watchID;
+
+var yourname;
 
 var yourlatitude;
 var yourlongitude;
