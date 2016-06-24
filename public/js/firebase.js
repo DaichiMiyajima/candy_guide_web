@@ -27,9 +27,12 @@
             func: function addusers(uniqueurl){
                 ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").on('child_added', function(snapshot, addChildKey) {
                     var adddata = snapshot.val();
-                    addPlugins.forEach(function(plugin){
-                        plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
-                    });
+                    var difference_time = (new Date().getTime()-adddata["time"]) / DAY_MILLISECOND;
+                    if(adddata["time"] && difference_time < 2){
+                        addPlugins.forEach(function(plugin){
+                            plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
+                        });
+                    }
                 });
             }
         },
