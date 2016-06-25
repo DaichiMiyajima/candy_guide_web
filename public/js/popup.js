@@ -35,7 +35,8 @@ function swal_init_on(uniqueurl,ref,position){
         });//set
         // Store session
         window.localStorage.setItem([uniqueurl],[postID]);
-        window.localStorage.setItem([name],[inputValue]);
+        window.localStorage.setItem([uniqueurl+"name"],[inputValue]);
+        yourname = inputValue;
         swal("Nice!", "You are " + inputValue, "success");
     });
 }
@@ -77,7 +78,8 @@ function swal_locationoff(uniqueurl,ref){
         });//set
         // Store session
         window.localStorage.setItem([uniqueurl],[postID]);
-        window.localStorage.setItem([name],[inputValue]);
+        window.localStorage.setItem([uniqueurl+"name"],[inputValue]);
+        yourname = inputValue;
         swal("Nice!", "You are " + inputValue + "(your location doesn't share)", "success");
     });
 }
@@ -130,13 +132,12 @@ function swal_addmessage(){
         if (inputValue === false) return false;
         if (inputValue !== "") {
         var key = window.localStorage.getItem([uniqueurl[2]]);
-        var name = window.localStorage.getItem([name]);
         var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("message");
         var newPostRef = postsRef.push();
         var postID = newPostRef.key();
         ref.child('sharemap').child(uniqueurl[2]).child("message").child(postID).set({
             key : key ,
-            name : name,
+            name : yourname,
             time : Firebase.ServerValue.TIMESTAMP,
             kind : "message",
             message : inputValue
@@ -179,19 +180,19 @@ function swal_remove_meetUpMarkers(){
             ref.child('sharemap').child(uniqueurl[2]).child("meetup").remove();
             delete(markers_meet);
             //Delete route
-            if(directionsDisplay){
-                directionsDisplay.setMap(null);
-                directionsDisplay.setDirections(null);
+            if(directionsDisplayArray[direction_number]){
+                directionsDisplayArray[direction_number].setMap(null);
+                directionsDisplayArray[direction_number].setDirections(null);
             }
             var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
             var newmessagePostRef = postsmessageRef.push();
             var messagepostID = newmessagePostRef.key();
             ref.child('sharemap').child(uniqueurl[2]).child('message').child(messagepostID).set({
                 key : window.localStorage.getItem([uniqueurl[2]]),
-                name : window.localStorage.getItem([name]),
+                name : yourname,
                 time : Firebase.ServerValue.TIMESTAMP,
                 kind : "meetupremove",
-                message : window.localStorage.getItem([name]) + " remove marker"
+                message : yourname + " remove marker"
             });//set
         }
     });
@@ -205,7 +206,7 @@ function swal_must_register_meetupMarker(){
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "OK",
         closeOnConfirm: false
-        });
+    });
 }
 
 function swal_cannot_read_direction(){
@@ -216,5 +217,5 @@ function swal_cannot_read_direction(){
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "OK",
         closeOnConfirm: false
-        });
+    });
 }

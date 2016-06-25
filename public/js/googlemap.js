@@ -76,8 +76,11 @@
                 //Show Marker
                 ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").once("value", function(snapshot) {
                     snapshot.forEach(function(data) {
-                        if(data.val()){
-                            createMarker(data.val()["latitude"], data.val()["longitude"], data.val()["name"], data.key(),markercreate);
+                        var difference_time = (new Date().getTime()-data.val()["time"]) / DAY_MILLISECOND;
+                        if(data.val()["time"] && difference_time < 2){
+                            if(data.val()){
+                                createMarker(data.val()["latitude"], data.val()["longitude"], data.val()["name"], data.key(),markercreate);
+                            }
                         }
                     });
                 })
