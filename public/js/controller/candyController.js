@@ -108,11 +108,10 @@ function init(callback) {
             //Set GroupName
             var groupname = snapshot.val()[uniqueurl[2]].name;
             $(".groupname").text(groupname);
-            //$(".title span").attr("data-shadow-text", groupname);
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     //If session doesn't exist, sweetalert
-                    if(!window.localStorage.getItem([uniqueurl[2]])){
+                    if(!window.localStorage.getItem([uniqueurl[2]]) && !window.localStorage.getItem([uniqueurl[2]+"name"])){
                         swal_init_on(uniqueurl[2],ref,position);
                     }else{
                         yourname = window.localStorage.getItem([uniqueurl[2]+"name"]);
