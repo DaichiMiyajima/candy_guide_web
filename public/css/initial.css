@@ -101,20 +101,31 @@ body {
 
 /* label color */
    .input-field label {
-     color: white !important;
+     color: gray !important;
    }
    /* label focus color */
    .input-field input[type=text]:focus + label {
-     color: white !important;
+     color: #1976d2 !important;
    }
    /* label underline focus color */
    .input-field input[type=text]:focus {
-     border-bottom: 1px solid white !important;
-     box-shadow: 0 1px 0 0 white !important;
+     border-bottom: 1px solid #1976d2 !important;
+     box-shadow: 0 1px 0 0 #1976d2 !important;
    }
 
 /* valid color */
    .input-field input[type=text].valid {
-     border-bottom: 1px solid white !important;
-     box-shadow: 0 1px 0 0 white !important;
+     border-bottom: 1px solid #1976d2 !important;
+     box-shadow: 0 1px 0 0 #1976d2 !important;
    }
+
+.navi-category{
+    color: #444;
+    display: block;
+    font-size: 1rem;
+    height: 64px;
+    line-height: 64px;
+    padding: 0 30px;
+	color:#444;
+	font-weight:bold;
+}
