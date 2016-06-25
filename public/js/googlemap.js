@@ -78,7 +78,6 @@
                     snapshot.forEach(function(data) {
                         var difference_time = (new Date().getTime()-data.val()["time"]) / DAY_MILLISECOND;
                         if(data.val()["time"] && difference_time < 2){
-                            console.log("pass");
                             if(data.val()){
                                 createMarker(data.val()["latitude"], data.val()["longitude"], data.val()["name"], data.key(),markercreate);
                             }

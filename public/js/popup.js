@@ -180,9 +180,9 @@ function swal_remove_meetUpMarkers(){
             ref.child('sharemap').child(uniqueurl[2]).child("meetup").remove();
             delete(markers_meet);
             //Delete route
-            if(directionsDisplay){
-                directionsDisplay.setMap(null);
-                directionsDisplay.setDirections(null);
+            if(directionsDisplayArray[direction_number]){
+                directionsDisplayArray[direction_number].setMap(null);
+                directionsDisplayArray[direction_number].setDirections(null);
             }
             var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
             var newmessagePostRef = postsmessageRef.push();
@@ -206,7 +206,7 @@ function swal_must_register_meetupMarker(){
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "OK",
         closeOnConfirm: false
-        });
+    });
 }
 
 function swal_cannot_read_direction(){
@@ -217,5 +217,5 @@ function swal_cannot_read_direction(){
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "OK",
         closeOnConfirm: false
-        });
+    });
 }

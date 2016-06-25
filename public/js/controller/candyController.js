@@ -33,6 +33,7 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     //Make pin from Nothing
     $scope.addlocationbutton = function(){
         if(Object.keys(markers_meet).length < 1){
+            candyService.registerMessage(yourname+" add marker");
             candyService.registerMeetUpMarkerNothing();
         }else{
             swal_remove_meetUpMarkers();
@@ -59,76 +60,43 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     $scope.directionDone = function(){
         directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
     }
-});
-
-//Message Include
-myapp.controller('messageController', function ($scope, $firebaseArray,candyService) {
-    var message = candyService.referenceMessage(uniqueurl[2]);
-    $scope.messages = $firebaseArray(message);
-    //sendMessage
-    $scope.sendMessage = function(messageInput){
-        if(messageInput && messageInput.length > 0){
-            candyService.registerMessage(messageInput);
-            $scope.messageInput = "";
-            
-        }
-    }
-});
-
-//Place Include
-myapp.controller('placeController', function ($scope, $firebaseArray,candyService) {
-    //SearchPlace
-    $scope.searchPlace = function(text){
-        if($("#search_place").val() && $("#search_place").val().length > 0){
-            var request = {
-                location: googlemap.getCenter(),
-                radius: '500',
-                query: $("#search_place").val()
-            };
-            placeService = new google.maps.places.PlacesService(googlemap);
-            placeService.textSearch(request, function(results, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                    for (var i = 0; i < results.length; i++) {
-                      var place = results[i];
+    $scope.currentposition = function(){
+        var count = 0;
+        if(watchID){
+            navigator.geolocation.clearWatch(watchID);
+            watchID = navigator.geolocation.watchPosition(
+                // onSuccess Geolocation
+                function(position) {
+                    //within 50m → update user
+                    if(position.coords.accuracy <= 5000){
+                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
+                            latitude : position.coords.latitude,
+                            longitude : position.coords.longitude,
+                            time : Firebase.ServerValue.TIMESTAMP
+                        });//set
+                        //set location into variable
+                        setlocation(position.coords.latitude,position.coords.longitude);
+                        if(count < 1){
+                            count = count + 1;
+                            //panto
+                            googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
+                        }
+                    }else{
+                        if(count < 1){
+                            count = count + 1;
+                            Materialize.toast('Accuracy of gps is bad. Try again!' , 5000, 'rounded meetupremove');
+                        }
                     }
-                    $scope.places = results;
-                    $scope.$apply();
-                    $('.collapsible').collapsible();
-                }
-                
-            });
+                },
+                // エラー時のコールバック関数は PositionError オブジェクトを受けとる
+                function(error) {
+                    Materialize.toast('Gps is error. Try again!' , 5000, 'rounded meetupremove');
+                },
+                {enableHighAccuracy: true,maximumAge: 1}
+            );
+        }else{
+            swal_relocation();
         }
-    }
-    //Click More
-    $scope.placeclick = function(place){
-        var request = {
-            placeId: place.place_id
-        };
-        placeService.getDetails(request, function(placeDetail, status) {
-            $scope.rating ="error";
-            $scope.photos = null;
-            $scope.placeDetail = null;
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                console.log(placeDetail);
-                if(placeDetail.rating){
-                    var rating = "rate rate" + Math.floor(placeDetail.rating) + "_" + Math.floor((placeDetail.rating - Math.floor(placeDetail.rating)) * 10);
-                    $scope.rating = rating;
-                }else{
-                    $scope.rating = "error"
-                }
-                $('#modalPlaceDetail').openModal();
-                var photos = new Array();
-                if(placeDetail.photos){
-                    angular.forEach(placeDetail.photos, function(value, key) {
-                        photos[key] = value.getUrl({'maxWidth': 300, 'maxHeight': 300});
-                    });
-                }
-                $scope.photos = photos;
-                $scope.placeDetail = placeDetail;
-                $scope.$apply();
-                $('.carousel').carousel();
-            }
-        });
     }
 });
 
