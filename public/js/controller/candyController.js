@@ -1,7 +1,7 @@
 myapp.controller('candyController', function ($scope, $firebaseArray,candyService) {
     $("[class^=firsthide]").hide();
     $('.collapsible').collapsible();
-    init(show);
+    init(candyService);
     //Open messageModal
     $scope.messageModal = function(){
         $('#messageModal').openModal();
@@ -33,7 +33,7 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
     //Make pin from Nothing
     $scope.addlocationbutton = function(){
         if(Object.keys(markers_meet).length < 1){
-            candyService.registerMessage(yourname+" add marker");
+            candyService.registerMessage("meetup",yourname+" add marker");
             candyService.registerMeetUpMarkerNothing();
         }else{
             swal_remove_meetUpMarkers();
@@ -69,11 +69,8 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
                 function(position) {
                     //within 50m → update user
                     if(position.coords.accuracy <= 5000){
-                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                            latitude : position.coords.latitude,
-                            longitude : position.coords.longitude,
-                            time : Firebase.ServerValue.TIMESTAMP
-                        });//set
+                        //UpdateUser
+                        candyService.updateUser(position,uniqueurl[2],"on");
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);
                         if(count < 1){
@@ -101,7 +98,7 @@ myapp.controller('candyController', function ($scope, $firebaseArray,candyServic
 });
 
 /* When loading screen */
-function init(callback) {
+function init(candyService) {
     //judge exist or not
     ref.child('sharemap').once("value", function(snapshot) {
         if(snapshot.val() && uniqueurl[2] in snapshot.val()){
@@ -112,16 +109,11 @@ function init(callback) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     //If session doesn't exist, sweetalert
                     if(!window.localStorage.getItem([uniqueurl[2]]) && !window.localStorage.getItem([uniqueurl[2]+"name"])){
-                        swal_init_on(uniqueurl[2],ref,position);
+                        swal_init_on(candyService,uniqueurl[2],ref,position);
                     }else{
                         yourname = window.localStorage.getItem([uniqueurl[2]+"name"]);
-                        //when re-loading, update location
-                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                            latitude : position.coords.latitude,
-                            longitude : position.coords.longitude,
-                            share : "on",
-                            time : Firebase.ServerValue.TIMESTAMP
-                        });//set
+                        //UpdateUser
+                        candyService.updateUser(position,uniqueurl[2],"on");
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);
                     }
@@ -130,7 +122,6 @@ function init(callback) {
                     indexPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2],mylatlng);
                     });//forEach
-                    //create infowindow(common)
                     ref.child('sharemap').child(uniqueurl[2]).child('message').once("value", function(snapshot) {
                         snapshot.forEach(function(data) {
                             infoPlugins.forEach(function(plugin){
@@ -225,10 +216,6 @@ function init(callback) {
     });//end ref(initial)
 }
 
-function show() {
-    $("[class^=firsthide_lastshow]").show();
-}
-
 
 /*
 myapp.controller('userController', function ($scope, $q , $firebaseArray) {
@@ -271,10 +258,5 @@ myapp.controller('userController', function ($scope, $q , $firebaseArray) {
         },data);
         
     });
-});
-
-myapp.controller('usercon', function ($scope, $firebaseArray) {
-    var users = ref.child('sharemap').child(uniqueurl[2]).child('users');
-    $scope.usersnumber = $firebaseArray(users);
 });
 */

@@ -5,7 +5,7 @@ myapp.controller('messageController', function ($scope, $firebaseArray,candyServ
     //sendMessage
     $scope.sendMessage = function(messageInput){
         if(messageInput && messageInput.length > 0){
-            candyService.registerMessage(messageInput);
+            candyService.registerMessage("message",messageInput);
             $scope.messageInput = "";
             
         }
