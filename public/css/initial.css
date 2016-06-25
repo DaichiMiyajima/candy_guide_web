@@ -65,3 +65,67 @@ body::before {
 .demo-card-wide > .mdl-card__menu {
   color: #fff;
 }
+
+#title {
+    margin-top : 50px;
+	//margin-bottom : 50px;
+	margin-right : auto;
+	margin-left : auto;
+    width : 85%;
+	float : none;
+
+}
+<--
+#explanation {
+    margin-top : 50px;
+	margin-bottom : 50px;
+	margin-right : auto;
+	margin-left : auto;
+    width : 80%;
+}
+-->
+
+.collapsible-body {
+	background-color : #26a69a !important;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+/* label color */
+   .input-field label {
+     color: gray !important;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #1976d2 !important;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #1976d2 !important;
+     box-shadow: 0 1px 0 0 #1976d2 !important;
+   }
+
+/* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #1976d2 !important;
+     box-shadow: 0 1px 0 0 #1976d2 !important;
+   }
+
+.navi-category{
+    color: #444;
+    display: block;
+    font-size: 1rem;
+    height: 64px;
+    line-height: 64px;
+    padding: 0 30px;
+	color:#444;
+	font-weight:bold;
+}
