@@ -24,13 +24,14 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     indexPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2],mylatlng);
                     });//forEach
-                    ref.child('sharemap').child(uniqueurl[2]).child('message').once("value", function(snapshot) {
-                        snapshot.forEach(function(data) {
+                    var infomessages = $firebaseObject(candyService.referenceMessage(uniqueurl[2]));
+                    infomessages.$loaded().then(function() {
+                        angular.forEach(infomessages, function(value, key) {
                             infoPlugins.forEach(function(plugin){
-                                plugin.func.call(function(){},uniqueurl[2],data.val(),snapshot.key());
+                                plugin.func.call(function(){},uniqueurl[2],value,key);
                             });
                         });
-                    })
+                    });
                     locationPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2]);
                     });//forEach
@@ -54,17 +55,9 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                                 var postID = newPostRef.key();
                                 //CreateUser
                                 candyService.registerUser(inputValue,"",uniqueurl[2],"off",postID);
+                                //UpdateUser
+                                candyService.registerMessage("attend",inputValue + " attend");
                                 
-                                var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
-                                var newmessagePostRef = postsmessageRef.push();
-                                var messagepostID = newmessagePostRef.key();
-                                ref.child('sharemap').child(uniqueurl[2]).child('message').child(messagepostID).set({
-                                    key : postID ,
-                                    name : inputValue,
-                                    time : Firebase.ServerValue.TIMESTAMP,
-                                    kind : "attend",
-                                    message : inputValue + " attend"
-                                });//set
                                 // Store session
                                 window.localStorage.setItem([uniqueurl[2]],[postID]);
                                 window.localStorage.setItem([uniqueurl[2]+"name"],[inputValue]);
@@ -101,35 +94,6 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     })
                 });
             }else{
-                if(!window.localStorage.getItem([uniqueurl[2]])){
-                    swal_locationoff(uniqueurl[2],ref);
-                }else{
-                    //UpdateUser
-                    candyService.updateUser("",uniqueurl[2],"off");
-                }
-                $("[id = geolocationOff]").show();
-                //Location on のユーザーがいればそのlocationを参照
-                ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
-                    var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
-                    //if length doesn't equal to 0
-                    if(data[uniqueurl[2]]){
-                        snapshot.forEach(function(data) {
-                            mylatlng = new google.maps.LatLng(data.val().latitude, data.val().longitude);
-                            //ifでもelseでも実行
-                            indexPlugins.forEach(function(plugin){
-                                plugin.func.call(function(){},uniqueurl[2],mylatlng);
-                            });//forEach
-                        });
-                    }else{
-                        //ifでもelseでも実行
-                        indexPlugins.forEach(function(plugin){
-                            plugin.func.call(function(){},uniqueurl[2],mylatlng);
-                        });//forEach
-                    }
-                    firebasePlugins.forEach(function(plugin){
-                        plugin.func.call(function(){},uniqueurl[2]);
-                    });//forEach
-                })
             }
         }else{
             //url doesn't exist
