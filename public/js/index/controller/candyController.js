@@ -42,12 +42,37 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
                     if(!window.localStorage.getItem([uniqueurl[2]])){
-                        swal_locationoff(uniqueurl[2],ref);
+                        swal_locationoff(
+                            function(inputValue){
+                                if (inputValue === false) return false;
+                                if (inputValue === "") {
+                                    swal.showInputError("You need to write your name !!!!!");
+                                    return false
+                                }
+                                var postsRef = ref.child("sharemap").child(uniqueurl[2]).child('users');
+                                var newPostRef = postsRef.push();
+                                var postID = newPostRef.key();
+                                //CreateUser
+                                candyService.registerUser(inputValue,"",uniqueurl[2],"off",postID);
+                                
+                                var postsmessageRef = ref.child("sharemap").child(uniqueurl[2]).child('message');
+                                var newmessagePostRef = postsmessageRef.push();
+                                var messagepostID = newmessagePostRef.key();
+                                ref.child('sharemap').child(uniqueurl[2]).child('message').child(messagepostID).set({
+                                    key : postID ,
+                                    name : inputValue,
+                                    time : Firebase.ServerValue.TIMESTAMP,
+                                    kind : "attend",
+                                    message : inputValue + " attend"
+                                });//set
+                                // Store session
+                                window.localStorage.setItem([uniqueurl[2]],[postID]);
+                                window.localStorage.setItem([uniqueurl[2]+"name"],[inputValue]);
+                                yourname = inputValue;
+                                swal("Nice!", "You are " + inputValue + "(your location doesn't share)", "success");
+                            }
+                        );
                     }else{
-                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                            share : "off",
-                            time : Firebase.ServerValue.TIMESTAMP
-                        });//set
                         //UpdateUser
                         candyService.updateUser("",uniqueurl[2],"off");
                     }
@@ -79,10 +104,8 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 if(!window.localStorage.getItem([uniqueurl[2]])){
                     swal_locationoff(uniqueurl[2],ref);
                 }else{
-                    ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                        share : "off",
-                        time : Firebase.ServerValue.TIMESTAMP
-                    });//set
+                    //UpdateUser
+                    candyService.updateUser("",uniqueurl[2],"off");
                 }
                 $("[id = geolocationOff]").show();
                 //Location on のユーザーがいればそのlocationを参照
