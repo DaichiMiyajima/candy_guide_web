@@ -207,3 +207,15 @@ function swal_cannot_read_direction(){
         closeOnConfirm: false
     });
 }
+
+function swal_dragend(callback){
+    swal({
+        title: "Move Marker?",
+        type: "warning",
+        text: "Do you move marker ?",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        closeOnConfirm: true,
+        showCancelButton: true
+        },callback);
+}

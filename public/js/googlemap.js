@@ -190,25 +190,6 @@ function markercreate(latitude,longitude,title,key,imagepath) {
             //draggable: true
         });
         markers[key] = marker;
-        //google drag event(common)
-        google.maps.event.addListener(
-            markers[key],
-            'drag',
-        function(event) {
-            if(infoWindows[key]){
-                infoWindows[key].close();
-            }
-        });
-        google.maps.event.addListener(
-            markers[key],
-            'dragend',
-        function(event) {
-            if(infoWindows[key]){
-                infoWindows[key].position=new google.maps.LatLng(this.position.lat(), this.position.lng());
-                infoWindows[key].open(googlemap);
-                
-            }
-        });
     }
 }
 
@@ -228,24 +209,26 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
                 markers_meet[key],
                 'drag',
             function(event) {
-                if(infoWindows[key]){
-                    infoWindows[key].close();
-                }
             });
             google.maps.event.addListener(
                 markers_meet[key],
                 'dragend',
             function(event) {
-                if(infoWindows[key]){
-                    infoWindows[key].position=new google.maps.LatLng(this.position.lat(), this.position.lng());
-                    infoWindows[key].open(googlemap);
-                }
-                //update
-                ref.child('sharemap').child(uniqueurl).child('meetup').child(key).update({
-                    latitude : this.position.lat(),
-                    longitude : this.position.lng()
-                });//set
-                setmarkerlocation(this.position.lat(),this.position.lng());
+                var position = this.position;
+                var isConfirm = swal_dragend(
+                    function(isConfirm){
+                        if(isConfirm){
+                            //update
+                            ref.child('sharemap').child(uniqueurl).child('meetup').child(key).update({
+                                latitude : position.lat(),
+                                longitude : position.lng()
+                            });//set
+                            setmarkerlocation(position.lat(),position.lng());
+                        }else{
+                            markers_meet[key].setPosition(new google.maps.LatLng(markerlatitude, markerlongitude));
+                        }
+                    }
+                );
             });
             google.maps.event.addListener(
                 markers_meet[key],

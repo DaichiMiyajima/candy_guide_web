@@ -1,4 +1,8 @@
 myapp.service('candyService', function () {
+    //SelectSharemap
+    this.referenceSharemap = function(){
+        return ref.child('sharemap');
+    }
     //AddUser
     this.registerUser = function (name,position,uniqueurl,share,postID) {
         if(position){
@@ -21,9 +25,12 @@ myapp.service('candyService', function () {
     }
     //UpdateUSer
     this.updateUser = function (position,uniqueurl,share) {
+        if(position){
+        }else{
+        }
         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl])).update({
-            latitude : position.coords.latitude,
-            longitude : position.coords.longitude,
+            latitude : latitude,
+            longitude : longitude,
             share : share,
             time : Firebase.ServerValue.TIMESTAMP
         });//set
@@ -34,7 +41,6 @@ myapp.service('candyService', function () {
     }
     //AddMessage
     this.registerMessage = function (kind,messageInput) {
-        console.log('call method:' + messageInput);
         var key = window.localStorage.getItem([uniqueurl[2]]);
         var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("message");
         var newPostRef = postsRef.push();
