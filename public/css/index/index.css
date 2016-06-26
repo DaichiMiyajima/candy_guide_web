@@ -1,0 +1,172 @@
+html {
+    -ms-touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height:100%;
+    text-align: left;
+    position: fixed;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.fixed-action-btn.horizontal ul li{
+    margin: 8px 8px 0 0 !important;
+}
+
+/* prevent copy */
+.btn-floating {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+input{
+    font-size: 16px !important;
+}
+.input{
+    font-size: 16px !important;
+}
+textarea{
+    font-size: 16px !important;
+}
+
+.toast{
+    min-height: 30px !important; 
+    margin-top : 4px !important;
+}
+
+#toast-container{
+    max-height : 0%;
+    right :  0px;
+}
+
+#toast-container .message{
+    width : 50%;
+    background-color: rgba(39, 0, 255, 0.75);
+    font-size : 14px;
+}
+
+#toast-container .meetup{
+    width : 50%;
+    background-color: #5c6bc0 ;
+    font-size : 14px;
+}
+
+#toast-container .attend{
+    width : 50%;
+    background-color: rgba(0, 255, 137, 0.62);
+    font-size : 14px;
+}
+
+#toast-container .meetupremove{
+    width : 50%;
+    background-color: rgba(255, 0, 0, 0.62);
+    font-size : 14px;
+}
+
+span:after {
+    content: attr(data-shadow-text);
+    color: rgb(83,109,254);
+    text-shadow: none;
+    position: absolute;
+    left: .0875em;
+    top: .0875em;
+    z-index: -1;
+}
+
+/* Geolocation OFF */
+#geolocationOff{
+    height : 70px;
+    background : rgba(0, 0, 0, 0.44);
+    width : 100%;
+    z-index : 1;
+    position : fixed;
+    text-align: center;
+}
+#geolocationOff label {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.88);
+}
+/* Geolocation OFF end*/
+
+
+/* DirectionTime */
+
+#directionTime{
+    height : 44px;
+    background : rgb(171, 171, 171);
+    width : 100%;
+    z-index : 1;
+    position : fixed;
+    text-align: center;
+    box-shadow: 0 16px 28px 0 rgba(0,0,0,0.22),0 25px 55px 0 rgba(0,0,0,0.21);
+    bottom: 0px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+#directionTime .matrix{
+    color: #fff;
+    font-size: 1.2rem;
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-family: cursive;
+}
+.direction{
+    width: 70%;
+    height: 44px;
+    float: left;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#directionTime .btn-floating{
+    margin-top : 3px;
+    background-color: rgb(171, 171, 171) !important;
+}
+/* DirectionTime end */
+
+/* candy_map_tab */
+#google map
+.container-full {
+    margin: 0 auto; width: 100%; height:100%;
+}
+
+#map {
+    margin-top: 1.5px;
+    width:100%; height:93vh;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    ::i-block-chrome, #map {
+        width:100%; height:83vh;
+    }
+}
+
+
+#Marker
+img[src*="test"]{
+    padding: 1px;
+    border: 1px solid #999;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+}
+
+
+#ul_attend{
+  text-align: center;
+}
+#ul_attend li{
+  display: inline-block;
+}
+
+/* common css */
+#toast-container{
+    top : 7vh !important;
+}

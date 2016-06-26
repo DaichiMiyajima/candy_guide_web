@@ -1,0 +1,14 @@
+/* Travel Mode */
+#travelModeModal{
+    top: 40% !important;
+}
+#travelModeModal .modal-content{
+    text-align: center;
+}
+#travelModeModal ul{
+    display: inline-flex;
+}
+#travelModeModal ul li{
+    margin-left : 15px;
+}
+/* Travel Mode end */

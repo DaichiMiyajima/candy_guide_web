@@ -29,8 +29,8 @@ myapp.service('candyService', function () {
         }else{
         }
         ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl])).update({
-            latitude : latitude,
-            longitude : longitude,
+            latitude : position.coords.latitude,
+            longitude : position.coords.longitude,
             share : share,
             time : Firebase.ServerValue.TIMESTAMP
         });//set

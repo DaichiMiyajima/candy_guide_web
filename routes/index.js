@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/sharemap/*', function(req, res, next) {
-    res.render('index', { title: '' });
+    res.render(__dirname + '../views/index/index', { title: '' });
 });
 
 module.exports = router;
