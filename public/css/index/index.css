@@ -48,7 +48,6 @@ textarea{
 #toast-container .message{
     width : 50%;
     background-color: rgba(39, 0, 255, 0.75);
-    font-size : 14px;
 }
 
 #toast-container .meetup{
@@ -131,6 +130,18 @@ span:after {
 }
 /* DirectionTime end */
 
+/* GroupName */
+.groupname{
+    position: fixed;
+    z-index: 1;
+    font-size: 18px;
+    left: 5px;
+    font-family: cursive;
+    color: #0710a7;
+    text-shadow: 0.2em 0.2em 8px #171717;
+}
+/* GroupName end*/
+
 /* candy_map_tab */
 #google map
 .container-full {
@@ -139,12 +150,12 @@ span:after {
 
 #map {
     margin-top: 1.5px;
-    width:100%; height:93vh;
+    width:100%; height:100vh;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     ::i-block-chrome, #map {
-        width:100%; height:83vh;
+        width:100%; height:90vh;
     }
 }
 
@@ -168,5 +179,5 @@ img[src*="test"]{
 
 /* common css */
 #toast-container{
-    top : 7vh !important;
+    top : 15px !important;
 }

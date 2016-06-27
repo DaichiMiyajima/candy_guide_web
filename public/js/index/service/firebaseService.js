@@ -3,6 +3,10 @@ myapp.service('candyService', function () {
     this.referenceSharemap = function(){
         return ref.child('sharemap');
     }
+    //select User for getting location
+    this.referenceUserOn = function (uniqueurl) {
+        return ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").limitToLast(1);
+    }
     //AddUser
     this.registerUser = function (name,position,uniqueurl,share,postID) {
         if(position){

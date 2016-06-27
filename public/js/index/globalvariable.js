@@ -5,7 +5,7 @@
     var line = !!navigator.userAgent.match(/Line/i);
     
     if(safari && !crios && iphone && !line){
-        $("#map").css("height","83vh");
+        $("#map").css("height","90vh");
     }
 })()
 
