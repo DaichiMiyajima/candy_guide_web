@@ -190,11 +190,10 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     }
     
     $scope.resizeStart = function($event){
-        if($event.buttons == 1 && resize == "editor-resizer"){
+        if(resize == "editor-resizer"){
             //bodyの高さ(window.innerHeight)
             var mapHeight = ($event.clientY - 10) +"px";
             var flexBoxHeight = (window.innerHeight - 10 - $event.clientY) +"px";
-            
             $('#candy_map_tab').css('min-height', mapHeight);
             $('#candy_map_tab').css('max-height', mapHeight);
             $('.flex-box').css('min-height', flexBoxHeight);
