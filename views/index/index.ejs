@@ -44,9 +44,9 @@
 </head>
 <body class="">
     <div ng-controller="candyController as main">
-        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStart($event)">
             <!-- Message Include-->
-            <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
+            <!--<div ng-include = "'/views/index/include/indexMessage.htm'"></div>-->
             <!-- Place Include-->
             <div ng-include = "'/views/index/include/indexPlace.htm'"></div>
             <!-- TravelMode Include-->
@@ -69,13 +69,61 @@
                 <a class="btn-floating" ng-click="directionDone()"><i class="small material-icons">done</i></a>
             </div>
             <!-- DirectionTime end-->
-            <!-- Google Map -->
-            <div class="mdl-tabs__panel is-active" id="candy_map_tab">
-                <section class="container-full">
-                    <div id="map"></div>
-                </section>
+            
+            <!-- Flexible Box -->
+            <div class="flex-container">
+                <!-- Google Map -->
+                <div class="mdl-tabs__panel is-active" id="candy_map_tab">
+                    <section class="container-full">
+                        <div id="map"></div>
+                    </section>
+                </div>
+                <div class="editor-resizer"  ng-mousedown="resizeHeightStart()" ng-mouseup="resizeHeightEnd()"></div>
+                <div class="flex-box">
+                    <!-- test -->
+                    <div ng-controller="messageController as message" style="margin-top: 20px;">
+                        <div class="modalMessage">
+                            <!-- message tab -->
+                            <div style="padding-top: 1px;">
+                                <div ng-repeat="message in messages | orderBy:'-time'">
+                                    <div ng-if="message.kind === 'message'">
+                                          <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                                            <div class="messagelist toast-info">
+                                                <div class="toast-name">{{message.name}}</div>
+                                                <div class="toast-message">{{message.message}}</div>
+                                            </div>
+                                            <span style="color: black;">{{ message.time | date:'MM/dd hh:mm' : timezone}}</span>
+                                        </div>
+                                    </div>
+                                    <div ng-if="message.kind === 'attend' || message.kind == 'meetup'">
+                                        <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                                            <div class="messagelist toast-success">
+                                                <div class="toast-message">{{message.message}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="message.kind === 'meetupremove'">
+                                        <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                                            <div class="messagelist toast-error">
+                                                <div class="toast-message">{{message.message}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <!-- text-area -->
+                            <div input-field id="messageInputField">
+                                <textarea ng-model="messageInput" class="input materialize-textarea" placeholder="message"></textarea>
+                            </div>
+                            <a class="btn-floating red" id="sendButton"><i class="small material-icons" ng-click="sendMessage(messageInput)">send</i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- test -->
             </div>
-            <!-- Google Map end-->
+            
             <!-- Menu button -->
             <div class="fixed-action-btn horizontal click-to-toggle firsthide_lastshow" style="bottom: 45px; right: 24px;">
                 <a class="btn-floating btn-large red">

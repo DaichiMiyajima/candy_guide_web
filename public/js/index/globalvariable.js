@@ -50,7 +50,7 @@ var SECOND_MILLISECOND = 1000,
     WEEK_MILLISECOND = 7 * DAY_MILLISECOND,
     YEAR_MILLISECOND = 365 * DAY_MILLISECOND;
 
-
+var resize;
 
 function setlocation(latitude,longitude){
     yourlatitude = latitude;
