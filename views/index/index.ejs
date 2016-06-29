@@ -46,7 +46,7 @@
 </head>
 <body class="">
     <div ng-controller="candyController as main">
-        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStart($event)" ng-touchmove="resizeStart($event)" ng-mouseup="resizeEndMouse($event)" ng-touchend="resizeEnd($event)">
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStart($event)"  ng-mouseup="resizeEndMouse($event)" >
             <!-- Message Include-->
             <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
             <!-- Place Include-->
@@ -73,7 +73,7 @@
             <!-- DirectionTime end-->
             
             <!-- Flexible Box -->
-            <div class="flex-container">
+            <div class="flex-container" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)">
                 <!-- Google Map -->
                 <div class="mdl-tabs__panel is-active" id="candy_map_tab">
                     <section class="container-full">
