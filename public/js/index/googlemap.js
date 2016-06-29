@@ -72,7 +72,7 @@
                 var candyType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
                 googlemap.mapTypes.set('Candy', candyType);
                 googlemap.setMapTypeId('Candy');
-                                            var initialHeight = ((window.innerHeight - 20) / 2) +"px";
+                            var initialHeight = ((window.innerHeight - 20) / 2) +"px";
                             $('#candy_map_tab').css('min-height', initialHeight);
                             $('#candy_map_tab').css('max-height', initialHeight);
                             $('.flex-box').css('min-height', initialHeight);

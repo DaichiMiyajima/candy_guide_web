@@ -34,17 +34,19 @@
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
     <!-- Angular.js -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../public/bower_components/ngtouchstart/build/ngTouchstart.min.js"></script>
+    <script type="text/javascript" src="../public/bower_components/ngtouch/build/ngTouch.min.js"></script>
     
 </head>
 <body class="">
     <div ng-controller="candyController as main">
-        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStart($event)">
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStart($event)" ng-touchmove="resizeStart($event)" ng-mouseup="resizeEndMouse($event)" ng-touchend="resizeEnd($event)">
             <!-- Message Include-->
             <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
             <!-- Place Include-->
@@ -71,17 +73,15 @@
             <!-- DirectionTime end-->
             
             <!-- Flexible Box -->
-            <div class="flex-container" ng-mousemove="resizeStart($event)">
+            <div class="flex-container">
                 <!-- Google Map -->
                 <div class="mdl-tabs__panel is-active" id="candy_map_tab">
                     <section class="container-full">
                         <div id="map"></div>
                     </section>
                 </div>
-                <div class="editor-resizer" ng-mousemove="resizeStart($event)"></div>
-                <div class="flex-box" ng-mousemove="resizeStart($event)">
-                    
-                </div>
+                <div class="editor-resizer"></div>
+                <div class="flex-box"></div>
             </div>
             
             <!-- Menu button -->

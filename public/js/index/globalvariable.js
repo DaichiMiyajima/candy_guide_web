@@ -14,7 +14,7 @@ var ref = new Firebase("https://candyguide.firebaseio.com/");
 var pathname = window.location.pathname;
 var uniqueurl = pathname.split("/");
 var mes = new Array();
-var myapp = angular.module('mapper', ["firebase"]);
+var myapp = angular.module('mapper', ['firebase','ngTouch','ngTouchstart']);
 
 var googlemap;
 var markers = new Array();
@@ -50,6 +50,7 @@ var SECOND_MILLISECOND = 1000,
     WEEK_MILLISECOND = 7 * DAY_MILLISECOND,
     YEAR_MILLISECOND = 365 * DAY_MILLISECOND;
 
+var resize_count = 0;
 var resize;
 
 function setlocation(latitude,longitude){

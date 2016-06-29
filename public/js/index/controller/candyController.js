@@ -190,26 +190,34 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     }
     
     $scope.resizeStart = function($event){
-        console.log("testNG");
-        //console.log($event);
+        if(resize_count == 0){
+            resize = $event.target.className
+        }
+        resize_count = resize_count +1 ;
         if(resize == "editor-resizer"){
-        console.log("OKK");
             //bodyの高さ(window.innerHeight)
-            var mapHeight = ($event.clientY - 10) +"px";
-            var flexBoxHeight = (window.innerHeight - 10 - $event.clientY) +"px";
-            
+            console.log($event.type);
+            if($event.type == "mousemove"){
+                var mapHeight = ($event.clientY - 10) +"px";
+                var flexBoxHeight = (window.innerHeight - 10 - $event.clientY) +"px";
+            }else{
+                var mapHeight = ($event.originalEvent.touches[0].clientY - 10) +"px";
+                var flexBoxHeight = (window.innerHeight - 10 - $event.originalEvent.touches[0].clientY) +"px";
+            }
+            console.log("pass");
             $('#candy_map_tab').css('min-height', mapHeight);
             $('#candy_map_tab').css('max-height', mapHeight);
             $('.flex-box').css('min-height', flexBoxHeight);
             $('.flex-box').css('max-height', flexBoxHeight);
         }
     }
+    $scope.resizeEnd = function($event){
+        resize_count = 0;
+        resize = "";
+    }
+    $scope.resizeEndMouse = function($event){
+        resize_count = 0;
+        resize = "";
+    }
     
-    $scope.resizeHeightStart = function(){
-        console.log("resizeStart");
-        resize = "editor-resizer";
-    }
-    $scope.resizeHeightEnd = function(){
-        console.log("resizeEnd");
-    }
 });
