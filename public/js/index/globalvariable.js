@@ -1,14 +1,3 @@
-(function(){
-    var crios = !!navigator.userAgent.match(/crios/i);
-    var safari = !!navigator.userAgent.match(/safari/i);
-    var iphone = !!navigator.userAgent.match(/iphone/i);
-    var line = !!navigator.userAgent.match(/Line/i);
-    
-    if(safari && !crios && iphone && !line){
-        $("#map").css("height","90vh");
-    }
-})()
-
 // Firebase
 var ref = new Firebase("https://candyguide.firebaseio.com/");
 var pathname = window.location.pathname;
@@ -52,6 +41,7 @@ var SECOND_MILLISECOND = 1000,
 
 var resize_count = 0;
 var resize;
+var browser;
 
 function setlocation(latitude,longitude){
     yourlatitude = latitude;
@@ -62,3 +52,17 @@ function setmarkerlocation(latitude,longitude){
     markerlatitude = latitude;
     markerlongitude = longitude;
 }
+
+(function(){
+    var crios = !!navigator.userAgent.match(/crios/i);
+    var safari = !!navigator.userAgent.match(/safari/i);
+    var iphone = !!navigator.userAgent.match(/iphone/i);
+    var line = !!navigator.userAgent.match(/Line/i);
+    
+    
+    
+    if(safari && !crios && iphone && !line){
+        $("#map").css("height","90vh");
+        browser = "safari";
+    }
+})()

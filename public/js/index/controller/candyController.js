@@ -196,7 +196,6 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         resize_count = resize_count +1 ;
         if(resize == "editor-resizer"){
             //bodyの高さ(window.innerHeight)
-            console.log($event.type);
             if($event.type == "mousemove"){
                 var height = 10;
                 if($event.clientY > 10){
@@ -211,6 +210,10 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 }
                 var mapHeight = (height - 10) +"px";
                 var flexBoxHeight = (window.innerHeight - 10 - height) +"px";
+                if(browser && (window.innerHeight - 10 - height) <= 10){
+                    mapHeight = (window.innerHeight - 10 -10) +"px";
+                    flexBoxHeight = "10px";
+                }
             }
             $('#candy_map_tab').css('min-height', mapHeight);
             $('#candy_map_tab').css('max-height', mapHeight);

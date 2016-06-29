@@ -157,7 +157,7 @@ span:after {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     ::i-block-chrome, #map {
         width:100%;
-        height:91vh;
+        height:90vh;
     }
 }
 
