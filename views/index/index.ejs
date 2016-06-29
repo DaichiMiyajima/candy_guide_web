@@ -71,15 +71,15 @@
             <!-- DirectionTime end-->
             
             <!-- Flexible Box -->
-            <div class="flex-container">
+            <div class="flex-container" ng-mousemove="resizeStart($event)">
                 <!-- Google Map -->
                 <div class="mdl-tabs__panel is-active" id="candy_map_tab">
                     <section class="container-full">
                         <div id="map"></div>
                     </section>
                 </div>
-                <div class="editor-resizer"></div>
-                <div class="flex-box">
+                <div class="editor-resizer" ng-mousemove="resizeStart($event)"></div>
+                <div class="flex-box" ng-mousemove="resizeStart($event)">
                     
                 </div>
             </div>
