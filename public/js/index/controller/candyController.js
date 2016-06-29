@@ -198,13 +198,20 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             //bodyの高さ(window.innerHeight)
             console.log($event.type);
             if($event.type == "mousemove"){
-                var mapHeight = ($event.clientY - 10) +"px";
-                var flexBoxHeight = (window.innerHeight - 10 - $event.clientY) +"px";
+                var height = 10;
+                if($event.clientY > 10){
+                    height = $event.clientY;
+                }
+                var mapHeight = (height - 10) +"px";
+                var flexBoxHeight = (window.innerHeight - 10 - height) +"px";
             }else{
-                var mapHeight = ($event.originalEvent.touches[0].clientY - 10) +"px";
-                var flexBoxHeight = (window.innerHeight - 10 - $event.originalEvent.touches[0].clientY) +"px";
+                var height = 10;
+                if($event.originalEvent.touches[0].clientY > 10){
+                    height = $event.originalEvent.touches[0].clientY;
+                }
+                var mapHeight = (height - 10) +"px";
+                var flexBoxHeight = (window.innerHeight - 10 - height) +"px";
             }
-            console.log("pass");
             $('#candy_map_tab').css('min-height', mapHeight);
             $('#candy_map_tab').css('max-height', mapHeight);
             $('.flex-box').css('min-height', flexBoxHeight);
