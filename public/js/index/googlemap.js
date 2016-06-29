@@ -251,7 +251,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
 function markerchange(latitude,longitude,key) {
     markers[key].setPosition(new google.maps.LatLng(latitude, longitude));
     if(directionsDisplayArray[direction_number-1]){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
+        //directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
     }
 }
 

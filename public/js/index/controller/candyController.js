@@ -24,13 +24,14 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     indexPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2],mylatlng);
                     });//forEach
-                    ref.child('sharemap').child(uniqueurl[2]).child('message').once("value", function(snapshot) {
-                        snapshot.forEach(function(data) {
+                    var infomessages = $firebaseObject(candyService.referenceMessage(uniqueurl[2]));
+                    infomessages.$loaded().then(function() {
+                        angular.forEach(infomessages, function(value, key) {
                             infoPlugins.forEach(function(plugin){
-                                plugin.func.call(function(){},uniqueurl[2],data.val(),snapshot.key());
+                                plugin.func.call(function(){},uniqueurl[2],value,key);
                             });
                         });
-                    })
+                    });
                     locationPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2]);
                     });//forEach
@@ -42,12 +43,29 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
                     if(!window.localStorage.getItem([uniqueurl[2]])){
-                        swal_locationoff(uniqueurl[2],ref);
+                        swal_locationoff(
+                            function(inputValue){
+                                if (inputValue === false) return false;
+                                if (inputValue === "") {
+                                    swal.showInputError("You need to write your name !!!!!");
+                                    return false
+                                }
+                                var postsRef = ref.child("sharemap").child(uniqueurl[2]).child('users');
+                                var newPostRef = postsRef.push();
+                                var postID = newPostRef.key();
+                                //CreateUser
+                                candyService.registerUser(inputValue,"",uniqueurl[2],"off",postID);
+                                //UpdateUser
+                                candyService.registerMessage("attend",inputValue + " attend");
+                                
+                                // Store session
+                                window.localStorage.setItem([uniqueurl[2]],[postID]);
+                                window.localStorage.setItem([uniqueurl[2]+"name"],[inputValue]);
+                                yourname = inputValue;
+                                swal("Nice!", "You are " + inputValue + "(your location doesn't share)", "success");
+                            }
+                        );
                     }else{
-                        ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                            share : "off",
-                            time : Firebase.ServerValue.TIMESTAMP
-                        });//set
                         //UpdateUser
                         candyService.updateUser("",uniqueurl[2],"off");
                     }
@@ -76,37 +94,6 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     })
                 });
             }else{
-                if(!window.localStorage.getItem([uniqueurl[2]])){
-                    swal_locationoff(uniqueurl[2],ref);
-                }else{
-                    ref.child('sharemap').child(uniqueurl[2]).child('users').child(window.localStorage.getItem([uniqueurl[2]])).update({
-                        share : "off",
-                        time : Firebase.ServerValue.TIMESTAMP
-                    });//set
-                }
-                $("[id = geolocationOff]").show();
-                //Location on のユーザーがいればそのlocationを参照
-                ref.child('sharemap').child(uniqueurl[2]).child('users').orderByChild("share").equalTo("on").limitToLast(1).once("value", function(snapshot) {
-                    var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
-                    //if length doesn't equal to 0
-                    if(data[uniqueurl[2]]){
-                        snapshot.forEach(function(data) {
-                            mylatlng = new google.maps.LatLng(data.val().latitude, data.val().longitude);
-                            //ifでもelseでも実行
-                            indexPlugins.forEach(function(plugin){
-                                plugin.func.call(function(){},uniqueurl[2],mylatlng);
-                            });//forEach
-                        });
-                    }else{
-                        //ifでもelseでも実行
-                        indexPlugins.forEach(function(plugin){
-                            plugin.func.call(function(){},uniqueurl[2],mylatlng);
-                        });//forEach
-                    }
-                    firebasePlugins.forEach(function(plugin){
-                        plugin.func.call(function(){},uniqueurl[2]);
-                    });//forEach
-                })
             }
         }else{
             //url doesn't exist

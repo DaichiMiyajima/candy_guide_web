@@ -28,48 +28,16 @@ function swal_init_on(candyService,uniqueurl,ref,position){
     });
 }
 
-function swal_locationoff(uniqueurl,ref){
+function swal_locationoff(callback){
     swal({
         title: "SEE FRIEND'S LOCATION!",
-        text: "Write your name or nickname:(your location doesn't share)",
+        text: "Write your name or nickname:(your location doesn't share!!)",
         type: "input",
         showCancelButton: false,
         closeOnConfirm: false,
         animation: "slide-from-top",
         inputPlaceholder: "Write your NAME"
-    }, function(inputValue){
-        if (inputValue === false) return false;
-        if (inputValue === "") {
-            swal.showInputError("You need to write your name!");
-            return false
-        }
-        console.log(ref);
-        var postsRef = ref.child("sharemap").child(uniqueurl).child('users');
-        var newPostRef = postsRef.push();
-        var postID = newPostRef.key();
-        ref.child('sharemap').child(uniqueurl).child('users').child(postID).set({
-            name : inputValue,
-            latitude : "",
-            longitude : "",
-            share : "off",
-            time : Firebase.ServerValue.TIMESTAMP
-        });//set
-        var postsmessageRef = ref.child("sharemap").child(uniqueurl).child('message');
-        var newmessagePostRef = postsmessageRef.push();
-        var messagepostID = newmessagePostRef.key();
-        ref.child('sharemap').child(uniqueurl).child('message').child(messagepostID).set({
-            key : postID ,
-            name : inputValue,
-            time : Firebase.ServerValue.TIMESTAMP,
-            kind : "attend",
-            message : inputValue + " attend"
-        });//set
-        // Store session
-        window.localStorage.setItem([uniqueurl],[postID]);
-        window.localStorage.setItem([uniqueurl+"name"],[inputValue]);
-        yourname = inputValue;
-        swal("Nice!", "You are " + inputValue + "(your location doesn't share)", "success");
-    });
+    }, callback);
 }
 
 function swal_url(){
