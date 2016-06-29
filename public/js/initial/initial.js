@@ -5,12 +5,12 @@ var ref = new Firebase("https://candyguide.firebaseio.com/");
     $("#create_url").click(function(){
         //create unique url
         var oncomplete = function(error){
-        	if(error){
-        		console.log('Synchronization failed');
-        	}else{
-        		console.log('Synchronization succeeded');
-        		window.location.href = "./sharemap/" + url ;
-        	}
+            if(error){
+                console.log('Synchronization failed');
+            }else{
+                console.log('Synchronization succeeded');
+                window.location.href = "./sharemap/" + url ;
+            }
         }
         
         if($("#groupname").val()){
