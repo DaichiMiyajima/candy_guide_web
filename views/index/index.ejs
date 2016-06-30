@@ -73,15 +73,17 @@
             <!-- DirectionTime end-->
             
             <!-- Flexible Box -->
-            <div class="flex-container" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)">
+            <div class="flex-container">
                 <!-- Google Map -->
                 <div class="mdl-tabs__panel is-active" id="candy_map_tab">
                     <section class="container-full">
                         <div id="map"></div>
                     </section>
                 </div>
-                <div class="editor-resizer"></div>
-                <div class="flex-box"></div>
+                <div ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)">
+                    <div class="editor-resizer"></div>
+                    <div class="flex-box"></div>
+                </div>
             </div>
             
             <!-- Menu button -->
