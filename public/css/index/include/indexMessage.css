@@ -1,4 +1,7 @@
 /* message tab-start */
+.messageall{
+    margin-top : 15px;
+}
 #messageModal{
     min-height : 60%;
     max-height: 60%;

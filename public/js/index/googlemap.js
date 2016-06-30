@@ -312,6 +312,7 @@ function createMarker(latitude,longitude,title,key,callback) {
 
 //Dipict Direction
 function directionsToMarker(origin,destination,travelMode,kind) {
+    /*リリースまで保留
     if(directionsDisplayArray[direction_number-1] && kind != "redipict"){
         //Dipict Display
         if(kind == "markerchange" || kind == "navigation" || kind == "markerMeetUpchange"){
@@ -373,9 +374,11 @@ function directionsToMarker(origin,destination,travelMode,kind) {
             }
         });
     }
+    */
 }
 
 function distanceMatrix(origin,destination,travelMode) {
+    /*リリースまで保留
     distanceService.getDistanceMatrix({
         origins: [origin],
         destinations: [destination],
@@ -390,4 +393,5 @@ function distanceMatrix(origin,destination,travelMode) {
         }
         }
     });
+    */
 }
