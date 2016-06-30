@@ -72,7 +72,11 @@
                 var candyType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
                 googlemap.mapTypes.set('Candy', candyType);
                 googlemap.setMapTypeId('Candy');
-                
+                            var initialHeight = ((window.innerHeight - 20) / 2) +"px";
+                            $('#candy_map_tab').css('min-height', initialHeight);
+                            $('#candy_map_tab').css('max-height', initialHeight);
+                            $('.flex-box').css('min-height', initialHeight);
+                            $('.flex-box').css('max-height', initialHeight);
                 //Show Marker
                 ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").once("value", function(snapshot) {
                     snapshot.forEach(function(data) {
@@ -251,7 +255,7 @@ function createMeetUpMarker(latitude,longitude,userkey,key,uniqueurl) {
 function markerchange(latitude,longitude,key) {
     markers[key].setPosition(new google.maps.LatLng(latitude, longitude));
     if(directionsDisplayArray[direction_number-1]){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
+        //directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},travelMode,"markerchange");
     }
 }
 
