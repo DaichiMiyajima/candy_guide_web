@@ -1,0 +1,23 @@
+{
+  "name": "candy_guide",
+  "homepage": "https://github.com/DaichiMiyajima/candy_guide_secondry",
+  "authors": [
+    "MiyajimaDaichi <let.it.be7daichi@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-touch": "^1.5.7",
+    "angular-animate": "^1.5.7",
+    "ngtouch": "^1.0.1",
+    "ngtouchstart": "^1.0.1"
+  }
+}

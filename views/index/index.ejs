@@ -34,17 +34,19 @@
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
     <!-- Angular.js -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../public/bower_components/ngtouchstart/build/ngTouchstart.min.js"></script>
+    <script type="text/javascript" src="../public/bower_components/ngtouch/build/ngTouch.min.js"></script>
     
 </head>
 <body class="">
     <div ng-controller="candyController as main">
-        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStart($event)"  ng-mouseup="resizeEndMouse($event)" >
             <!-- Message Include-->
             <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
             <!-- Place Include-->
@@ -52,11 +54,7 @@
             <!-- TravelMode Include-->
             <div ng-include = "'/views/index/include/indexTravelMode.htm'"></div>
             <!-- NavBar -->
-            <nav>
-                <div class="nav-wrapper">
-                    <a class="groupname brand-logo center">{{grouname}}</a>
-                </div>
-            </nav>
+            <a class="groupname brand-logo center">{{grouname}}</a>
             <!-- NavBar end -->
             <!-- Geolocation OFF -->
             <div id="geolocationOff" class="firsthide">
@@ -73,13 +71,21 @@
                 <a class="btn-floating" ng-click="directionDone()"><i class="small material-icons">done</i></a>
             </div>
             <!-- DirectionTime end-->
-            <!-- Google Map -->
-            <div class="mdl-tabs__panel is-active" id="candy_map_tab">
-                <section class="container-full">
-                    <div id="map"></div>
-                </section>
+            
+            <!-- Flexible Box -->
+            <div class="flex-container">
+                <!-- Google Map -->
+                <div class="mdl-tabs__panel is-active" id="candy_map_tab">
+                    <section class="container-full">
+                        <div id="map"></div>
+                    </section>
+                </div>
+                <div ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)">
+                    <div class="editor-resizer"></div>
+                    <div class="flex-box"></div>
+                </div>
             </div>
-            <!-- Google Map end-->
+            
             <!-- Menu button -->
             <div class="fixed-action-btn horizontal click-to-toggle firsthide_lastshow" style="bottom: 45px; right: 24px;">
                 <a class="btn-floating btn-large red">
