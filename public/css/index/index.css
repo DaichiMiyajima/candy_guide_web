@@ -220,5 +220,6 @@ img[src*="test"]{
     position: relative;
     background: rgba(46, 123, 120, 0.5);
     height: 50vh;
+    -webkit-overflow-scrolling: touch;
     overflow: scroll;
 }
