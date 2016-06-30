@@ -31,13 +31,20 @@
     <!-- Modal Place Detail -->
     <div id="modalPlaceDetail" class="modal modal-fixed-footer">
         <div class="modal-content">
-            <img src={{placeDetail.icon}} style="width: 30px;height: 30px;float: left;margin-right: 10px;"></img>
-            <h5 style="margin: 0 0 0 0;float: left;margin-right: 10px;">{{placeDetail.name}}</h5>
+            <img src={{placeDetail.icon}} style="width: 20px;height: 20px;float: left;margin-right: 10px;"></img>
+            <h5 style="margin: 0 0 0 0;float: left;margin-right: 10px;font-size:1rem;font-family:Meiryo UI;">{{placeDetail.name}}</h5>
             <div ng-if="rating !== 'error'">
+                <span>{{placeDetail.rating}}</span>
                 <span class={{rating}}></span>
             </div>
             <br/>
             <div class="col s8">
+            <div ng-if="placeDetail.formatted_address != null">
+                <p>{{placeDetail.formatted_address}}</p>
+            </div>
+            <div ng-if="placeDetail.opening_hours != null">
+                <p>{{placeDetail.opening_hours.open_now}}</p>
+            </div>
             <div ng-if="placeDetail.formatted_phone_number != null">
                 <p>
                     <a class="waves-effect waves-light btn col s4 offset-s4 l2 offset-l1" href="tel:{{placeDetail.formatted_phone_number}}"><i class="material-icons left">call</i>Phone</a>
