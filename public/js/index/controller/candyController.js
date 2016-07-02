@@ -214,7 +214,12 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     mapHeight = (window.innerHeight - 10 -10) +"px";
                     flexBoxHeight = "10px";
                 }
+                if((window.innerHeight - 10 - height) <= $('.messageInputArea').height()){
+                    mapHeight = (window.innerHeight - 10 -$('.messageInputArea').height()) +"px";
+                    flexBoxHeight = $('.messageInputArea').height() + "px";
+                }
             }
+            
             $('#candy_map_tab').css('min-height', mapHeight);
             $('#candy_map_tab').css('max-height', mapHeight);
             $('.flex-box').css('min-height', flexBoxHeight);
@@ -229,5 +234,12 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         resize_count = 0;
         resize = "";
     }
-    
+    //sendMessage
+    $scope.sendMessage = function(messageInput){
+        if(messageInput && messageInput.length > 0){
+            candyService.registerMessage("message",messageInput);
+            $scope.messageInput = "";
+            
+        }
+    }
 });

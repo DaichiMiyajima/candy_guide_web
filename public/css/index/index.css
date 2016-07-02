@@ -218,8 +218,29 @@ img[src*="test"]{
 }
 .flex-box{
     position: relative;
-    background: rgba(46, 123, 120, 0.5);
+    background: #fafafa;
     height: 50vh;
     -webkit-overflow-scrolling: touch;
     overflow: scroll;
+}
+.messageInputArea{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    border-top: 1px solid black;
+    box-shadow: 3px 3px 3px 3px #fafafa;
+}
+#messageInputField{
+    display: inline-block;
+    width: 88%;
+}
+
+#messageInputField textarea{
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #212121;
+}
+
+#sendButton{
+    margin-top: -55px;
 }
