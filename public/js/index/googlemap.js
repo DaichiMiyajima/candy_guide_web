@@ -3,10 +3,11 @@
         // click items activation
         sharegeolocation: {
             func: function sharegeolocation(uniqueurl,mylatlng){
+                var newLatlng = new google.maps.LatLng(mylatlng.lat()-0.02, mylatlng.lng());
                 //create map
                 var mapOptions = {
                     zoom: 13,
-                    center: mylatlng,
+                    center: newLatlng,
                     disableDefaultUI: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }

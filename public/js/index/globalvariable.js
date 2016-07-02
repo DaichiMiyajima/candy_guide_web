@@ -58,9 +58,6 @@ function setmarkerlocation(latitude,longitude){
     var safari = !!navigator.userAgent.match(/safari/i);
     var iphone = !!navigator.userAgent.match(/iphone/i);
     var line = !!navigator.userAgent.match(/Line/i);
-    
-    
-    
     if(safari && !crios && iphone && !line){
         $("#map").css("height","90vh");
         browser = "safari";

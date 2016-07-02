@@ -185,24 +185,8 @@ img[src*="test"]{
 
 /* common css */
 #toast-container{
-    top : 15px !important;
+    top : 3px !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .flex-container{
     display: flex;

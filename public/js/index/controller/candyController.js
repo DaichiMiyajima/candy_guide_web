@@ -192,7 +192,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             swal_relocation();
         }
     }
-    
+    /* Resize */
     $scope.resizeStart = function($event){
         if(resize_count == 0){
             resize = $event.target.className

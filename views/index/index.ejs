@@ -46,13 +46,13 @@
 </head>
 <body class="">
     <div ng-controller="candyController as main">
-        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStartMouse($event)" ng-mouseup="resizeEndMouse($event)" ng-mousedown="resizeEndMouse($event)" >
+        <div ng-mousemove="resizeStartMouse($event)" ng-mouseup="resizeEndMouse($event)" ng-mousedown="resizeEndMouse($event)" >
             <!-- Place Include-->
             <div ng-include = "'/views/index/include/indexPlace.htm'"></div>
             <!-- TravelMode Include-->
             <div ng-include = "'/views/index/include/indexTravelMode.htm'"></div>
             <!-- NavBar -->
-            <a class="groupname brand-logo center">{{grouname}}</a>
+            <a class="groupname">{{grouname}}</a>
             <!-- NavBar end -->
             <!-- Geolocation OFF -->
             <div id="geolocationOff" class="firsthide">
@@ -75,7 +75,7 @@
             <!-- Flexible Box -->
             <div class="flex-container">
                 <!-- Google Map -->
-                <div class="mdl-tabs__panel is-active" id="candy_map_tab">
+                <div id="candy_map_tab">
                     <section class="container-full">
                         <div id="map"></div>
                     </section>
