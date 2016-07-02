@@ -46,7 +46,7 @@
 </head>
 <body class="">
     <div ng-controller="candyController as main">
-        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStart($event)"  ng-mouseup="resizeEndMouse($event)" >
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStartMouse($event)" ng-mouseup="resizeEndMouse($event)" ng-mousedown="resizeEndMouse($event)" >
             <!-- Place Include-->
             <div ng-include = "'/views/index/include/indexPlace.htm'"></div>
             <!-- TravelMode Include-->
@@ -80,7 +80,7 @@
                         <div id="map"></div>
                     </section>
                 </div>
-                <div>
+                <div class="messageBox">
                     <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"> </div>
                     <div class="flex-box">
                         <!-- Message Include-->
@@ -97,7 +97,7 @@
             </div>
             
             <!-- Menu button -->
-            <div class="fixed-action-btn click-to-toggle firsthide_lastshow" style="bottom: 95px; right: 3px;">
+            <div class="fixed-action-btn click-to-toggle firsthide_lastshow" style="bottom: 105px; right: 3px;">
                 <a class="btn-floating btn-large red">
                     <i class="material-icons">menu</i>
                 </a>
@@ -105,9 +105,7 @@
                     <li><a class="btn-floating red" id="currentposition" ng-click="currentposition()"><i class="large material-icons">my_location</i></a></li>
                     <li><a class="btn-floating green" id="addlocationbutton" ng-click="addlocationbutton()"><i class="large material-icons">location_on</i></a></li>
                     <!--<li><a class="btn-floating yellow" id="direction" ng-click="direction()"><i class="large material-icons">navigation</i></a></li>-->
-                    <!--<li><a class="btn-floating blue" id="messagelist" ng-click="messageModal()"><i class="large material-icons">comment</i></a></li>-->
                     <li><a class="btn-floating pink" id="serchplacebutton" ng-click="placeModal()"><i class="large material-icons">search</i></a></li>
-                     <!--<li><a class="btn-floating amber" id=""><i class="large material-icons">perm_identity</i></a></li>-->
                 </ul>
             </div>
             <!-- Menu button end-->

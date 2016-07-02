@@ -48,24 +48,28 @@ textarea{
 #toast-container .message{
     width : 50%;
     background-color: rgba(39, 0, 255, 0.75);
+    float : right;
 }
 
 #toast-container .meetup{
     width : 50%;
     background-color: #5c6bc0 ;
     font-size : 14px;
+    float : right;
 }
 
 #toast-container .attend{
     width : 50%;
     background-color: rgba(0, 255, 137, 0.62);
     font-size : 14px;
+    float : right;
 }
 
 #toast-container .meetupremove{
     width : 50%;
     background-color: rgba(255, 0, 0, 0.62);
     font-size : 14px;
+    float : right;
 }
 
 span:after {
@@ -203,11 +207,12 @@ img[src*="test"]{
 .flex-container{
     display: flex;
     -webkit-flex-direction: column; /* Safari */
-    flex-direction:         column;
+    flex-direction : column;
     flex-shrink: 0;
 }
 .editor-resizer{
     position: relative;
+    bottom: 81px;
     z-index: 2;
     min-height: 20px !important;
     height: 20px;
@@ -219,7 +224,7 @@ img[src*="test"]{
 .flex-box{
     position: relative;
     background: #fafafa;
-    height: 50vh;
+    bottom: 81px;
     -webkit-overflow-scrolling: touch;
     overflow: scroll;
 }
