@@ -5,7 +5,7 @@
             func: function sharegeolocation(uniqueurl,mylatlng){
                 //create map
                 var mapOptions = {
-                    zoom: 15,
+                    zoom: 13,
                     center: mylatlng,
                     disableDefaultUI: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
