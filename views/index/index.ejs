@@ -6,12 +6,12 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author"      content="Daichi Miyajima">
-    <meta property="og:title" content="" />
+    <meta property="og:title" content="Where are you?" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
-    <meta property="og:site_name" content="" />
-    <meta property="og:description" content="" />
+    <meta property="og:url" content="https://bruwbird.com" />
+    <meta property="og:image" content="https://bruwbird.com/public/img/initial/Where_are_you--logo.png" />
+    <meta property="og:site_name" content="bruwbird.com" />
+    <meta property="og:description" content="Share your location with your friends. " />
     <title>Guide</title>
     <link rel="canonical" href="http://guide.com" />
     <link rel="shortcut icon" href="">
@@ -46,15 +46,13 @@
 </head>
 <body class="">
     <div ng-controller="candyController as main">
-        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-mousemove="resizeStart($event)"  ng-mouseup="resizeEndMouse($event)" >
-            <!-- Message Include-->
-            <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
+        <div ng-mousemove="resizeStartMouse($event)" ng-mouseup="resizeEndMouse($event)" ng-mousedown="resizeEndMouse($event)" >
             <!-- Place Include-->
             <div ng-include = "'/views/index/include/indexPlace.htm'"></div>
             <!-- TravelMode Include-->
             <div ng-include = "'/views/index/include/indexTravelMode.htm'"></div>
             <!-- NavBar -->
-            <a class="groupname brand-logo center">{{grouname}}</a>
+            <a class="groupname">{{grouname}}</a>
             <!-- NavBar end -->
             <!-- Geolocation OFF -->
             <div id="geolocationOff" class="firsthide">
@@ -63,6 +61,7 @@
             </div>
             <!-- Geolocation OFF end-->
             <!-- DirectionTime -->
+            <!-- リリースまで一旦保留
             <div id="directionTime" class="firsthide">
                 <div class="direction">
                     <div id="direction_distance" class="matrix"></div>
@@ -70,34 +69,43 @@
                 </div>
                 <a class="btn-floating" ng-click="directionDone()"><i class="small material-icons">done</i></a>
             </div>
+            -->
             <!-- DirectionTime end-->
             
             <!-- Flexible Box -->
             <div class="flex-container">
                 <!-- Google Map -->
-                <div class="mdl-tabs__panel is-active" id="candy_map_tab">
+                <div id="candy_map_tab">
                     <section class="container-full">
                         <div id="map"></div>
                     </section>
                 </div>
-                <div ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)">
-                    <div class="editor-resizer"></div>
-                    <div class="flex-box"></div>
+                <div class="messageBox">
+                    <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"> </div>
+                    <div class="flex-box">
+                        <!-- Message Include-->
+                        <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
+                    </div>
                 </div>
+            </div>
+            <div class="messageInputArea">
+                <!-- text-area -->
+                <div input-field id="messageInputField">
+                    <textarea ng-model="messageInput" class="input materialize-textarea" placeholder="message"></textarea>
+                </div>
+                <a class="btn-floating red" id="sendButton"><i class="small material-icons" ng-click="sendMessage(messageInput)">send</i></a>
             </div>
             
             <!-- Menu button -->
-            <div class="fixed-action-btn horizontal click-to-toggle firsthide_lastshow" style="bottom: 45px; right: 24px;">
+            <div class="fixed-action-btn click-to-toggle firsthide_lastshow" style="bottom: 105px; right: 3px;">
                 <a class="btn-floating btn-large red">
                     <i class="material-icons">menu</i>
                 </a>
                 <ul>
                     <li><a class="btn-floating red" id="currentposition" ng-click="currentposition()"><i class="large material-icons">my_location</i></a></li>
                     <li><a class="btn-floating green" id="addlocationbutton" ng-click="addlocationbutton()"><i class="large material-icons">location_on</i></a></li>
-                    <li><a class="btn-floating yellow" id="direction" ng-click="direction()"><i class="large material-icons">navigation</i></a></li>
-                    <li><a class="btn-floating blue" id="messagelist" ng-click="messageModal()"><i class="large material-icons">comment</i></a></li>
+                    <!--<li><a class="btn-floating yellow" id="direction" ng-click="direction()"><i class="large material-icons">navigation</i></a></li>-->
                     <li><a class="btn-floating pink" id="serchplacebutton" ng-click="placeModal()"><i class="large material-icons">search</i></a></li>
-                    <li><a class="btn-floating amber" id=""><i class="large material-icons">perm_identity</i></a></li>
                 </ul>
             </div>
             <!-- Menu button end-->

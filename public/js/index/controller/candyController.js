@@ -119,10 +119,12 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
     }
     // Direction Done.Delete Render
+    /*
     $scope.directionDone = function(){
         directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
         $('#modal2').closeModal();
     }
+    */
     //Make pin from Nothing
     $scope.addlocationbutton = function(){
         if(Object.keys(markers_meet).length < 1){
@@ -132,6 +134,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             swal_remove_meetUpMarkers();
         }
     }
+    /*
     //Direction
     $scope.direction = function(){
         if(Object.keys(markers_meet).length > 0){
@@ -153,6 +156,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     $scope.directionDone = function(){
         directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
     }
+    */
     $scope.currentposition = function(){
         var count = 0;
         if(watchID){
@@ -188,7 +192,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             swal_relocation();
         }
     }
-    
+    /* Resize */
     $scope.resizeStart = function($event){
         if(resize_count == 0){
             resize = $event.target.className
@@ -196,38 +200,69 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         resize_count = resize_count +1 ;
         if(resize == "editor-resizer"){
             //bodyの高さ(window.innerHeight)
-            if($event.type == "mousemove"){
-                var height = 10;
-                if($event.clientY > 10){
-                    height = $event.clientY;
-                }
-                var mapHeight = (height - 10) +"px";
-                var flexBoxHeight = (window.innerHeight - 10 - height) +"px";
-            }else{
-                var height = 10;
-                if($event.originalEvent.touches[0].clientY > 10){
-                    height = $event.originalEvent.touches[0].clientY;
-                }
-                var mapHeight = (height - 10) +"px";
-                var flexBoxHeight = (window.innerHeight - 10 - height) +"px";
-                if(browser && (window.innerHeight - 10 - height) <= 10){
-                    mapHeight = (window.innerHeight - 10 -10) +"px";
-                    flexBoxHeight = "10px";
-                }
+            var height = $event.originalEvent.touches[0].clientY;
+            var mapHeight = (height - ($('.editor-resizer').height()/2));
+            var flexBoxHeight = (window.innerHeight - ($('.editor-resizer').height()/2) - height);
+            //Topを超えたときの処理
+            if((flexBoxHeight + $('.editor-resizer').height() + $('.messageInputArea').height()) > window.innerHeight){
+                mapHeight = $('.messageInputArea').height();
+                flexBoxHeight = window.innerHeight - ($('.editor-resizer').height() + $('.messageInputArea').height());
             }
-            $('#candy_map_tab').css('min-height', mapHeight);
-            $('#candy_map_tab').css('max-height', mapHeight);
-            $('.flex-box').css('min-height', flexBoxHeight);
-            $('.flex-box').css('max-height', flexBoxHeight);
+            //Bottomを超えたときの処理
+            if(flexBoxHeight < 0){
+                mapHeight = window.innerHeight - $('.editor-resizer').height();
+                flexBoxHeight = 0;
+            }
+            $('#candy_map_tab').css('min-height', mapHeight + "px");
+            $('#candy_map_tab').css('max-height', mapHeight + "px");
+            $('.flex-box').css('min-height', flexBoxHeight + "px");
+            $('.flex-box').css('max-height', flexBoxHeight + "px");
         }
     }
     $scope.resizeEnd = function($event){
         resize_count = 0;
         resize = "";
     }
+    
+    $scope.resizeStartMouse = function($event){
+        if(resize_count == 0){
+            resize = $event.target.className
+        }
+        resize_count = resize_count +1 ;
+        if(resize == "editor-resizer" && $event.buttons == 1){
+            //bodyの高さ(window.innerHeight)
+            var height = ($('.editor-resizer').height()/2);
+            if($event.clientY > ($('.editor-resizer').height()/2)){
+                height = $event.clientY;
+            }
+            var mapHeight = (height - ($('.editor-resizer').height()/2));
+            var flexBoxHeight = (window.innerHeight - ($('.editor-resizer').height()/2) - height);
+            //Topを超えたときの処理
+            if((flexBoxHeight + $('.editor-resizer').height() + $('.messageInputArea').height()) > window.innerHeight){
+                mapHeight = $('.messageInputArea').height();
+                flexBoxHeight = window.innerHeight - ($('.editor-resizer').height() + $('.messageInputArea').height());
+            }
+            //Bottomを超えたときの処理
+            if(flexBoxHeight < 0){
+                mapHeight = window.innerHeight - $('.editor-resizer').height();
+                flexBoxHeight = 0;
+            }
+            $('#candy_map_tab').css('min-height', mapHeight + "px");
+            $('#candy_map_tab').css('max-height', mapHeight + "px");
+            $('.flex-box').css('min-height', flexBoxHeight + "px");
+            $('.flex-box').css('max-height', flexBoxHeight + "px");
+        }
+    }
     $scope.resizeEndMouse = function($event){
         resize_count = 0;
         resize = "";
     }
-    
+    //sendMessage
+    $scope.sendMessage = function(messageInput){
+        if(messageInput && messageInput.length > 0){
+            candyService.registerMessage("message",messageInput);
+            $scope.messageInput = "";
+            
+        }
+    }
 });

@@ -1,9 +1,9 @@
 <div ng-controller="messageController as message">
     <!-- Modal Structure -->
-    <div id="messageModal" class="modal bottom-sheet modal-fixed-footer">
+    <div id="" class="messageall">
         <div class="messageTextArea">
         </div>
-        <div class="modal-content modalMessage">
+        <div class="">
             <!-- message tab -->
             <div style="padding-top: 1px;">
                 <div ng-repeat="message in messages | orderBy:'-time'">
@@ -32,13 +32,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <!-- text-area -->
-            <div input-field id="messageInputField">
-                <textarea ng-model="messageInput" class="input materialize-textarea" placeholder="message"></textarea>
-            </div>
-            <a class="btn-floating red" id="sendButton"><i class="small material-icons" ng-click="sendMessage(messageInput)">send</i></a>
         </div>
     </div>
     <!-- Modal Structure end -->
