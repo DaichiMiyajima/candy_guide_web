@@ -9,7 +9,7 @@
         <meta property="og:title" content="Where are you?" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bruwbird.com" />
-        <meta property="og:image" content="../public/img/initial/Where_are_you--logo.png" />
+        <meta property="og:image" content="https://bruwbird.com/public/img/initial/Where_are_you--logo.png" />
         <meta property="og:site_name" content="bruwbird.com" />
         <meta property="og:description" content="Share your location with your friends. " />
         <title>Guide</title>
@@ -28,63 +28,18 @@
     
     <body>
         <header>
-            <!--
-            <div class="navbar-fixed">
-                <!-- Dropdown Structure --
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!">Coming soon...</a></li>
-                </ul>
-                <nav class="" style="background-color:rgba(209, 209, 209, 0.31);">
-                    <div class="nav-wrapper">
-                        <div style="text-align:left; ">
-                            <a href="#!" class="brand-logo" style="margin : 0 20px;">
-                                <img src="../public/img/location.png" style="margin-right : 20px;">
-                                Where are you?
-                            </a>
-                        </div>
-                        <ul class="right hide-on-med-and-down">
-                            <!-- Dropdown Trigger --
-                            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">My Maps<i class="material-icons right">arrow_drop_down</i></a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            -->
-            
             <nav>
-                <!-- Dropdown Structure -->
-                <ul id="dropdown1" class="dropdown-content">
-                        <li><div class="navi-category">My Maps</div></li>
-                        <li class="divider"></li>
-                        <li><a href="#!">one</a></li>
-                        <li><a href="#!">two</a></li>
-                        <li><a href="#!">three</a></li>
-                        <li><div class="navi-category" style="margin-top:5px">Share</div></li>
-                        <li class="divider"></li>
-                        <li><a href="#!">facebook</a></li>
-
-                </ul>
-
                 <div class="nav-wrapper white ">
-                    <a href="#!" class="brand-logo grey-text">
+                    <a href="#!" class="brand-logo grey-text center">
                         Where are you?
                     </a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
-                    <ul class="right hide-on-med-and-down">
-                        <!-- Dropdown Trigger -->
-                        <li><a class="dropdown-button grey-text" href="#!" data-activates="dropdown1">MENU<i class="material-icons right">arrow_drop_down</i></a></li>
-                    </ul>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large grey-text"><i class="material-icons">menu</i></a>
                     <ul class="side-nav" id="mobile-demo">
-                        <li><div class="navi-category">My Maps</div></li>
-                        <li class="divider"></li>
-                        <li><a href="#!">one</a></li>
-                        <li><a href="#!">two</a></li>
-                        <li><a href="#!">three</a></li>
                         <li><div class="navi-category" style="margin-top:5px">Share</div></li>
                         <li class="divider"></li>
-                        <li><div style="padding: 0 30px;"><iframe src="http://ghbtns.com/github-btn.html?user=DaichiMiyajima&amp;repo=candy_guide_secondry&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe></div></li>
-                        <li><div style="padding: 0 30px;"><iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fbruwbird.com&layout=button_count&mobile_iframe=true&width=100&height=20&appId" width="100" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe></div></li>
-                        <li><div style="padding: 0 30px;"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://bruwbird.com" data-text="Share your location!" data-size="large">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div></li>
+                        <li><div style="padding: 0 30px;"><iframe style="vertical-align:middle;" src="http://ghbtns.com/github-btn.html?user=DaichiMiyajima&amp;repo=candy_guide_secondry&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe></div></li>
+                        <li><div style="padding: 0 30px; height : 20px;" class="fb-share-button" data-href="https://bruwbird.com" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbruwbird.com%2F&amp;src=sdkpreparse">シェア</a></div></li>
+                        <li><div style="padding: 0 30px;"><a style="vertical-align:middle;" href="https://twitter.com/share" class="twitter-share-button" data-url="https://bruwbird.com" data-text="Share your location!" data-size="large">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div></li>
                     </ul>
                 </div>
             </nav>
@@ -107,6 +62,15 @@
                 </div>
             </div>
         </footer>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.6";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
         <script type="text/javascript" src="js/initial/initial.js"></script>
     </body>
