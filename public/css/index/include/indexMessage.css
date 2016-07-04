@@ -53,12 +53,12 @@ textarea{
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 .toast-info{
-    background : rgba(39, 0, 255, 0.75);
+    background : rgba(39, 0, 255, 0.85);
 }
 .toast-success{
-    background : rgba(0, 255, 137, 0.62);
+    background : rgb(0, 90, 255);
 }
 .toast-error{
-    background : rgba(255, 0, 0, 0.62);
+    background : rgba(255, 0, 0, 0.87);
 }
 /* message tab-end */
