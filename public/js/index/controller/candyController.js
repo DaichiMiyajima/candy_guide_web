@@ -39,10 +39,10 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                         plugin.func.call(function(){},uniqueurl[2]);
                     });//forEach
                     //initial css * I haveto write this code because css doesn't affect
-                    $('#candy_map_tab').css('min-height', window.innerHeight*0.7 + "px");
-                    $('#candy_map_tab').css('max-height', window.innerHeight*0.7 + "px");
-                    $('.flex-box').css('min-height', window.innerHeight*0.3 + "px");
-                    $('.flex-box').css('max-height', window.innerHeight*0.3 + "px");
+                    $('#candy_map_tab').css('min-height', window.innerHeight*0.65 + "px");
+                    $('#candy_map_tab').css('max-height', window.innerHeight*0.65 + "px");
+                    $('.flex-box').css('min-height', window.innerHeight*0.35 + "px");
+                    $('.flex-box').css('max-height', window.innerHeight*0.35 + "px");
                 }, 
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
@@ -207,20 +207,20 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             resize = $event.target.className
         }
         resize_count = resize_count +1 ;
-        if(resize == "editor-resizer"){
+        if(resize == "editor-resizer" || resize == "small material-icons"){
             //bodyの高さ(window.innerHeight)
             var height = $event.originalEvent.touches[0].clientY;
-            var mapHeight = (height - ($('.editor-resizer').height()/2));
-            var flexBoxHeight = (window.innerHeight - ($('.editor-resizer').height()/2) - height);
+            var mapHeight = height - $('.nav-wrapper').height();
+            var flexBoxHeight = (window.innerHeight - $('.editor-resizer').height() - height - $('.nav-wrapper').height());
             //Topを超えたときの処理
-            if((flexBoxHeight + $('.editor-resizer').height() + $('.messageInputArea').height()) > window.innerHeight){
-                mapHeight = $('.messageInputArea').height();
-                flexBoxHeight = window.innerHeight - ($('.editor-resizer').height() + $('.messageInputArea').height());
+            if((flexBoxHeight + $('.editor-resizer').height() + $('.nav-wrapper').height()) > window.innerHeight){
+                mapHeight = 0;
+                flexBoxHeight = window.innerHeight - ($('.editor-resizer').height());
             }
             //Bottomを超えたときの処理
-            if(flexBoxHeight < 0){
-                mapHeight = window.innerHeight - $('.editor-resizer').height();
-                flexBoxHeight = 0;
+            if((window.innerHeight - $event.originalEvent.touches[0].clientY - $('.editor-resizer').height()) < $('.messageInputArea').height()){
+                mapHeight = window.innerHeight - $('.editor-resizer').height() - $('.nav-wrapper').height() - $('.messageInputArea').height();
+                flexBoxHeight = $('.messageInputArea').height();
             }
             $('#candy_map_tab').css('min-height', mapHeight + "px");
             $('#candy_map_tab').css('max-height', mapHeight + "px");
@@ -238,7 +238,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             resize = $event.target.className
         }
         resize_count = resize_count +1 ;
-        if(resize == "editor-resizer" && $event.buttons == 1){
+        if((resize == "editor-resizer" || resize == "small material-icons") && $event.buttons == 1){
             //bodyの高さ(window.innerHeight)
             var height = ($('.editor-resizer').height()/2);
             if($event.clientY > ($('.editor-resizer').height()/2)){
@@ -256,6 +256,8 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 mapHeight = window.innerHeight - $('.editor-resizer').height();
                 flexBoxHeight = 0;
             }
+            console.log(mapHeight);
+            console.log(flexBoxHeight);
             $('#candy_map_tab').css('min-height', mapHeight + "px");
             $('#candy_map_tab').css('max-height', mapHeight + "px");
             $('.flex-box').css('min-height', flexBoxHeight + "px");

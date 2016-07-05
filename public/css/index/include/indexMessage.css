@@ -2,11 +2,6 @@
 .messageall{
     margin-top : 15px;
 }
-textarea{
-    max-height: 30px !important;
-    overflow-y: scroll !important;
-}
-
 #toast-container-chat > div {
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;
