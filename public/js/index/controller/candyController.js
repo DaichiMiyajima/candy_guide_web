@@ -278,13 +278,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         }
     }
     $scope.onfocus = function(){
-        console.log($('.flex-box').height());
-        
         $('.messageInputAreaDiv').css('height', 100 + "px");
-        $('.flex-box').css('min-height', ($('.flex-box').height() + 200) + "px");
-        $('.flex-box').css('max-height', ($('.flex-box').height() + 200) + "px");
-        $('#candy_map_tab').css('min-height', ($('#candy_map_tab').height() - 200) + "px");
-        $('#candy_map_tab').css('max-height', ($('#candy_map_tab').height() - 200) + "px");
     }
     $scope.onblur = function(){
         $('.messageInputAreaDiv').css('height', messageInputHeight + "px");
