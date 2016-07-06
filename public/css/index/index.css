@@ -15,6 +15,41 @@ body {
     user-select: none;
 }
 
+/* nav */
+nav{
+    height: 30px !important;
+    line-height: 30px !important;
+    background-color: #bdbdbd !important;
+}
+
+nav .backScreen{
+    float: left;
+    font-size: 20px;
+    left: 7px;
+}
+
+nav .groupname{
+    font-size: 20px;
+}
+nav .button-collapse{
+    float: right !important;
+    height: 30px !important;
+}
+
+nav .button-collapse i{
+    height: 30px !important;
+    line-height: 30px !important;
+    font-size: 26px !important;
+}
+nav ul{
+    width:140px !important;
+}
+
+nav ul i{
+    height: 26px !important;
+}
+/* nav end */
+
 .fixed-action-btn.horizontal ul li{
     margin: 8px 8px 0 0 !important;
 }

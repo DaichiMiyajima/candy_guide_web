@@ -60,17 +60,16 @@
             <!-- TravelMode Include-->
             <div ng-include = "'/views/index/include/indexTravelMode.htm'"></div>
             <!-- Menu Nav -->
-            <nav style="height: 30px;line-height: 30px;background-color: #bdbdbd;">
+            <nav>
                 <div class="nav-wrapper white ">
-                    <a href="" data-activates="" class="" style="float: left;font-size: 30px;left: 7px;"> < </a>
-                    <a href="" class="brand-logo grey-text groupname">
-                        {{grouname}}
-                    </a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse grey-text" style="float: right;height: 30px;"><i class="material-icons" style="height: 30px;line-height: 30px;">menu</i></a>
-                    <ul class="side-nav" id="mobile-demo" style="width:140px">
-                        <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons" style="height: 26px;">my_location</i><span>MyLocation</span></div></li>
-                        <li><div class="menuContent" ng-click="addlocationbutton()"><i class="material-icons" style="height: 26px;">location_on</i><span>Place</span></div></li>
-                        <li><div class="menuContent" ng-click="placeModal()"><i class="material-icons" style="height: 26px;">search</i><span>PlaceSearch</span></div></li>
+                    <!-- When release, we hide backScreen -->
+                    <!--<a class="backScreen grey-text"> < </a>-->
+                    <a class="grey-text groupname">{{grouname}}</a>
+                    <a data-activates="mobile-demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons">my_location</i><span>MyLocation</span></div></li>
+                        <li><div class="menuContent" ng-click="addlocationbutton()"><i class="material-icons">location_on</i><span>Place</span></div></li>
+                        <li><div class="menuContent" ng-click="placeModal()"><i class="material-icons">search</i><span>PlaceSearch</span></div></li>
                     </ul>
                 </div>
             </nav>
@@ -112,7 +111,7 @@
             <div class="messageInputArea">
                 <div class="messageInputAreaDiv">
                     <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea" ng-focus="onfocus()" ng-blur="onblur()" ng-keyup="$event.keyCode == 13 ? newLine() : null"></textarea>
-                    <a class="waves-effect waves-light btn" id="sendbutton" ng-mousedown="sendMessage(messageInput)" style="">Send</a>
+                    <a class="waves-effect waves-light btn" id="sendbutton" ng-mousedown="sendMessage(messageInput)">Send</a>
                 </div>
             </div>
         </div>
