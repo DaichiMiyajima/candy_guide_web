@@ -46,12 +46,12 @@ textarea{
 
 .toast{
     min-height: 30px !important; 
-    margin-top : 55px !important;
 }
 
 #toast-container{
     max-height : 0%;
     right :  0px;
+    margin-top: 30px;
 }
 
 #toast-container .message{

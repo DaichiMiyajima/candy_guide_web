@@ -253,7 +253,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 flexBoxHeight = window.innerHeight - ($('.editor-resizer').height() + $('.messageInputArea').height());
             }
             //Bottomを超えたときの処理
-            if(flexBoxHeight < 0){
+            if(flexBoxHeight <= 0){
                 mapHeight = window.innerHeight - $('.editor-resizer').height();
                 flexBoxHeight = 0;
             }
@@ -279,11 +279,16 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     }
     $scope.onfocus = function(){
         $('.messageInputAreaDiv').css('height', 130 + "px");
-        
-        $('#candy_map_tab').css('min-height', ($('#candy_map_tab').height() - 130) + "px");
-        $('#candy_map_tab').css('max-height', ($('#candy_map_tab').height() - 130) + "px");
-        $('.flex-box').css('min-height', ($('.flex-box').height() + 130) + "px");
-        $('.flex-box').css('max-height', ($('.flex-box').height() + 130) + "px");
+        if($('.flex-box').height() < $('.messageInputArea').height()){
+            var mapHeight = window.innerHeight - $('.editor-resizer').height() - $('.messageInputArea').height() - $('.nav-wrapper').height();
+            var flexBoxHeight = $('.messageInputArea').height() + $('.editor-resizer').height();
+            $('#candy_map_tab').css('min-height', mapHeight + "px");
+            $('#candy_map_tab').css('max-height', mapHeight + "px");
+            $('.flex-box').css('min-height', flexBoxHeight + "px");
+            $('.flex-box').css('max-height', flexBoxHeight + "px");
+        }
+        console.log($('.messageInputArea').height());
+        console.log($('.flex-box').height());
     }
     $scope.onblur = function(){
         $('.messageInputAreaDiv').css('height', messageInputHeight + "px");
