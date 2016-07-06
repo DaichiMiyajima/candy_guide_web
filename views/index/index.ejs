@@ -110,11 +110,10 @@
                 </div>
             </div>
             <div class="messageInputArea">
-                <div>
-                    <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea"></textarea>
+                <div class="messageInputAreaDiv">
+                    <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea" ng-focus="onfocus()" ng-blur="onblur()" ng-keyup="$event.keyCode == 13 ? newLine() : null"></textarea>
                     <a class="waves-effect waves-light btn" id="sendbutton" ng-click="sendMessage(messageInput)" style="">Send</a>
                 </div>
-                
             </div>
         </div>
     </div>

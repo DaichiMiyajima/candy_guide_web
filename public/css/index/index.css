@@ -229,13 +229,15 @@ img[src*="test"]{
     position: fixed;
     bottom: 0px;
     width: 100%;
-    background: rgb(255, 255, 255);
     border-top: 1px solid black;
     box-shadow: 3px 3px 3px 3px #fafafa;
-}
-.messageInputArea div{
-    padding: 20px;
     background: #b7b7b7;
+}
+.messageInputAreaDiv{
+    padding: 8px;
+    background: #b7b7b7;
+    display: inline-flex;
+    width: 100%;
 }
 #messageInputField{
     display: inline-block;
@@ -249,9 +251,10 @@ img[src*="test"]{
 
 #sendbutton{
     width: 60px;
-    height: 30px;
-    font-size: 14px;
+    height: 23px;
+    font-size: 13px;
     padding: 0px;
-    line-height: 30px;
+    line-height: 23px;
     float: right;
+    left: 5px;
 }

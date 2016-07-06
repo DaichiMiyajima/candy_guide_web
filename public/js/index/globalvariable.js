@@ -43,6 +43,8 @@ var resize_count = 0;
 var resize;
 var browser;
 
+var messageInputHeight;
+
 function setlocation(latitude,longitude){
     yourlatitude = latitude;
     yourlongitude = longitude;

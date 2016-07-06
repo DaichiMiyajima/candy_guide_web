@@ -1,6 +1,7 @@
 myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,candyService) {
     $('.firsthide').hide();
     $('.collapsible').collapsible();
+    messageInputHeight = $('.messageInputAreaDiv').height();
     //Init function load map and etc......
     var sharemaps = candyService.referenceSharemap();
     $firebaseObject(sharemaps).$loaded().then(function(sharemap) {
@@ -275,5 +276,19 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             $scope.messageInput = "";
             
         }
+    }
+    $scope.onfocus = function(){
+        console.log($('.flex-box').height());
+        
+        $('.messageInputAreaDiv').css('height', 100 + "px");
+        $('.flex-box').css('min-height', ($('.flex-box').height() + 200) + "px");
+        $('.flex-box').css('max-height', ($('.flex-box').height() + 200) + "px");
+        $('#candy_map_tab').css('min-height', ($('#candy_map_tab').height() - 200) + "px");
+        $('#candy_map_tab').css('max-height', ($('#candy_map_tab').height() - 200) + "px");
+    }
+    $scope.onblur = function(){
+        $('.messageInputAreaDiv').css('height', messageInputHeight + "px");
+    }
+    $scope.newLine = function(){
     }
 });
