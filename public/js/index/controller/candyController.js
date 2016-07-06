@@ -98,7 +98,6 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         }
     })
     .catch(function(error) {
-        console.error("Error:", error);
     });
     //Open messageModal
     $scope.messageModal = function(){
@@ -252,8 +251,6 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 mapHeight = window.innerHeight - $('.editor-resizer').height();
                 flexBoxHeight = 0;
             }
-            console.log(mapHeight);
-            console.log(flexBoxHeight);
             $('#candy_map_tab').css('min-height', mapHeight + "px");
             $('#candy_map_tab').css('max-height', mapHeight + "px");
             $('.flex-box').css('min-height', flexBoxHeight + "px");
@@ -282,8 +279,6 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             $('.flex-box').css('min-height', flexBoxHeight + "px");
             $('.flex-box').css('max-height', flexBoxHeight + "px");
         }
-        console.log($('.messageInputArea').height());
-        console.log($('.flex-box').height());
     }
     $scope.onblur = function(){
         $('.messageInputAreaDiv').css('height', messageInputHeight + "px");
