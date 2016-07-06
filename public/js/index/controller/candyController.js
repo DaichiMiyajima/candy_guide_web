@@ -278,7 +278,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         }
     }
     $scope.onfocus = function(){
-        $('.messageInputAreaDiv').css('height', 100 + "px");
+        $('.messageInputAreaDiv').css('height', 130 + "px");
     }
     $scope.onblur = function(){
         $('.messageInputAreaDiv').css('height', messageInputHeight + "px");
