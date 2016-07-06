@@ -42,7 +42,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <script type="text/javascript" src="../public/bower_components/ngtouchstart/build/ngTouchstart.min.js"></script>
     <script type="text/javascript" src="../public/bower_components/ngtouch/build/ngTouch.min.js"></script>
-    
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80242586-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 </head>
 <body class="">
     <div ng-controller="candyController as main">
@@ -51,9 +59,22 @@
             <div ng-include = "'/views/index/include/indexPlace.htm'"></div>
             <!-- TravelMode Include-->
             <div ng-include = "'/views/index/include/indexTravelMode.htm'"></div>
-            <!-- NavBar -->
-            <a class="groupname">{{grouname}}</a>
-            <!-- NavBar end -->
+            <!-- Menu Nav -->
+            <nav>
+                <div class="nav-wrapper white ">
+                    <a href="" data-activates="" class="" style="float: left;font-size: 30px;left: 7px;"> < </a>
+                    <a href="" class="brand-logo grey-text groupname">
+                        {{grouname}}
+                    </a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse grey-text" style="float: right;"><i class="material-icons">menu</i></a>
+                    <ul class="side-nav" id="mobile-demo" style="width:140px">
+                        <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons" style="height: 26px;">my_location</i><span>MyLocation</span></div></li>
+                        <li><div class="menuContent" ng-click="addlocationbutton()"><i class="material-icons" style="height: 26px;">location_on</i><span>Place</span></div></li>
+                        <li><div class="menuContent" ng-click="placeModal()"><i class="material-icons" style="height: 26px;">search</i><span>PlaceSearch</span></div></li>
+                    </ul>
+                </div>
+            </nav>
+            
             <!-- Geolocation OFF -->
             <div id="geolocationOff" class="firsthide">
                 <label>Your location services are unavailable.</label><br/>
@@ -81,7 +102,7 @@
                     </section>
                 </div>
                 <div class="messageBox">
-                    <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"> </div>
+                    <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"><i class="small material-icons">toc</i></div>
                     <div class="flex-box">
                         <!-- Message Include-->
                         <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
@@ -89,26 +110,11 @@
                 </div>
             </div>
             <div class="messageInputArea">
-                <!-- text-area -->
-                <div input-field id="messageInputField">
-                    <textarea ng-model="messageInput" class="input materialize-textarea" placeholder="message"></textarea>
+                <div class="messageInputAreaDiv">
+                    <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea" ng-focus="onfocus()" ng-blur="onblur()" ng-keyup="$event.keyCode == 13 ? newLine() : null"></textarea>
+                    <a class="waves-effect waves-light btn" id="sendbutton" ng-click="sendMessage(messageInput)" style="">Send</a>
                 </div>
-                <a class="btn-floating red" id="sendButton"><i class="small material-icons" ng-click="sendMessage(messageInput)">send</i></a>
             </div>
-            
-            <!-- Menu button -->
-            <div class="fixed-action-btn click-to-toggle firsthide_lastshow" style="bottom: 105px; right: 3px;">
-                <a class="btn-floating btn-large red">
-                    <i class="material-icons">menu</i>
-                </a>
-                <ul>
-                    <li><a class="btn-floating red" id="currentposition" ng-click="currentposition()"><i class="large material-icons">my_location</i></a></li>
-                    <li><a class="btn-floating green" id="addlocationbutton" ng-click="addlocationbutton()"><i class="large material-icons">location_on</i></a></li>
-                    <!--<li><a class="btn-floating yellow" id="direction" ng-click="direction()"><i class="large material-icons">navigation</i></a></li>-->
-                    <li><a class="btn-floating pink" id="serchplacebutton" ng-click="placeModal()"><i class="large material-icons">search</i></a></li>
-                </ul>
-            </div>
-            <!-- Menu button end-->
         </div>
     </div>
     <!-- Google Maps -->

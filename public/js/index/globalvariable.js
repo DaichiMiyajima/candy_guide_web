@@ -43,6 +43,8 @@ var resize_count = 0;
 var resize;
 var browser;
 
+var messageInputHeight;
+
 function setlocation(latitude,longitude){
     yourlatitude = latitude;
     yourlongitude = longitude;
@@ -62,4 +64,9 @@ function setmarkerlocation(latitude,longitude){
         $("#map").css("height","90vh");
         browser = "safari";
     }
+    $('.collapsible').collapsible({
+        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+    $(".button-collapse").sideNav();
+    
 })()

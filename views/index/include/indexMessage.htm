@@ -21,6 +21,7 @@
                             <div class="messagelist toast-success">
                                 <div class="toast-message">{{message.message}}</div>
                             </div>
+                            <span style="color: black;">{{ message.time | date:'MM/dd hh:mm' : timezone}}</span>
                         </div>
                     </div>
                     <div ng-if="message.kind === 'meetupremove'">
@@ -28,6 +29,7 @@
                             <div class="messagelist toast-error">
                                 <div class="toast-message">{{message.message}}</div>
                             </div>
+                            <span style="color: black;">{{ message.time | date:'MM/dd hh:mm' : timezone}}</span>
                         </div>
                     </div>
                 </div>
