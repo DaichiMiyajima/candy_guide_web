@@ -1,4 +1,4 @@
-myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,candyService) {
+myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,candyService,screenEventService,gpslocationService) {
     $('.firsthide').hide();
     $('.collapsible').collapsible();
     messageInputHeight = $('.messageInputAreaDiv').height();
@@ -162,66 +162,15 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     }
     */
     $scope.currentposition = function(){
-        var count = 0;
-        if(watchID){
-            navigator.geolocation.clearWatch(watchID);
-            watchID = navigator.geolocation.watchPosition(
-                // onSuccess Geolocation
-                function(position) {
-                    //within 50m → update user
-                    if(position.coords.accuracy <= 5000){
-                        //UpdateUser
-                        candyService.updateUser(position,uniqueurl[2],"on");
-                        //set location into variable
-                        setlocation(position.coords.latitude,position.coords.longitude);
-                        if(count < 1){
-                            count = count + 1;
-                            //panto
-                            googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
-                        }
-                    }else{
-                        if(count < 1){
-                            count = count + 1;
-                            Materialize.toast('Accuracy of gps is bad. Try again!' , 5000, 'rounded meetupremove');
-                        }
-                    }
-                },
-                // エラー時のコールバック関数は PositionError オブジェクトを受けとる
-                function(error) {
-                    Materialize.toast('Gps is error. Try again!' , 5000, 'rounded meetupremove');
-                },
-                {enableHighAccuracy: true,maximumAge: 1}
-            );
-        }else{
-            swal_relocation();
-        }
+        gpslocationService.currentPosition(watchID);
     }
     /* Resize */
     $scope.resizeStart = function($event){
         if(resize_count == 0){
-            resize = $event.target.className
+            resize = $event.target.className;
         }
+        screenEventService.resizeBar(resize,resize_count,$event);
         resize_count = resize_count +1 ;
-        if(resize == "editor-resizer" || resize == "small material-icons"){
-            //bodyの高さ(window.innerHeight)
-            var height = $event.originalEvent.touches[0].clientY;
-            var mapHeight = height - $('.nav-wrapper').height();
-            var flexBoxHeight = (window.innerHeight - $('.editor-resizer').height() - height - $('.nav-wrapper').height());
-            //Topを超えたときの処理
-            if((flexBoxHeight + $('.editor-resizer').height() + $('.nav-wrapper').height()) > window.innerHeight){
-                mapHeight = 0;
-                flexBoxHeight = window.innerHeight - ($('.editor-resizer').height());
-            }
-            //Bottomを超えたときの処理
-            if((window.innerHeight - $event.originalEvent.touches[0].clientY - $('.editor-resizer').height()) < $('.messageInputArea').height()){
-                mapHeight = window.innerHeight - $('.editor-resizer').height() - $('.nav-wrapper').height() - $('.messageInputArea').height();
-                flexBoxHeight = $('.messageInputArea').height();
-            }
-            $('#candy_map_tab').css('min-height', mapHeight + "px");
-            $('#candy_map_tab').css('max-height', mapHeight + "px");
-            $('.flex-box').css('min-height', flexBoxHeight + "px");
-            $('.flex-box').css('max-height', flexBoxHeight + "px");
-        }
     }
     $scope.resizeEnd = function($event){
         resize_count = 0;
@@ -230,32 +179,10 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     
     $scope.resizeStartMouse = function($event){
         if(resize_count == 0){
-            resize = $event.target.className
+            resize = $event.target.className;
         }
+        screenEventService.resizeBarPc(resize,resize_count,$event);
         resize_count = resize_count +1 ;
-        if((resize == "editor-resizer" || resize == "small material-icons") && $event.buttons == 1){
-            //bodyの高さ(window.innerHeight)
-            var height = ($('.editor-resizer').height()/2);
-            if($event.clientY > ($('.editor-resizer').height()/2)){
-                height = $event.clientY;
-            }
-            var mapHeight = (height - ($('.editor-resizer').height()/2));
-            var flexBoxHeight = (window.innerHeight - ($('.editor-resizer').height()/2) - height);
-            //Topを超えたときの処理
-            if((flexBoxHeight + $('.editor-resizer').height() + $('.messageInputArea').height()) > window.innerHeight){
-                mapHeight = $('.messageInputArea').height();
-                flexBoxHeight = window.innerHeight - ($('.editor-resizer').height() + $('.messageInputArea').height());
-            }
-            //Bottomを超えたときの処理
-            if(flexBoxHeight <= 0){
-                mapHeight = window.innerHeight - $('.editor-resizer').height();
-                flexBoxHeight = 0;
-            }
-            $('#candy_map_tab').css('min-height', mapHeight + "px");
-            $('#candy_map_tab').css('max-height', mapHeight + "px");
-            $('.flex-box').css('min-height', flexBoxHeight + "px");
-            $('.flex-box').css('max-height', flexBoxHeight + "px");
-        }
     }
     $scope.resizeEndMouse = function($event){
         resize_count = 0;
@@ -266,23 +193,12 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         if(messageInput && messageInput.length > 0){
             candyService.registerMessage("message",messageInput);
             $scope.messageInput = "";
-            
         }
     }
     $scope.onfocus = function(){
-        $('.messageInputAreaDiv').css('height', 130 + "px");
-        if($('.flex-box').height() < $('.messageInputArea').height()){
-            var mapHeight = window.innerHeight - $('.editor-resizer').height() - $('.messageInputArea').height() - $('.nav-wrapper').height();
-            var flexBoxHeight = $('.messageInputArea').height() + $('.editor-resizer').height();
-            $('#candy_map_tab').css('min-height', mapHeight + "px");
-            $('#candy_map_tab').css('max-height', mapHeight + "px");
-            $('.flex-box').css('min-height', flexBoxHeight + "px");
-            $('.flex-box').css('max-height', flexBoxHeight + "px");
-        }
+        screenEventService.onFocus();
     }
     $scope.onblur = function(){
-        $('.messageInputAreaDiv').css('height', messageInputHeight + "px");
-    }
-    $scope.newLine = function(){
+        screenEventService.onBlur();
     }
 });

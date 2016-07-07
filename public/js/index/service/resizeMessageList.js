@@ -1,3 +1,0 @@
-myapp.service('resizeMessageList', function () {
-
-})

@@ -110,7 +110,7 @@
             </div>
             <div class="messageInputArea">
                 <div class="messageInputAreaDiv">
-                    <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea" ng-focus="onfocus()" ng-blur="onblur()" ng-keyup="$event.keyCode == 13 ? newLine() : null"></textarea>
+                    <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea" ng-focus="onfocus()" ng-blur="onblur()"></textarea>
                     <a class="waves-effect waves-light btn" id="sendbutton" ng-mousedown="sendMessage(messageInput)">Send</a>
                 </div>
             </div>
@@ -120,6 +120,8 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiBzjnH8tj9PWXBuCremzGg4IwZXl6Mhs&libraries=geometry,places"></script>
     <script src="../public/js/index/globalvariable.js"></script>
     <script src="../public/js/index/service/firebaseService.js"></script>
+    <script src="../public/js/index/service/screenEventService.js"></script>
+    <script src="../public/js/index/service/gpslocationService.js"></script>
     <script src="../public/js/index/controller/candyController.js"></script>
     <script src="../public/js/index/controller/messageController.js"></script>
     <script src="../public/js/index/controller/placeController.js"></script>
