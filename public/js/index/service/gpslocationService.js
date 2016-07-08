@@ -1,16 +1,18 @@
-myapp.service('gpslocationService', function (candyService) {
+myapp.service('gpslocationService', function (firebaseService) {
     //AddUser
-    this.currentPosition = function (watchID) {
+    this.currentPosition = function (watchID,uniqueurl) {
         var count = 0;
         if(watchID){
-            navigator.geolocation.clearWatch(watchID);
+            if(watchID != "init"){
+                navigator.geolocation.clearWatch(watchID);
+            }
             watchID = navigator.geolocation.watchPosition(
                 // onSuccess Geolocation
                 function(position) {
                     //within 50m → update user
-                    if(position.coords.accuracy <= 5000){
+                    if(position.coords.accuracy <= 10000){
                         //UpdateUser
-                        candyService.updateUser(position,uniqueurl[2],"on");
+                        candyService.updateUser(position,uniqueurl,"on");
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);
                         if(count < 1){
@@ -31,6 +33,7 @@ myapp.service('gpslocationService', function (candyService) {
                 },
                 {enableHighAccuracy: true,maximumAge: 1}
             );
+            return watchID;
         }else{
             swal_relocation();
         }

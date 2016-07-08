@@ -3,7 +3,7 @@ var ref = new Firebase("https://candyguide.firebaseio.com/");
 var pathname = window.location.pathname;
 var uniqueurl = pathname.split("/");
 var mes = new Array();
-var myapp = angular.module('mapper', ['firebase','ngTouch','ngTouchstart']);
+var myapp = angular.module('candy', ['firebase','ngTouch','ngTouchstart']);
 
 var googlemap;
 var markers = new Array();

@@ -1,9 +1,9 @@
-myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,candyService,screenEventService,gpslocationService) {
+myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService) {
     $('.firsthide').hide();
     $('.collapsible').collapsible();
     messageInputHeight = $('.messageInputAreaDiv').height();
     //Init function load map and etc......
-    var sharemaps = candyService.referenceSharemap();
+    var sharemaps = firebaseService.referenceSharemap();
     $firebaseObject(sharemaps).$loaded().then(function(sharemap) {
         if(sharemap[uniqueurl[2]]){
             //Set GroupName
@@ -12,11 +12,11 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 navigator.geolocation.getCurrentPosition(function(position) {
                     //If session doesn't exist, sweetalert
                     if(!window.localStorage.getItem([uniqueurl[2]]) && !window.localStorage.getItem([uniqueurl[2]+"name"])){
-                        swal_init_on(candyService,uniqueurl[2],ref,position);
+                        swal_init_on(firebaseService,uniqueurl[2],ref,position);
                     }else{
                         yourname = window.localStorage.getItem([uniqueurl[2]+"name"]);
                         //UpdateUser
-                        candyService.updateUser(position,uniqueurl[2],"on");
+                        firebaseService.updateUser(position,uniqueurl[2],"on");
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);
                     }
@@ -25,7 +25,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     indexPlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2],mylatlng);
                     });//forEach
-                    var infomessages = $firebaseObject(candyService.referenceMessage(uniqueurl[2]));
+                    var infomessages = $firebaseObject(firebaseService.referenceMessage(uniqueurl[2]));
                     infomessages.$loaded().then(function() {
                         angular.forEach(infomessages, function(value, key) {
                             infoPlugins.forEach(function(plugin){
@@ -33,12 +33,20 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                             });
                         });
                     });
-                    locationPlugins.forEach(function(plugin){
-                        plugin.func.call(function(){},uniqueurl[2]);
-                    });//forEach
-                    firebasePlugins.forEach(function(plugin){
-                        plugin.func.call(function(){},uniqueurl[2]);
-                    });//forEach
+                    //watch position
+                    watchID = gpslocationService.currentPosition("init",uniqueurl[2]);
+                    //watch add user
+                    firebaseService.referenceAddUser(uniqueurl[2]);
+                    //watch change user
+                    firebaseService.referenceChangeUser(uniqueurl[2]);
+                    //watch addmessage
+                    firebaseService.referenceAddMessage(uniqueurl[2]);
+                    //watch addmessage
+                    firebaseService.referenceAddMeetup(uniqueurl[2]);
+                    //watch changemessage
+                    firebaseService.referenceChangeMeetup(uniqueurl[2]);
+                    //watch Removemessage
+                    firebaseService.referenceRemoveMeetup(uniqueurl[2]);
                 }, 
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
@@ -54,9 +62,9 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                                 var newPostRef = postsRef.push();
                                 var postID = newPostRef.key();
                                 //CreateUser
-                                candyService.registerUser(inputValue,"",uniqueurl[2],"off",postID);
+                                firebaseService.registerUser(inputValue,"",uniqueurl[2],"off",postID);
                                 //UpdateUser
-                                candyService.registerMessage("attend",inputValue + " attend");
+                                firebaseService.registerMessage("attend",inputValue + " attend");
                                 
                                 // Store session
                                 window.localStorage.setItem([uniqueurl[2]],[postID]);
@@ -67,10 +75,10 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                         );
                     }else{
                         //UpdateUser
-                        candyService.updateUser("",uniqueurl[2],"off");
+                        firebaseService.updateUser("",uniqueurl[2],"off");
                     }
                     //Location on のユーザーがいればそのlocationを参照
-                    var userlocation = candyService.referenceUserOn(uniqueurl[2]);
+                    var userlocation = firebaseService.referenceUserOn(uniqueurl[2]);
                     $firebaseObject(userlocation).$loaded().then(function(userlocation) {
                         var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
                         angular.forEach(userlocation, function(value, key) {
@@ -80,9 +88,19 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                         indexPlugins.forEach(function(plugin){
                             plugin.func.call(function(){},uniqueurl[2],mylatlng);
                         });//forEach
-                        firebasePlugins.forEach(function(plugin){
-                            plugin.func.call(function(){},uniqueurl[2]);
-                        });//forEach
+                        
+                        //watch add user
+                        firebaseService.referenceAddUser(uniqueurl[2]);
+                        //watch change user
+                        firebaseService.referenceChangeUser(uniqueurl[2]);
+                        //watch addmessage
+                        firebaseService.referenceAddMessage(uniqueurl[2]);
+                        //watch addmessage
+                        firebaseService.referenceAddMeetup(uniqueurl[2]);
+                        //watch changemessage
+                        firebaseService.referenceChangeMeetup(uniqueurl[2]);
+                        //watch Removemessage
+                        firebaseService.referenceRemoveMeetup(uniqueurl[2]);
                     });
                 });
             }else{
@@ -105,7 +123,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     //Make pin from SearchPlace
     $scope.makeMeetUpMarker = function(place){
         if(Object.keys(markers_meet).length < 1){
-            candyService.registerMeetUpMarker(place);
+            firebaseService.registerMeetUpMarker(place);
             //panto
             googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
             $('#modal2').closeModal();
@@ -117,47 +135,17 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     $scope.navigation = function(place){
         googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
     }
-    // Direction Done.Delete Render
-    /*
-    $scope.directionDone = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
-        $('#modal2').closeModal();
-    }
-    */
     //Make pin from Nothing
     $scope.addlocationbutton = function(){
         if(Object.keys(markers_meet).length < 1){
-            candyService.registerMessage("meetup",yourname+" add marker");
-            candyService.registerMeetUpMarkerNothing();
+            firebaseService.registerMessage("meetup",yourname+" add marker");
+            firebaseService.registerMeetUpMarkerNothing();
         }else{
             swal_remove_meetUpMarkers();
         }
     }
-    /*
-    //Direction
-    $scope.direction = function(){
-        if(Object.keys(markers_meet).length > 0){
-            $('#travelModeModal').openModal();
-        }else{
-            swal_must_register_meetupMarker();
-        }
-    }
-    $scope.direction_car = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.DRIVING,"navigation");
-        travelMode = google.maps.TravelMode.DRIVING;
-        $('#travelModeModal').closeModal();
-    }
-    $scope.direction_walk = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigation");
-        travelMode = google.maps.TravelMode.WALKING;
-        $('#travelModeModal').closeModal();
-    }
-    $scope.directionDone = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
-    }
-    */
     $scope.currentposition = function(){
-        gpslocationService.currentPosition(watchID);
+        watchID = gpslocationService.currentPosition(watchID,uniqueurl[2]);
     }
     /* Resize */
     $scope.resizeStart = function($event){
@@ -186,7 +174,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     //sendMessage
     $scope.sendMessage = function(messageInput){
         if(messageInput && messageInput.length > 0){
-            candyService.registerMessage("message",messageInput);
+            firebaseService.registerMessage("message",messageInput);
             $scope.messageInput = "";
         }
     }
@@ -196,4 +184,34 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     $scope.onblur = function(){
         screenEventService.onBlur();
     }
+    /*
+    //Direction
+    $scope.direction = function(){
+        if(Object.keys(markers_meet).length > 0){
+            $('#travelModeModal').openModal();
+        }else{
+            swal_must_register_meetupMarker();
+        }
+    }
+    $scope.direction_car = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.DRIVING,"navigation");
+        travelMode = google.maps.TravelMode.DRIVING;
+        $('#travelModeModal').closeModal();
+    }
+    $scope.direction_walk = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigation");
+        travelMode = google.maps.TravelMode.WALKING;
+        $('#travelModeModal').closeModal();
+    }
+    $scope.directionDone = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
+    }
+    */
+    // Direction Done.Delete Render
+    /*
+    $scope.directionDone = function(){
+        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
+        $('#modal2').closeModal();
+    }
+    */
 });

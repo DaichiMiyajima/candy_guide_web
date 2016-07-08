@@ -1,4 +1,69 @@
-myapp.service('candyService', function () {
+myapp.service('firebaseService', function () {
+    //watch add user
+    this.referenceAddUser = function(uniqueurl){
+        ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").on('child_added', function(snapshot, addChildKey) {
+            var adddata = snapshot.val();
+            var difference_time = (new Date().getTime()-adddata["time"]) / DAY_MILLISECOND;
+            if(adddata["time"] && difference_time < 1){
+                addPlugins.forEach(function(plugin){
+                    plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
+                });
+            }
+        });
+    }
+    //watch change user
+    this.referenceChangeUser = function(uniqueurl){
+        ref.child('sharemap').child(uniqueurl).child('users').on('child_changed', function(snapshot, changeChildKey) {
+            var changedata = snapshot.val();
+            changePlugins.forEach(function(plugin){
+                plugin.func.call(function(){},uniqueurl,changedata,snapshot.key());
+            });
+        });
+    }
+    //watch addmessage
+    this.referenceAddMessage = function(uniqueurl){
+        ref.child('sharemap').child(uniqueurl).child('message').limitToLast(1).on('child_added', function(snapshot, addChildKey) {
+            var adddata = snapshot.val();
+            infoPlugins.forEach(function(plugin){
+                plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
+            });
+            if(adddata.kind=="message"){
+                Materialize.toast("[" + adddata.name + "]" + " : " + adddata.message, 5000, 'rounded message') 
+            }else if(adddata.kind=="attend" || adddata.kind=="meetup"){
+                Materialize.toast(adddata.message , 5000, 'rounded attend meetup');
+            }else if(adddata.kind=="meetupremove"){
+                Materialize.toast(adddata.message , 5000, 'rounded meetupremove');
+            }
+        });
+    }
+    //watch addmeetup
+    this.referenceAddMeetup = function(uniqueurl){
+        ref.child('sharemap').child(uniqueurl).child('meetup').on('child_added', function(snapshot, addChildKey) {
+            var adddata = snapshot.val();
+            addmeetupPlugins.forEach(function(plugin){
+                plugin.func.call(function(){},uniqueurl,adddata,snapshot.key());
+            });
+        });
+    }
+    //watch addmeetup
+    this.referenceChangeMeetup = function(uniqueurl){
+        ref.child('sharemap').child(uniqueurl).child('meetup').on('child_changed', function(snapshot, changeChildKey) {
+            var changedata = snapshot.val();
+            changemeetupPlugins.forEach(function(plugin){
+                plugin.func.call(function(){},uniqueurl,changedata,snapshot.key());
+            });
+        });
+    }
+    //watch removemeetup
+    this.referenceRemoveMeetup = function(uniqueurl){
+        ref.child('sharemap').child(uniqueurl).child('meetup').on('child_removed', function(snapshot, changeChildKey) {
+            var removedata = snapshot.val();
+            removemeetupPlugins.forEach(function(plugin){
+                plugin.func.call(function(){},uniqueurl,removedata,snapshot.key());
+            });
+        });
+    }
+
     //SelectSharemap
     this.referenceSharemap = function(){
         return ref.child('sharemap');

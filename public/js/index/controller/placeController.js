@@ -1,5 +1,5 @@
 //Place Include
-myapp.controller('placeController', function ($scope, $firebaseArray,candyService) {
+myapp.controller('placeController', function ($scope, $firebaseArray,firebaseService) {
     //SearchPlace
     $scope.searchPlace = function(text){
         if($("#search_place").val() && $("#search_place").val().length > 0){
