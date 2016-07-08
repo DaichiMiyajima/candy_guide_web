@@ -39,11 +39,6 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     firebasePlugins.forEach(function(plugin){
                         plugin.func.call(function(){},uniqueurl[2]);
                     });//forEach
-                    //initial css * I haveto write this code because css doesn't affect
-                    $('#candy_map_tab').css('min-height', window.innerHeight*0.65 + "px");
-                    $('#candy_map_tab').css('max-height', window.innerHeight*0.65 + "px");
-                    $('.flex-box').css('min-height', window.innerHeight*0.35 + "px");
-                    $('.flex-box').css('max-height', window.innerHeight*0.35 + "px");
                 }, 
                 // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                 function(error) {
