@@ -19,7 +19,7 @@ var ref = new Firebase("https://candyguideweb-d7d76.firebaseio.com/");
                 name:$("#groupname").val()
             },oncomplete);
         }else{
-            alert("required groupname")
+            alert("required groupname");
         }
     });
 })()
