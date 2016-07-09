@@ -190,34 +190,4 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     $scope.onblur = function(){
         screenEventService.onBlur();
     }
-    /*
-    //Direction
-    $scope.direction = function(){
-        if(Object.keys(markers_meet).length > 0){
-            $('#travelModeModal').openModal();
-        }else{
-            swal_must_register_meetupMarker();
-        }
-    }
-    $scope.direction_car = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.DRIVING,"navigation");
-        travelMode = google.maps.TravelMode.DRIVING;
-        $('#travelModeModal').closeModal();
-    }
-    $scope.direction_walk = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigation");
-        travelMode = google.maps.TravelMode.WALKING;
-        $('#travelModeModal').closeModal();
-    }
-    $scope.directionDone = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
-    }
-    */
-    // Direction Done.Delete Render
-    /*
-    $scope.directionDone = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
-        $('#modal2').closeModal();
-    }
-    */
 });
