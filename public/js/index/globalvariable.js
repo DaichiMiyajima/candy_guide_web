@@ -1,5 +1,5 @@
 // Firebase
-var ref = new Firebase("https://candyguide.firebaseio.com/");
+var ref = new Firebase("https://candyguideweb-d7d76.firebaseio.com/");
 var pathname = window.location.pathname;
 var uniqueurl = pathname.split("/");
 var mes = new Array();

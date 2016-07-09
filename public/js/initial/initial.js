@@ -1,14 +1,12 @@
 // Firebase
-var ref = new Firebase("https://candyguide.firebaseio.com/");
+var ref = new Firebase("https://candyguideweb-d7d76.firebaseio.com/");
 
 (function(){
     $("#create_url").click(function(){
         //create unique url
         var oncomplete = function(error){
             if(error){
-                console.log('Synchronization failed');
             }else{
-                console.log('Synchronization succeeded');
                 window.location.href = "./sharemap/" + url ;
             }
         }
