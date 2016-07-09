@@ -1,10 +1,10 @@
 myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService) {
     $('.firsthide').hide();
     $('.collapsible').collapsible();
-    $('#candy_map_tab').css('min-height', 70 + "%");
-    $('#candy_map_tab').css('max-height', 70 + "%");
-    $('.flex-box').css('min-height', 30 + "%");
-    $('.flex-box').css('max-height', 30 + "%");
+    $('#candy_map_tab').css('min-height', 60 + "vh");
+    $('#candy_map_tab').css('max-height', 60 + "vh");
+    $('.flex-box').css('min-height', 40 + "vh");
+    $('.flex-box').css('max-height', 40 + "vh");
     
     messageInputHeight = $('.messageInputAreaDiv').height();
     //Init function load map and etc......
