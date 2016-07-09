@@ -22,6 +22,9 @@ var ref = new Firebase("https://candyguideweb-d7d76.firebaseio.com/");
             alert("required groupname");
         }
     });
+    
+    //hide address bar
+    window.scrollTo(0,0);
 })()
 
 //init side navi
