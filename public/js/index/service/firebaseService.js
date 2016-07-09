@@ -1,4 +1,8 @@
 myapp.service('firebaseService', function () {
+    //SelectUser once
+    this.referenceUserOnce = function(uniqueurl){
+        return ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on");
+    }
     //watch add user
     this.referenceAddUser = function(uniqueurl){
         ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").on('child_added', function(snapshot, addChildKey) {

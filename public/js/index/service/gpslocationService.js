@@ -1,5 +1,4 @@
 myapp.service('gpslocationService', function (firebaseService) {
-    //AddUser
     this.currentPosition = function (watchID,uniqueurl) {
         var count = 0;
         if(watchID){

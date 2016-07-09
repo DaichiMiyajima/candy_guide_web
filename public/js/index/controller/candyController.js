@@ -1,4 +1,4 @@
-myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService) {
+myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService) {
     $('.firsthide').hide();
     $('.collapsible').collapsible();
     messageInputHeight = $('.messageInputAreaDiv').height();
@@ -22,9 +22,9 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     }
                     //ifでもelseでも実行
                     var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    indexPlugins.forEach(function(plugin){
-                        plugin.func.call(function(){},uniqueurl[2],mylatlng);
-                    });//forEach
+                    //init MAp
+                    googlemapService.loadMap(uniqueurl[2],mylatlng);
+                    
                     var infomessages = $firebaseObject(firebaseService.referenceMessage(uniqueurl[2]));
                     infomessages.$loaded().then(function() {
                         angular.forEach(infomessages, function(value, key) {
