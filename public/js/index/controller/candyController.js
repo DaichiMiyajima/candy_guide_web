@@ -33,6 +33,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                             });
                         });
                     });
+                    
                     //watch position
                     watchID = gpslocationService.currentPosition("init",uniqueurl[2]);
                     //watch add user
