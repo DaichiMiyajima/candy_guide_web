@@ -1,3 +1,6 @@
+* Share yor location With your friend.
+![](https://bruwbird.com/public/img/initial/Where_are_you--logo.png)
+
 # Where are you?
 This is a launching of location based realtime guide service.
 
@@ -8,5 +11,4 @@ This is a launching of location based realtime guide service.
         * [Geofire ver.4.0](https://github.com/firebase/geofire-js)
     3. [Angular.js ver.2.0](https://angularjs.org/)
 
-* Share yor location With your friend.
-![](https://bruwbird.com/public/img/initial/Where_are_you--logo.png)
+
