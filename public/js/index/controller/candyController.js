@@ -1,6 +1,11 @@
 myapp.controller('candyController', function ($scope, $firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService) {
     $('.firsthide').hide();
     $('.collapsible').collapsible();
+    $('#candy_map_tab').css('min-height', 70 + "%");
+    $('#candy_map_tab').css('max-height', 70 + "%");
+    $('.flex-box').css('min-height', 30 + "%");
+    $('.flex-box').css('max-height', 30 + "%");
+    
     messageInputHeight = $('.messageInputAreaDiv').height();
     //Init function load map and etc......
     var sharemaps = firebaseService.referenceSharemap();
