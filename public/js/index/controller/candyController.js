@@ -27,15 +27,18 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     }
                     //ifでもelseでも実行
                     var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    
+                    // select User
+                    var users = firebaseService.referenceUserOnce(uniqueurl[2]);
                     //init MAp
-                    googlemapService.loadMap(uniqueurl[2],mylatlng);
+                    googlemapService.loadMap(uniqueurl[2],mylatlng,$firebaseObject(users));
                     
                     var infomessages = $firebaseObject(firebaseService.referenceMessage(uniqueurl[2]));
                     infomessages.$loaded().then(function() {
                         angular.forEach(infomessages, function(value, key) {
-                            infoPlugins.forEach(function(plugin){
-                                plugin.func.call(function(){},uniqueurl[2],value,key);
-                            });
+                            // create and handle info window
+                            googlemapService.createInfoWindow(uniqueurl,value,key);
+                            googlemapService.handleInfoWindow(uniqueurl,value,key);
                         });
                     });
                     
@@ -150,6 +153,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             swal_remove_meetUpMarkers();
         }
     }
+    //Position
     $scope.currentposition = function(){
         watchID = gpslocationService.currentPosition(watchID,uniqueurl[2]);
     }
@@ -165,7 +169,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         resize_count = 0;
         resize = "";
     }
-    
+    // Resize for PC
     $scope.resizeStartMouse = function($event){
         if(resize_count == 0){
             resize = $event.target.className;
