@@ -11,7 +11,7 @@ myapp.service('gpslocationService', function (firebaseService) {
                     //within 50m → update user
                     if(position.coords.accuracy <= 10000){
                         //UpdateUser
-                        candyService.updateUser(position,uniqueurl,"on");
+                        firebaseService.updateUser(position,uniqueurl,"on");
                         //set location into variable
                         setlocation(position.coords.latitude,position.coords.longitude);
                         if(count < 1){
