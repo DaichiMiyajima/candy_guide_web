@@ -156,6 +156,9 @@ nav ul{
 nav ul i{
     height: 26px !important;
 }
+input{
+    font-size: 16px !important;
+}
 /* nav end */
 .groupname{
     width: 100%;
