@@ -1,5 +1,5 @@
 // Firebase
-var ref = new Firebase("https://candyguideweb-d7d76.firebaseio.com/");
+var ref = new Firebase("https://candyguide.firebaseIO.com/");
 
 (function(){
     $("#create_url").click(function(){
