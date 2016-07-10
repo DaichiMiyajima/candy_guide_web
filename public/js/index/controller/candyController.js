@@ -17,9 +17,12 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 navigator.geolocation.getCurrentPosition(function(position) {
                     //If session doesn't exist, sweetalert
                     if(!window.localStorage.getItem([uniqueurl[2]]) && !window.localStorage.getItem([uniqueurl[2]+"name"])){
-                        swal_init_on(firebaseService,uniqueurl[2],ref,position);
+                        swal_init_on(firebaseService,uniqueurl[2],ref,position,function(){
+                            $scope.yourId = window.localStorage.getItem(uniqueurl[2]);
+                        });
                     }else{
                         yourname = window.localStorage.getItem([uniqueurl[2]+"name"]);
+                        $scope.yourId = window.localStorage.getItem(uniqueurl[2]);
                         //UpdateUser
                         firebaseService.updateUser(position,uniqueurl[2],"on");
                         //set location into variable

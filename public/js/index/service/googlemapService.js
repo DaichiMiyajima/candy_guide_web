@@ -140,8 +140,9 @@ myapp.service('googlemapService', function () {
             //delete infowindow
             if(infoWindows[adddata.key]){infoWindows[adddata.key].close()}
             //create infowindow
+            var contentStr = '<div style="width: 150px;height: auto !important;word-wrap: break-word;">' + adddata.message + '</div>';
             infowindow = new google.maps.InfoWindow({
-                content: adddata.message,
+                content: contentStr,
                 position:markers[adddata.key].position,
                 pixelOffset: new google.maps.Size( -8 , -50 ),
                 disableAutoPan: true
