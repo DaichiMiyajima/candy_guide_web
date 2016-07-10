@@ -232,64 +232,119 @@ img[src*="test"]{
   display: inline-block;
 }
 
+
 /* common css */
-#toast-container{
-    top : 3px !important;
+@media (max-width: 767px) {
+    #toast-container{
+        top : 3px !important;
+    }
+    
+    .flex-container{
+        display: flex;
+        -webkit-flex-direction: column; /* Safari */
+        flex-direction : column;
+        flex-shrink: 0;
+    }
+    .editor-resizer{
+        position: relative;
+        z-index: 2;
+        color: white;
+        text-align: center;
+        cursor: row-resize;
+        border-left: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(0,0,0,0.4);
+        background: #343436;
+    }
+    .flex-box{
+        position: relative;
+        background: #fafafa;
+        -webkit-overflow-scrolling: touch;
+        overflow: scroll;
+        padding-bottom: 90px;
+    }
+    .messageInputArea{
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        border-top: 1px solid black;
+        box-shadow: 3px 3px 3px 3px #fafafa;
+        background: #b7b7b7;
+    }
+    .messageInputAreaDiv{
+        padding: 8px;
+        background: #b7b7b7;
+        display: inline-flex;
+        width: 100%;
+    }
+    #messageInputField{
+        display: inline-block;
+        width: 88%;
+    }
+    
+    #messageInputField textarea{
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #212121;
+    }
+    
+    #sendbutton{
+        width: 60px;
+        height: 23px;
+        font-size: 13px;
+        padding: 0px;
+        line-height: 23px;
+        float: right;
+        left: 5px;
+    }
 }
-
-.flex-container{
-    display: flex;
-    -webkit-flex-direction: column; /* Safari */
-    flex-direction : column;
-    flex-shrink: 0;
-}
-.editor-resizer{
-    position: relative;
-    z-index: 2;
-    color: white;
-    text-align: center;
-    cursor: row-resize;
-    border-left: 1px solid rgba(255,255,255,0.1);
-    border-right: 1px solid rgba(0,0,0,0.4);
-    background: #343436;
-}
-.flex-box{
-    position: relative;
-    background: #fafafa;
-    -webkit-overflow-scrolling: touch;
-    overflow: scroll;
-    padding-bottom: 90px;
-}
-.messageInputArea{
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    border-top: 1px solid black;
-    box-shadow: 3px 3px 3px 3px #fafafa;
-    background: #b7b7b7;
-}
-.messageInputAreaDiv{
-    padding: 8px;
-    background: #b7b7b7;
-    display: inline-flex;
-    width: 100%;
-}
-#messageInputField{
-    display: inline-block;
-    width: 88%;
-}
-
-#messageInputField textarea{
-    padding: 0.6rem 0;
-    border-bottom: 1px solid #212121;
-}
-
-#sendbutton{
-    width: 60px;
-    height: 23px;
-    font-size: 13px;
-    padding: 0px;
-    line-height: 23px;
-    float: right;
-    left: 5px;
+@media (min-width: 768px) {
+    #toast-container{
+        top : 3px !important;
+        width : 50%;
+        right : 0px;
+    }
+    .editor-resizer{
+        position: fixed;
+        width : 400px;
+        right : 0px;
+        z-index: 2;
+        color: white;
+        text-align: center;
+        cursor: row-resize;
+        border-left: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(0,0,0,0.4);
+        background: #343436;
+    }
+    .flex-box{
+        position: fixed;
+        border-left: 1px solid black;
+        right : 0px;
+        margin-top: 20px;
+        width: 400px;
+        background: #fafafa;
+        -webkit-overflow-scrolling: touch;
+        overflow: scroll;
+        padding-bottom: 90px;
+    }
+    .messageInputArea{
+        position: fixed;
+        right : 0px;
+        bottom: 0px;
+        width: 400px;
+        border-top: 1px solid black;
+        box-shadow: 3px 3px 3px 3px #fafafa;
+        background: #b7b7b7;
+    }
+    .messageInputAreaDiv{
+        padding: 8px;
+        background: #b7b7b7;
+        display: inline-flex;
+        width: 100%;
+    }
+    #messageInputField{
+        display: inline-block;
+        width: 88%;
+    }
+    nav a.button-collapse {
+        display: flex !important;
+    }
 }

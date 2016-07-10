@@ -9,7 +9,7 @@ myapp.service('firebaseService', function (googlemapService) {
             var adddata = snapshot.val();
             var difference_time = (new Date().getTime()-adddata["time"]) / DAY_MILLISECOND;
             if(adddata["time"] && difference_time < 1){
-                googlemapService.createMarkers(uniqueurl,adddata,snapshot.key());
+                googlemapService.createMarker(adddata.latitude, adddata.longitude, adddata.name, snapshot.key(),googlemapService.markercreate);
             }
         });
     }

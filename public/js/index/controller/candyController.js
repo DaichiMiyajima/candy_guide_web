@@ -32,7 +32,16 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     var users = firebaseService.referenceUserOnce(uniqueurl[2]);
                     //init MAp
                     googlemapService.loadMap(uniqueurl[2],mylatlng,$firebaseObject(users));
-                    
+                    $firebaseObject(users).$loaded().then(function(user) {
+                        angular.forEach(user, function(value, key) {
+                            if(value){
+                                var difference_time = (new Date().getTime() - value["time"]) / DAY_MILLISECOND;
+                                if(value["time"] && difference_time < 1){
+                                    googlemapService.createMarker(value["latitude"], value["longitude"], value["name"], key,googlemapService.markercreate);
+                                }
+                            }
+                        });
+                    });
                     var infomessages = $firebaseObject(firebaseService.referenceMessage(uniqueurl[2]));
                     infomessages.$loaded().then(function() {
                         angular.forEach(infomessages, function(value, key) {
@@ -41,7 +50,6 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                             googlemapService.handleInfoWindow(uniqueurl,value,key);
                         });
                     });
-                    
                     //watch position
                     watchID = gpslocationService.currentPosition("init",uniqueurl[2]);
                     //watch add user

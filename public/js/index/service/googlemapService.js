@@ -70,20 +70,6 @@ myapp.service('googlemapService', function () {
         var candyType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
         googlemap.mapTypes.set('Candy', candyType);
         googlemap.setMapTypeId('Candy');
-        users.$loaded().then(function(user) {
-            angular.forEach(user, function(value, key) {
-                if(value){
-                    var difference_time = (new Date().getTime() - value["time"]) / DAY_MILLISECOND;
-                    if(value["time"] && difference_time < 1){
-                        createMarker(value["latitude"], value["longitude"], value["name"], key,markercreate);
-                    }
-                }
-            });
-        });
-    }
-    //create marker
-    this.createMarkers = function (uniqueurl,adddata,key){
-        createMarker(adddata.latitude, adddata.longitude, adddata.name, key,markercreate);
     }
     // canvasでimage加工
     this.createMarker = function (latitude,longitude,title,key,callback) {
