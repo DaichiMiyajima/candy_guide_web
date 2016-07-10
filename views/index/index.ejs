@@ -65,8 +65,8 @@
                     <!-- When release, we hide backScreen -->
                     <!--<a class="backScreen grey-text"> < </a>-->
                     <a class="grey-text groupname">{{grouname}}</a>
-                    <a data-activates="mobile-demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
-                    <ul class="side-nav" id="mobile-demo">
+                    <a data-activates="demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+                    <ul class="side-nav" id="demo">
                         <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons">my_location</i><span>MyLocation</span></div></li>
                         <li><div class="menuContent" ng-click="addlocationbutton()"><i class="material-icons">location_on</i><span>Place</span></div></li>
                         <li><div class="menuContent" ng-click="placeModal()"><i class="material-icons">search</i><span>PlaceSearch</span></div></li>
@@ -80,17 +80,6 @@
                 <label>Settings → Privacy → Location Service → Safari WebSites</label>
             </div>
             <!-- Geolocation OFF end-->
-            <!-- DirectionTime -->
-            <!-- リリースまで一旦保留
-            <div id="directionTime" class="firsthide">
-                <div class="direction">
-                    <div id="direction_distance" class="matrix"></div>
-                    <div id="direction_duration" class="matrix"></div>
-                </div>
-                <a class="btn-floating" ng-click="directionDone()"><i class="small material-icons">done</i></a>
-            </div>
-            -->
-            <!-- DirectionTime end-->
             
             <!-- Flexible Box -->
             <div class="flex-container">
@@ -126,7 +115,6 @@
     <script src="../public/js/index/controller/candyController.js"></script>
     <script src="../public/js/index/controller/messageController.js"></script>
     <script src="../public/js/index/controller/placeController.js"></script>
-    <script src="../public/js/index/googlemap.js"></script>
     <script src="../public/js/index/popup.js"></script>
 </body>
 </html>

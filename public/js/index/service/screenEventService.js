@@ -25,11 +25,10 @@ myapp.service('screenEventService', function () {
     //Resize for PC
     this.resizeBarPc = function (resize,resize_count,$event) {
         if((resize == "editor-resizer" || resize == "small material-icons") && $event.buttons == 1){
-            console.log("pass:" + resize_count);
             //bodyの高さ(window.innerHeight)
             var height = $event.clientY;
-            var mapHeight = (height - ($('.editor-resizer').height()/2));
-            var flexBoxHeight = (window.innerHeight - ($('.editor-resizer').height()/2) - height);
+            var mapHeight = height - $('.nav-wrapper').height();
+            var flexBoxHeight = (window.innerHeight - $('.editor-resizer').height() - height - $('.nav-wrapper').height());
             //Topを超えたときの処理
             if((flexBoxHeight + $('.editor-resizer').height() + $('.nav-wrapper').height()) > window.innerHeight){
                 mapHeight = 0;
@@ -49,14 +48,17 @@ myapp.service('screenEventService', function () {
     }
     //Onfocus Textarea
     this.onFocus = function () {
-        $('.messageInputAreaDiv').css('height', 130 + "px");
-        if($('.flex-box').height() < $('.messageInputArea').height()){
-            var mapHeight = window.innerHeight - $('.editor-resizer').height() - $('.messageInputArea').height() - $('.nav-wrapper').height();
-            var flexBoxHeight = $('.messageInputArea').height() + $('.editor-resizer').height();
-            $('#candy_map_tab').css('min-height', mapHeight + "px");
-            $('#candy_map_tab').css('max-height', mapHeight + "px");
-            $('.flex-box').css('min-height', flexBoxHeight + "px");
-            $('.flex-box').css('max-height', flexBoxHeight + "px");
+        //only for iphone or ipad
+        if(navigator.userAgent.indexOf("iPad") > 1 || navigator.userAgent.indexOf("iPhone") > 1){
+            $('.messageInputAreaDiv').css('height', 130 + "px");
+            if($('.flex-box').height() < $('.messageInputArea').height()){
+                var mapHeight = window.innerHeight - $('.editor-resizer').height() - $('.messageInputArea').height() - $('.nav-wrapper').height();
+                var flexBoxHeight = $('.messageInputArea').height() + $('.editor-resizer').height();
+                $('#candy_map_tab').css('min-height', mapHeight + "px");
+                $('#candy_map_tab').css('max-height', mapHeight + "px");
+                $('.flex-box').css('min-height', flexBoxHeight + "px");
+                $('.flex-box').css('max-height', flexBoxHeight + "px");
+            }
         }
     }
 

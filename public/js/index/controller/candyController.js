@@ -17,9 +17,12 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                 navigator.geolocation.getCurrentPosition(function(position) {
                     //If session doesn't exist, sweetalert
                     if(!window.localStorage.getItem([uniqueurl[2]]) && !window.localStorage.getItem([uniqueurl[2]+"name"])){
-                        swal_init_on(firebaseService,uniqueurl[2],ref,position);
+                        swal_init_on(firebaseService,uniqueurl[2],ref,position,function(){
+                            $scope.yourId = window.localStorage.getItem(uniqueurl[2]);
+                        });
                     }else{
                         yourname = window.localStorage.getItem([uniqueurl[2]+"name"]);
+                        $scope.yourId = window.localStorage.getItem(uniqueurl[2]);
                         //UpdateUser
                         firebaseService.updateUser(position,uniqueurl[2],"on");
                         //set location into variable
@@ -27,18 +30,29 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
                     }
                     //ifでもelseでも実行
                     var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    //init MAp
-                    googlemapService.loadMap(uniqueurl[2],mylatlng);
                     
+                    // select User
+                    var users = firebaseService.referenceUserOnce(uniqueurl[2]);
+                    //init MAp
+                    googlemapService.loadMap(uniqueurl[2],mylatlng,$firebaseObject(users));
+                    $firebaseObject(users).$loaded().then(function(user) {
+                        angular.forEach(user, function(value, key) {
+                            if(value){
+                                var difference_time = (new Date().getTime() - value["time"]) / DAY_MILLISECOND;
+                                if(value["time"] && difference_time < 1){
+                                    googlemapService.createMarker(value["latitude"], value["longitude"], value["name"], key,googlemapService.markercreate);
+                                }
+                            }
+                        });
+                    });
                     var infomessages = $firebaseObject(firebaseService.referenceMessage(uniqueurl[2]));
                     infomessages.$loaded().then(function() {
                         angular.forEach(infomessages, function(value, key) {
-                            infoPlugins.forEach(function(plugin){
-                                plugin.func.call(function(){},uniqueurl[2],value,key);
-                            });
+                            // create and handle info window
+                            googlemapService.createInfoWindow(uniqueurl,value,key);
+                            googlemapService.handleInfoWindow(uniqueurl,value,key);
                         });
                     });
-                    
                     //watch position
                     watchID = gpslocationService.currentPosition("init",uniqueurl[2]);
                     //watch add user
@@ -150,6 +164,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
             swal_remove_meetUpMarkers();
         }
     }
+    //Position
     $scope.currentposition = function(){
         watchID = gpslocationService.currentPosition(watchID,uniqueurl[2]);
     }
@@ -165,7 +180,7 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
         resize_count = 0;
         resize = "";
     }
-    
+    // Resize for PC
     $scope.resizeStartMouse = function($event){
         if(resize_count == 0){
             resize = $event.target.className;
@@ -190,34 +205,4 @@ myapp.controller('candyController', function ($scope, $firebaseObject, $firebase
     $scope.onblur = function(){
         screenEventService.onBlur();
     }
-    /*
-    //Direction
-    $scope.direction = function(){
-        if(Object.keys(markers_meet).length > 0){
-            $('#travelModeModal').openModal();
-        }else{
-            swal_must_register_meetupMarker();
-        }
-    }
-    $scope.direction_car = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.DRIVING,"navigation");
-        travelMode = google.maps.TravelMode.DRIVING;
-        $('#travelModeModal').closeModal();
-    }
-    $scope.direction_walk = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigation");
-        travelMode = google.maps.TravelMode.WALKING;
-        $('#travelModeModal').closeModal();
-    }
-    $scope.directionDone = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
-    }
-    */
-    // Direction Done.Delete Render
-    /*
-    $scope.directionDone = function(){
-        directionsToMarker({lat: yourlatitude, lng: yourlongitude},{lat: markerlatitude, lng: markerlongitude},google.maps.TravelMode.WALKING,"navigationDone");
-        $('#modal2').closeModal();
-    }
-    */
 });

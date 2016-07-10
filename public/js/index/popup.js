@@ -1,4 +1,4 @@
-function swal_init_on(candyService,uniqueurl,ref,position){
+function swal_init_on(candyService,uniqueurl,ref,position,callback){
     swal({
         title: "SHARE YOUR LOCATION!",
         text: "Write your name or nickname:",
@@ -24,7 +24,15 @@ function swal_init_on(candyService,uniqueurl,ref,position){
         yourname = inputValue;
         //AddMessage
         candyService.registerMessage("attend",yourname + " attend");
-        swal("Nice!", "You are " + inputValue, "success");
+        swal({
+            title: "Thank you for Attend",
+            type: "success",
+            text: "You are " + inputValue,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "OK",
+            closeOnConfirm: true,
+            showCancelButton: false
+        },callback);
     });
 }
 

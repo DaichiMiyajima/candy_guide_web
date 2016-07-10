@@ -1,5 +1,5 @@
-myapp.service('googlemapService', function ($firebaseObject,firebaseService) {
-    this.loadMap = function (uniqueurl,mylatlng) {
+myapp.service('googlemapService', function () {
+    this.loadMap = function (uniqueurl,mylatlng,users) {
         var newLatlng = new google.maps.LatLng(mylatlng.lat()-0.02, mylatlng.lng());
         //create map
         var mapOptions = {
@@ -70,28 +70,7 @@ myapp.service('googlemapService', function ($firebaseObject,firebaseService) {
         var candyType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
         googlemap.mapTypes.set('Candy', candyType);
         googlemap.setMapTypeId('Candy');
-        var users = firebaseService.referenceUserOnce(uniqueurl);
-        $firebaseObject(users).$loaded().then(function(user) {
-            angular.forEach(user, function(value, key) {
-                console.log(value);
-                if(value){
-                    var difference_time = (new Date().getTime() - value["time"]) / DAY_MILLISECOND;
-                    if(value["time"] && difference_time < 1){
-                        createMarker(value["latitude"], value["longitude"], value["name"], key,markercreate);
-                    }
-                }
-            });
-        });
     }
-    //create marker
-    this.createMarkers = function (uniqueurl,adddata,key){
-        createMarker(adddata.latitude, adddata.longitude, adddata.name, key,markercreate);
-    }
-    
-    
-    
-    
-    
     // canvasでimage加工
     this.createMarker = function (latitude,longitude,title,key,callback) {
         // attach image to bg canvas
@@ -145,5 +124,92 @@ myapp.service('googlemapService', function ($firebaseObject,firebaseService) {
             });
             markers[key] = marker;
         }
+    }
+    // marker Change
+    this.changeMarker = function (uniqueurl,changedata,key) {
+        if(infoWindows[key]){
+            infoWindows[key].close();
+            infoWindows[key].position=new google.maps.LatLng(changedata.latitude, changedata.longitude);
+            infoWindows[key].open(googlemap);
+        }
+        markers[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
+    }
+    // create info window
+    this.createInfoWindow = function (uniqueurl,adddata,key) {
+        if(markers[adddata.key] && markers[adddata.key].position){
+            //delete infowindow
+            if(infoWindows[adddata.key]){infoWindows[adddata.key].close()}
+            //create infowindow
+            var contentStr = '<div style="width: 150px;height: auto !important;word-wrap: break-word;">' + adddata.message + '</div>';
+            infowindow = new google.maps.InfoWindow({
+                content: contentStr,
+                position:markers[adddata.key].position,
+                pixelOffset: new google.maps.Size( -8 , -50 ),
+                disableAutoPan: true
+            });
+            infoWindows[adddata.key] = infowindow;
+        }
+    }
+    // handle info window
+    this.handleInfoWindow = function (uniqueurl,adddata,key) {
+        if(infoWindows && infoWindows[adddata.key]){
+            infoWindows[adddata.key].open(googlemap);
+        }
+    }
+    // create meetup marker
+    this.meetupCreateMarkers = function (uniqueurl,adddata,key){
+        if(!markers_meet[key]){
+            if(adddata.key == window.localStorage.getItem([uniqueurl])){
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(adddata.latitude, adddata.longitude),
+                    map: googlemap,
+                    icon : "../img/meetUpMarker.png",
+                    draggable: true
+                });
+                setmarkerlocation(adddata.latitude, adddata.longitude);
+                markers_meet[key] = marker;
+                google.maps.event.addListener(
+                    markers_meet[key],
+                    'drag',
+                function(event) {
+                });
+                google.maps.event.addListener(
+                    markers_meet[key],
+                    'dragend',
+                function(event) {
+                    var position = this.position;
+                    var isConfirm = swal_dragend(
+                        function(isConfirm){
+                            if(isConfirm){
+                                //update
+                                ref.child('sharemap').child(uniqueurl).child('meetup').child(key).update({
+                                    latitude : position.lat(),
+                                    longitude : position.lng()
+                                });//set
+                                setmarkerlocation(position.lat(),position.lng());
+                            }else{
+                                markers_meet[key].setPosition(new google.maps.LatLng(markerlatitude, markerlongitude));
+                            }
+                        }
+                    );
+                });
+            }else{
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(adddata.latitude, adddata.longitude),
+                    icon : "../img/meetUpMarker.png",
+                    map: googlemap
+                });
+                markers_meet[key] = marker;
+            }
+        }
+    }
+    // change meet up marker
+    this.meetupChangeMarkers = function (uniqueurl,changedata,key){
+        markers_meet[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
+    }
+    // Remove meet up marker
+    this.meetupRemoveMarkers = function (uniqueurl,removedata,key){
+        markers_meet[key].setMap(null);
+        delete markers_meet[key];
     }
 })
