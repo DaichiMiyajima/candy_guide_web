@@ -36,6 +36,7 @@
     font-family: fantasy;
     margin-left : 3px;
     margin-top: 6px;
+    margin-right: 5px;
 }
 .messagelist{
     display: block; 
@@ -62,7 +63,7 @@
 }
 .toast-your{
     float:right;
-    background: rgba(3, 11, 255, 0.5);
+    background: rgb(0, 251, 114);
 }
 .toast-info{
 }
