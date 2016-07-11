@@ -1,7 +1,7 @@
 // Firebase
 //https://candyguideweb-d7d76.firebaseio.com/
 //https://candyguide.firebaseio.com/
-var ref = new Firebase("https://candyguide.firebaseio.com/");
+var ref = new Firebase("https://candyguideweb-d7d76.firebaseio.com/");
 
 (function(){
     $("#create_url").click(function(){
