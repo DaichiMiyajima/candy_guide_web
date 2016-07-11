@@ -1,5 +1,5 @@
-myapp.service('googlemapService', function () {
-    this.loadMap = function (uniqueurl,mylatlng,users) {
+myapp.service('googlemapService', function ($injector) {
+    this.loadMap = function (uniqueurl,mylatlng) {
         var newLatlng = new google.maps.LatLng(mylatlng.lat()-0.02, mylatlng.lng());
         //create map
         var mapOptions = {
@@ -157,7 +157,7 @@ myapp.service('googlemapService', function () {
         }
     }
     // create meetup marker
-    this.meetupCreateMarkers = function (uniqueurl,adddata,key){
+    this.meetupCreateMarkers = function (uniqueurl,adddata,key,callbak){
         if(!markers_meet[key]){
             if(adddata.key == window.localStorage.getItem([uniqueurl])){
                 var marker = new google.maps.Marker({
@@ -178,20 +178,9 @@ myapp.service('googlemapService', function () {
                     'dragend',
                 function(event) {
                     var position = this.position;
-                    var isConfirm = swal_dragend(
-                        function(isConfirm){
-                            if(isConfirm){
-                                //update
-                                ref.child('sharemap').child(uniqueurl).child('meetup').child(key).update({
-                                    latitude : position.lat(),
-                                    longitude : position.lng()
-                                });//set
-                                setmarkerlocation(position.lat(),position.lng());
-                            }else{
-                                markers_meet[key].setPosition(new google.maps.LatLng(markerlatitude, markerlongitude));
-                            }
-                        }
-                    );
+                    $injector.invoke(['popupService', function(popupService){
+                        popupService.swal_dragend(uniqueurl,key,position)
+                    }]);
                 });
             }else{
                 var marker = new google.maps.Marker({

@@ -15,7 +15,7 @@ myapp.service('firebaseService', function (googlemapService) {
     }
     //watch change user
     this.referenceChangeUser = function(uniqueurl){
-        ref.child('sharemap').child(uniqueurl).child('users').on('child_changed', function(snapshot, changeChildKey) {
+        ref.child('sharemap').child(uniqueurl).child('users').orderByChild("share").equalTo("on").on('child_changed', function(snapshot, changeChildKey) {
             var changedata = snapshot.val();
             googlemapService.changeMarker(uniqueurl,changedata,snapshot.key());
         });
@@ -41,7 +41,7 @@ myapp.service('firebaseService', function (googlemapService) {
         ref.child('sharemap').child(uniqueurl).child('meetup').on('child_added', function(snapshot, addChildKey) {
             var adddata = snapshot.val();
             //create meetup
-            googlemapService.meetupCreateMarkers(uniqueurl,adddata,snapshot.key());
+            googlemapService.meetupCreateMarkers(uniqueurl,adddata,snapshot.key(),function(){});
         });
     }
     //watch addmeetup
@@ -115,6 +115,7 @@ myapp.service('firebaseService', function (googlemapService) {
     //AddMessage
     this.registerMessage = function (kind,messageInput) {
         var key = window.localStorage.getItem([uniqueurl[2]]);
+        var yourname = window.localStorage.getItem([uniqueurl[2]+"name"]);
         var postsRef = ref.child("sharemap").child(uniqueurl[2]).child("message");
         var newPostRef = postsRef.push();
         var postID = newPostRef.key();
@@ -151,6 +152,14 @@ myapp.service('firebaseService', function (googlemapService) {
             latitude : latlng.lat(),
             longitude : latlng.lng(),
             kind : "nothing"
+        });//set
+    }
+    //update MeetUp MArker
+    this.updateMeetUpMarkerNothing = function (key,position) {
+        //Set meetup
+        ref.child('sharemap').child(uniqueurl[2]).child('meetup').child(key).update({
+            latitude : position.lat(),
+            longitude : position.lng()
         });//set
     }
 })

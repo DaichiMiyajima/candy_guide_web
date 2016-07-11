@@ -36,6 +36,7 @@
     font-family: fantasy;
     margin-left : 3px;
     margin-top: 6px;
+    margin-right: 5px;
 }
 .messagelist{
     display: block; 
@@ -56,13 +57,13 @@
 }
 .toast-name{
     padding: 4px;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid #a2a2a2;
     margin-top: -15px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
 }
 .toast-your{
     float:right;
-    background: rgba(3, 11, 255, 0.5);
+    background: rgb(0, 251, 114);
 }
 .toast-info{
 }

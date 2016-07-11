@@ -25,7 +25,6 @@ myapp.service('screenEventService', function () {
     //Resize for PC
     this.resizeBarPc = function (resize,resize_count,$event) {
         if((resize == "editor-resizer" || resize == "small material-icons") && $event.which == 1){
-        console.log($event.clientY);
             //bodyの高さ(window.innerHeight)
             var height = $event.clientY;
             var mapHeight = height - $('.nav-wrapper').height();
