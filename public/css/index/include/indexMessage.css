@@ -75,4 +75,8 @@
     background : rgba(255, 0, 0, 0.87);
     color: white !important;
 }
+.toast-change{
+    background : rgba(255, 153, 0, 0.87);
+    color: white !important;
+}
 /* message tab-end */

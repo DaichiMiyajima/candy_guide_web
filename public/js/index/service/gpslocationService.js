@@ -1,9 +1,9 @@
-myapp.service('gpslocationService', function (firebaseService) {
-    this.currentPosition = function (watchID,uniqueurl) {
+myapp.service('gpslocationService', function (firebaseService,popupService,GOOGLE,ROOMURL) {
+    this.currentPosition = function () {
         var count = 0;
-        if(watchID){
-            if(watchID != "init"){
-                navigator.geolocation.clearWatch(watchID);
+        if(GOOGLE.watchID != "off"){
+            if(GOOGLE.watchID != "init"){
+                navigator.geolocation.clearWatch(GOOGLE.watchID);
             }
             watchID = navigator.geolocation.watchPosition(
                 // onSuccess Geolocation
@@ -11,13 +11,11 @@ myapp.service('gpslocationService', function (firebaseService) {
                     //within 50m → update user
                     if(position.coords.accuracy <= 10000){
                         //UpdateUser
-                        firebaseService.updateUser(position,uniqueurl,"on");
-                        //set location into variable
-                        setlocation(position.coords.latitude,position.coords.longitude);
+                        firebaseService.updateUser(position,ROOMURL,"on");
                         if(count < 1){
                             count = count + 1;
                             //panto
-                            googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
+                            GOOGLE.googlemap.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
                         }
                     }else{
                         if(count < 1){
@@ -34,7 +32,7 @@ myapp.service('gpslocationService', function (firebaseService) {
             );
             return watchID;
         }else{
-            swal_relocation();
+            popupService.swal_relocation();
         }
     }
 })

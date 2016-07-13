@@ -64,7 +64,7 @@
                 <div class="nav-wrapper white ">
                     <!-- When release, we hide backScreen -->
                     <!--<a class="backScreen grey-text"> < </a>-->
-                    <a class="grey-text groupname">{{grouname}}</a>
+                    <a class="grey-text groupname">{{groupname}}</a>
                     <a data-activates="demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
                     <ul class="side-nav" id="demo">
                         <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons">my_location</i><span>MyLocation</span></div></li>
@@ -84,20 +84,20 @@
             <!-- Flexible Box -->
             <div class="flex-container">
                 <!-- Google Map -->
-                <div id="candy_map_tab">
+                <div id="candy_map_tab" ng-style="candy_map_tab">
                     <section class="container-full">
                         <div id="map"></div>
                     </section>
                 </div>
                 <div class="messageBox">
                     <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"><i class="small material-icons">chat_bubble_outline</i></div>
-                    <div class="flex-box">
+                    <div class="flex-box" ng-style="flex_box">
                         <!-- Message Include-->
                         <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
                     </div>
                 </div>
             </div>
-            <div class="messageInputArea">
+            <div class="messageInputArea" ng-style="messageheight">
                 <div class="messageInputAreaDiv">
                     <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea" ng-focus="onfocus()" ng-blur="onblur()"></textarea>
                     <a class="waves-effect waves-light btn" id="sendbutton" ng-mousedown="sendMessage(messageInput)">Send</a>
@@ -107,7 +107,7 @@
     </div>
     <!-- Google Maps -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_7QNqea1T9-S948DkonWIaMNv1jD6RJs&libraries=geometry,places"></script>
-    <script src="../public/js/index/globalvariable.js"></script>
+    <script src="../public/js/index/candy.js"></script>
     <script src="../public/js/index/service/firebaseService.js"></script>
     <script src="../public/js/index/service/screenEventService.js"></script>
     <script src="../public/js/index/service/gpslocationService.js"></script>

@@ -1,5 +1,5 @@
-myapp.service('googlemapService', function ($injector) {
-    this.loadMap = function (uniqueurl,mylatlng) {
+myapp.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMURL) {
+    this.loadMap = function (mylatlng) {
         var newLatlng = new google.maps.LatLng(mylatlng.lat()-0.02, mylatlng.lng());
         //create map
         var mapOptions = {
@@ -8,7 +8,7 @@ myapp.service('googlemapService', function ($injector) {
             disableDefaultUI: true,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-        googlemap = new google.maps.Map(document.getElementById("map"),mapOptions);
+        GOOGLE.googlemap = new google.maps.Map(document.getElementById("map"),mapOptions);
         //style
         var styleOptions = [
             {
@@ -68,8 +68,8 @@ myapp.service('googlemapService', function ($injector) {
         ];
         var styledMapOptions = { name: 'Candy' }
         var candyType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
-        googlemap.mapTypes.set('Candy', candyType);
-        googlemap.setMapTypeId('Candy');
+        GOOGLE.googlemap.mapTypes.set('Candy', candyType);
+        GOOGLE.googlemap.setMapTypeId('Candy');
     }
     // canvasでimage加工
     this.createMarker = function (latitude,longitude,title,key,callback) {
@@ -114,91 +114,94 @@ myapp.service('googlemapService', function ($injector) {
     }
     // marker作成
     this.markercreate = function (latitude,longitude,title,key,imagepath) {
-        if(!markers[key]){
+        if(!GOOGLE.markers[key]){
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(latitude, longitude),
-                map: googlemap,
+                map: GOOGLE.googlemap,
                 icon: imagepath,
                 title: title//,
                 //draggable: true
             });
-            markers[key] = marker;
+            GOOGLE.markers[key] = marker;
         }
     }
     // marker Change
-    this.changeMarker = function (uniqueurl,changedata,key) {
-        if(infoWindows[key]){
-            infoWindows[key].close();
-            infoWindows[key].position=new google.maps.LatLng(changedata.latitude, changedata.longitude);
-            infoWindows[key].open(googlemap);
+    this.changeMarker = function (changedata,key) {
+        if(GOOGLE.infoWindows[key]){
+            GOOGLE.infoWindows[key].close();
+            GOOGLE.infoWindows[key].position=new google.maps.LatLng(changedata.latitude, changedata.longitude);
+            GOOGLE.infoWindows[key].open(GOOGLE.googlemap);
         }
-        markers[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
+        GOOGLE.markers[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
     }
     // create info window
-    this.createInfoWindow = function (uniqueurl,adddata,key) {
-        if(markers[adddata.key] && markers[adddata.key].position){
+    this.createInfoWindow = function (adddata,key) {
+        if(GOOGLE.markers[adddata.key] && GOOGLE.markers[adddata.key].position){
             //delete infowindow
-            if(infoWindows[adddata.key]){infoWindows[adddata.key].close()}
+            if(GOOGLE.infoWindows[adddata.key]){GOOGLE.infoWindows[adddata.key].close()}
             //create infowindow
             var contentStr = '<div style="width: 150px;height: auto !important;word-wrap: break-word;">' + adddata.message + '</div>';
             infowindow = new google.maps.InfoWindow({
                 content: contentStr,
-                position:markers[adddata.key].position,
+                position:GOOGLE.markers[adddata.key].position,
                 pixelOffset: new google.maps.Size( -8 , -50 ),
                 disableAutoPan: true
             });
-            infoWindows[adddata.key] = infowindow;
+            GOOGLE.infoWindows[adddata.key] = infowindow;
         }
     }
     // handle info window
-    this.handleInfoWindow = function (uniqueurl,adddata,key) {
-        if(infoWindows && infoWindows[adddata.key]){
-            infoWindows[adddata.key].open(googlemap);
+    this.handleInfoWindow = function (adddata,key) {
+        if(GOOGLE.infoWindows && GOOGLE.infoWindows[adddata.key]){
+            GOOGLE.infoWindows[adddata.key].open(GOOGLE.googlemap);
         }
     }
     // create meetup marker
-    this.meetupCreateMarkers = function (uniqueurl,adddata,key,callbak){
-        if(!markers_meet[key]){
-            if(adddata.key == window.localStorage.getItem([uniqueurl])){
+    this.meetupCreateMarkers = function (adddata,key,callbak){
+        if(!GOOGLE.markers_meet[key]){
+            if(adddata.key == window.localStorage.getItem([ROOMURL])){
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(adddata.latitude, adddata.longitude),
-                    map: googlemap,
+                    map: GOOGLE.googlemap,
                     icon : "../img/meetUpMarker.png",
                     draggable: true
                 });
-                setmarkerlocation(adddata.latitude, adddata.longitude);
-                markers_meet[key] = marker;
+                GOOGLE.markers_meet[key] = marker;
+                //MARKER VALUE
+                MARKER.latitude = adddata.latitude;
+                MARKER.longitude = adddata.longitude;
+                
                 google.maps.event.addListener(
-                    markers_meet[key],
+                    GOOGLE.markers_meet[key],
                     'drag',
                 function(event) {
                 });
                 google.maps.event.addListener(
-                    markers_meet[key],
+                    GOOGLE.markers_meet[key],
                     'dragend',
                 function(event) {
                     var position = this.position;
                     $injector.invoke(['popupService', function(popupService){
-                        popupService.swal_dragend(uniqueurl,key,position)
+                        popupService.swal_dragend(key,position,adddata)
                     }]);
                 });
             }else{
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(adddata.latitude, adddata.longitude),
                     icon : "../img/meetUpMarker.png",
-                    map: googlemap
+                    map: GOOGLE.googlemap
                 });
-                markers_meet[key] = marker;
+                GOOGLE.markers_meet[key] = marker;
             }
         }
     }
     // change meet up marker
-    this.meetupChangeMarkers = function (uniqueurl,changedata,key){
-        markers_meet[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
+    this.meetupChangeMarkers = function (changedata,key){
+        GOOGLE.markers_meet[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
     }
     // Remove meet up marker
-    this.meetupRemoveMarkers = function (uniqueurl,removedata,key){
-        markers_meet[key].setMap(null);
-        delete markers_meet[key];
+    this.meetupRemoveMarkers = function (removedata,key){
+        GOOGLE.markers_meet[key].setMap(null);
+        delete GOOGLE.markers_meet[key];
     }
 })

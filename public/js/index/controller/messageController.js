@@ -1,5 +1,8 @@
+/*global candy, angular, Firebase */
+'use strict';
+
 //Message Include
-myapp.controller('messageController', function ($scope, $firebaseArray,firebaseService) {
-    var message = firebaseService.referenceMessage(uniqueurl[2]);
-    $scope.messages = $firebaseArray(message);
+myapp.controller('messageController', function ($firebaseArray,firebaseService,ROOMURL) {
+    var message = firebaseService.referenceMessage(ROOMURL);
+    this.messages = $firebaseArray(message);
 });

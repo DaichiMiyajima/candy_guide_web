@@ -116,6 +116,13 @@ textarea{
     float : right;
 }
 
+#toast-container .meetupchange{
+    width : 50%;
+    background-color: rgba(255, 153, 0, 0.62);
+    font-size : 14px;
+    float : right;
+}
+
 span:after {
     content: attr(data-shadow-text);
     color: rgb(83,109,254);
