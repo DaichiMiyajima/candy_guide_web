@@ -1,5 +1,5 @@
-myapp.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMURL) {
-    this.swal_init_on = function (ROOMURL,position,callback) {
+myapp.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID) {
+    this.swal_init_on = function (position,callback) {
         swal({
             title: "SHARE YOUR LOCATION!",
             text: "Write your name or nickname:",
@@ -17,10 +17,10 @@ myapp.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMURL) {
             //AddUser
             var postID = firebaseService.registerUser(inputValue,position,"on");
             // Store session
-            window.localStorage.setItem([ROOMURL],[postID]);
-            window.localStorage.setItem([ROOMURL+"name"],[inputValue]);
+            window.localStorage.setItem([ROOMID.roomid],[postID]);
+            window.localStorage.setItem([ROOMID.roomid+"name"],[inputValue]);
             //AddMessage
-            firebaseService.registerMessage("attend", window.localStorage.getItem([ROOMURL+"name"]) + " attend");
+            firebaseService.registerMessage("attend", window.localStorage.getItem([ROOMID.roomid+"name"]) + " attend");
             swal({
                 title: "Thank you for Attend",
                 type: "success",
@@ -50,8 +50,8 @@ myapp.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMURL) {
                 //CreateUser
                 var postID = firebaseService.registerUser(inputValue,"","off");
                 // Store session
-                window.localStorage.setItem([ROOMURL],[postID]);
-                window.localStorage.setItem([ROOMURL+"name"],[inputValue]);
+                window.localStorage.setItem([ROOMID.roomid],[postID]);
+                window.localStorage.setItem([ROOMID.roomid+"name"],[inputValue]);
                 //UpdateUser
                 firebaseService.registerMessage("attend",inputValue + " attend");
                 swal("Nice!", "You are " + inputValue + "(your location doesn't share)", "success");
@@ -84,7 +84,7 @@ myapp.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMURL) {
             },
         function(isConfirm){
             if (isConfirm) {
-                localStorage.removeItem(ROOMURL);
+                localStorage.removeItem(ROOMID.roomid);
                 window.location.reload();
             }
         });
@@ -104,7 +104,7 @@ myapp.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMURL) {
                 //Remove Marker
                 firebaseService.removeMeetUpMarker();
                 GOOGLE.markers_meet = new Array();
-                firebaseService.registerMessage("meetupremove",  window.localStorage.getItem([ROOMURL+"name"]) + " remove marker");
+                firebaseService.registerMessage("meetupremove",  window.localStorage.getItem([ROOMID.roomid+"name"]) + " remove marker");
             }
         });
     }
@@ -121,7 +121,7 @@ myapp.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMURL) {
                 if(isConfirm){
                     //update
                     firebaseService.updateMeetUpMarkerNothing(key,position);
-                    firebaseService.registerMessage("meetupchange", window.localStorage.getItem([ROOMURL+"name"])+" change marker");
+                    firebaseService.registerMessage("meetupchange", window.localStorage.getItem([ROOMID.roomid+"name"])+" change marker");
                     //MARKER VALUE
                     MARKER.latitude = position.lat();
                     MARKER.longitude = position.lng();

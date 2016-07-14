@@ -1,4 +1,4 @@
-myapp.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMURL) {
+myapp.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
     this.loadMap = function (mylatlng) {
         var newLatlng = new google.maps.LatLng(mylatlng.lat()-0.02, mylatlng.lng());
         //create map
@@ -159,7 +159,7 @@ myapp.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMURL) {
     // create meetup marker
     this.meetupCreateMarkers = function (adddata,key,callbak){
         if(!GOOGLE.markers_meet[key]){
-            if(adddata.key == window.localStorage.getItem([ROOMURL])){
+            if(adddata.key == window.localStorage.getItem([ROOMID.roomid])){
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(adddata.latitude, adddata.longitude),
                     map: GOOGLE.googlemap,

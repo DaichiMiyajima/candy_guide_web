@@ -1,7 +1,12 @@
 /*global candy, angular, Firebase */
 'use strict';
 
-myapp.controller('candyController', function ($scope,$firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService,popupService,GOOGLE,ROOMURL,SCREEN) {
+myapp.controller('candyController', function ($scope,$route,$location,$firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService,popupService,GOOGLE,ROOMID,SCREEN) {
+    $scope.back = function(){
+        ROOMID.roomid = null;
+        $location.path("/");
+        $route.reload();
+    }
     //Open messageModal
     $scope.messageModal = function(){
         $('#messageModal').openModal();
@@ -13,7 +18,7 @@ myapp.controller('candyController', function ($scope,$firebaseObject, $firebaseA
     //Make pin from Nothing
     $scope.addlocationbutton = function(){
         if(Object.keys(GOOGLE.markers_meet).length < 1){
-            firebaseService.registerMessage("meetup", window.localStorage.getItem([ROOMURL+"name"])+" add marker");
+            firebaseService.registerMessage("meetup", window.localStorage.getItem([ROOMID.roomid+"name"])+" add marker");
             firebaseService.registerMeetUpMarkerNothing();
         }else{
             popupService.swal_remove_meetUpMarkers();

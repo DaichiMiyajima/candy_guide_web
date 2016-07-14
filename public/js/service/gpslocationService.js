@@ -1,4 +1,4 @@
-myapp.service('gpslocationService', function (firebaseService,popupService,GOOGLE,ROOMURL) {
+myapp.service('gpslocationService', function (firebaseService,popupService,GOOGLE) {
     this.currentPosition = function () {
         var count = 0;
         if(GOOGLE.watchID != "off"){
@@ -11,7 +11,7 @@ myapp.service('gpslocationService', function (firebaseService,popupService,GOOGL
                     //within 50m → update user
                     if(position.coords.accuracy <= 10000){
                         //UpdateUser
-                        firebaseService.updateUser(position,ROOMURL,"on");
+                        firebaseService.updateUser(position,"on");
                         if(count < 1){
                             count = count + 1;
                             //panto

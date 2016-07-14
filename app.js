@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use('/views',express.static(__dirname + '/views'));
 
 // Register the callback to be fired every time auth state changes
-app.use('/',index);
+app.use('/*',index);
 app.get('/sharemap/*',index);
 
 app.listen(8888);

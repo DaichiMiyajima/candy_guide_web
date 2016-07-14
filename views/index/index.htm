@@ -1,0 +1,60 @@
+<!-- Own Css -->
+<link rel="stylesheet" href="../public/css/index/index.css">
+<link rel="stylesheet" href="../public/css/index/rating.css">
+<link rel="stylesheet" href="../public/css/index/include/indexMessage.css">
+<link rel="stylesheet" href="../public/css/index/include/indexPlace.css">
+<link rel="stylesheet" href="../public/css/index/include/indexTravelMode.css">
+<div ng-controller="candyController as main">
+    <div ng-mousemove="resizeStartMouse($event)" ng-mouseup="resizeEndMouse($event)" ng-mousedown="resizeEndMouse($event)" >
+        <!-- Place Include-->
+        <div ng-include = "'/views/index/include/indexPlace.htm'"></div>
+        <!-- TravelMode Include-->
+        <div ng-include = "'/views/index/include/indexTravelMode.htm'"></div>
+        <!-- Menu Nav -->
+        <nav>
+            <div class="nav-wrapper white ">
+                <!-- When release, we hide backScreen -->
+                <a class="grey-text backbutton" ng-click="back()" style=""> &lt; </a>
+                <a class="grey-text groupname">{{groupname}}</a>
+                <a data-activates="demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+                <ul class="side-nav" id="demo">
+                    <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons">my_location</i><span>MyLocation</span></div></li>
+                    <li><div class="menuContent" ng-click="addlocationbutton()"><i class="material-icons">location_on</i><span>Place</span></div></li>
+                    <li><div class="menuContent" ng-click="placeModal()"><i class="material-icons">search</i><span>PlaceSearch</span></div></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Geolocation OFF -->
+        <!--
+        <div id="geolocationOff" class="firsthide">
+            <label>Your location services are unavailable.</label><br/>
+            <label>Settings → Privacy → Location Service → Safari WebSites</label>
+        </div>
+        -->
+        <!-- Geolocation OFF end-->
+        
+        <!-- Flexible Box -->
+        <div class="flex-container">
+            <!-- Google Map -->
+            <div id="candy_map_tab" ng-style="candy_map_tab">
+                <section class="container-full">
+                    <div id="map"></div>
+                </section>
+            </div>
+            <div class="messageBox">
+                <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"><i class="small material-icons">chat_bubble_outline</i></div>
+                <div class="flex-box" ng-style="flex_box">
+                    <!-- Message Include-->
+                    <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
+                </div>
+            </div>
+        </div>
+        <div class="messageInputArea" ng-style="messageheight">
+            <div class="messageInputAreaDiv">
+                <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea" ng-focus="onfocus()" ng-blur="onblur()"></textarea>
+                <a class="waves-effect waves-light btn" id="sendbutton" ng-mousedown="sendMessage(messageInput)">Send</a>
+            </div>
+        </div>
+    </div>
+</div>

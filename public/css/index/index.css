@@ -50,6 +50,16 @@ nav ul i{
 }
 /* nav end */
 
+.backbutton{
+    font-size: 20px;
+    width: 50px;
+    font-family: sans-serif;
+    /* left: 20px; */
+    position: fixed;
+    text-align: center;
+    z-index: 100;
+}
+
 .fixed-action-btn.horizontal ul li{
     margin: 8px 8px 0 0 !important;
 }

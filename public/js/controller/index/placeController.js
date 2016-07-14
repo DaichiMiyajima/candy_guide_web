@@ -1,5 +1,5 @@
 //Place Include
-myapp.controller('placeController', function ($scope, $firebaseArray,firebaseService,popupService,ROOMURL,GOOGLE) {
+myapp.controller('placeController', function ($scope, $firebaseArray,firebaseService,popupService,ROOMID,GOOGLE) {
     //SearchPlace
     $scope.searchPlace = function(text){
         if($("#search_place").val() && $("#search_place").val().length > 0){
@@ -26,7 +26,7 @@ myapp.controller('placeController', function ($scope, $firebaseArray,firebaseSer
     $scope.makeMeetUpMarker = function(place){
         if(Object.keys(GOOGLE.markers_meet).length < 1){
             firebaseService.registerMeetUpMarker(place);
-            firebaseService.registerMessage("meetup", window.localStorage.getItem([ROOMURL+"name"])+" add marker");
+            firebaseService.registerMessage("meetup", window.localStorage.getItem([ROOMID.roomid+"name"])+" add marker");
             //panto
             GOOGLE.googlemap.panTo(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
             $('#modal2').closeModal();

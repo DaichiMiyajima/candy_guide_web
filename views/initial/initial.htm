@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="../public/css/initial/initial.css">
+<div ng-controller="candyTopController as top">
+    <header>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper white ">
+                    <a class="grey-text groupname">Where are you?</a>
+                    <a data-activates="mobile-demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li>
+                            <div class="menuContent">
+                                <!-- Place this tag where you want the button to render. -->
+                                <a class="github-button" href="https://github.com/DaichiMiyajima/candy_guide_web" data-icon="octicon-star" data-style="mega" data-count-href="/DaichiMiyajima/candy_guide_web/stargazers" data-count-api="/repos/DaichiMiyajima/candy_guide_web#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star DaichiMiyajima/candy_guide_web on GitHub">Star
+                                </a>
+                                <!-- Place this tag in your head or just before your close body tag. -->
+                                <script async defer src="https://buttons.github.io/buttons.js">
+                                </script>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="menuContent">
+                                <a style="vertical-align:middle;" href="https://twitter.com/share" class="twitter-share-button" data-url="https://bruwbird.com" data-text="Share your location!" data-size="large">Tweet
+                                </a>
+                                <script>
+                                !function(d,s,id){
+                                    var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                                    if(!d.getElementById(id)){js=d.createElement(s);
+                                        js.id=id;
+                                        js.src=p+'://platform.twitter.com/widgets.js';
+                                        fjs.parentNode.insertBefore(js,fjs);
+                                    }
+                                 }(document, 'script', 'twitter-wjs');
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div style="text-align:center; margin-top:80px; background-color:rgba(209, 209, 209, 0.31); ">
+            <img src="../public/img/initial/Where_are_you--logo.png">
+        </div>
+    </main>
+    <footer class="page-footer white" style="background-color:rgba(209, 209, 209, 0.31);">
+        <div class="container" style="width:90%;">
+            <div class="input-field col s6">
+                <input id="groupname" type="text" class="validate" ng-model="inputgroupname">
+                <label for="groupnamee">Group Name</label>
+            </div>
+            <div style="text-align:right; margin-bottom: 20px;">
+                <a class="waves-effect waves-light btn blue darken-2" id="create_url" ng-click="intomap(inputgroupname)"><i class="material-icons right">send</i>Get Started</a>
+            </div>
+        </div>
+    </footer>
+</div>

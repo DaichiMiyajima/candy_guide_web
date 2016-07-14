@@ -1,13 +1,20 @@
-myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,ROOMURL) {
+myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,ROOMID) {
     var ref = new Firebase(FIREBASE_URL); 
     
+    //Add new sharemap
+    this.registerSharemap = function(url,inputgroupname,callback){
+        ref.child("sharemap").child(url).set({
+            name : inputgroupname
+        },callback);
+    }
+    
     //SelectUser once
-    this.referenceUserOnce = function(ROOMURL){
-        return ref.child('sharemap').child(ROOMURL).child('users').orderByChild("share").equalTo("on");
+    this.referenceUserOnce = function(){
+        return ref.child('sharemap').child(ROOMID.roomid).child('users').orderByChild("share").equalTo("on");
     }
     //watch add user
-    this.referenceAddUser = function(ROOMURL){
-        ref.child('sharemap').child(ROOMURL).child('users').orderByChild("share").equalTo("on").on('child_added', function(snapshot, addChildKey) {
+    this.referenceAddUser = function(){
+        ref.child('sharemap').child(ROOMID.roomid).child('users').orderByChild("share").equalTo("on").on('child_added', function(snapshot, addChildKey) {
             var adddata = snapshot.val();
             var difference_time = (new Date().getTime()-adddata["time"]) / (1000 * 60 * 60 * 24);
             if(adddata["time"] && difference_time < 1){
@@ -16,15 +23,15 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
         });
     }
     //watch change user
-    this.referenceChangeUser = function(ROOMURL){
-        ref.child('sharemap').child(ROOMURL).child('users').orderByChild("share").equalTo("on").on('child_changed', function(snapshot, changeChildKey) {
+    this.referenceChangeUser = function(){
+        ref.child('sharemap').child(ROOMID.roomid).child('users').orderByChild("share").equalTo("on").on('child_changed', function(snapshot, changeChildKey) {
             var changedata = snapshot.val();
             googlemapService.changeMarker(changedata,snapshot.key());
         });
     }
     //watch addmessage
-    this.referenceAddMessage = function(ROOMURL){
-        ref.child('sharemap').child(ROOMURL).child('message').limitToLast(1).on('child_added', function(snapshot, addChildKey) {
+    this.referenceAddMessage = function(){
+        ref.child('sharemap').child(ROOMID.roomid).child('message').limitToLast(1).on('child_added', function(snapshot, addChildKey) {
             var adddata = snapshot.val();
             // create and handle info window
             googlemapService.createInfoWindow(adddata,snapshot.key());
@@ -41,24 +48,24 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
         });
     }
     //watch addmeetup
-    this.referenceAddMeetup = function(ROOMURL){
-        ref.child('sharemap').child(ROOMURL).child('meetup').on('child_added', function(snapshot, addChildKey) {
+    this.referenceAddMeetup = function(){
+        ref.child('sharemap').child(ROOMID.roomid).child('meetup').on('child_added', function(snapshot, addChildKey) {
             var adddata = snapshot.val();
             //create meetup
             googlemapService.meetupCreateMarkers(adddata,snapshot.key(),function(){});
         });
     }
     //watch addmeetup
-    this.referenceChangeMeetup = function(ROOMURL){
-        ref.child('sharemap').child(ROOMURL).child('meetup').on('child_changed', function(snapshot, changeChildKey) {
+    this.referenceChangeMeetup = function(){
+        ref.child('sharemap').child(ROOMID.roomid).child('meetup').on('child_changed', function(snapshot, changeChildKey) {
             var changedata = snapshot.val();
             //change meetup
             googlemapService.meetupChangeMarkers(changedata,snapshot.key());
         });
     }
     //watch removemeetup
-    this.referenceRemoveMeetup = function(ROOMURL){
-        ref.child('sharemap').child(ROOMURL).child('meetup').on('child_removed', function(snapshot, changeChildKey) {
+    this.referenceRemoveMeetup = function(){
+        ref.child('sharemap').child(ROOMID.roomid).child('meetup').on('child_removed', function(snapshot, changeChildKey) {
             var removedata = snapshot.val();
             //Remove meetup
             googlemapService.meetupRemoveMarkers(removedata,snapshot.key());
@@ -71,16 +78,16 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
         return ref.child('sharemap');
     }
     //select User for getting location
-    this.referenceUserOn = function (ROOMURL) {
-        return ref.child('sharemap').child(ROOMURL).child('users').orderByChild("share").equalTo("on").limitToLast(1);
+    this.referenceUserOn = function () {
+        return ref.child('sharemap').child(ROOMID.roomid).child('users').orderByChild("share").equalTo("on").limitToLast(1);
     }
     //AddUser
     this.registerUser = function (name,position,share) {
-        var postsRef = ref.child("sharemap").child(ROOMURL).child('users');
+        var postsRef = ref.child("sharemap").child(ROOMID.roomid).child('users');
         var newPostRef = postsRef.push();
         var postID = newPostRef.key();
         if(position){
-            ref.child('sharemap').child(ROOMURL).child('users').child(postID).set({
+            ref.child('sharemap').child(ROOMID.roomid).child('users').child(postID).set({
                 name : name,
                 latitude : position.coords.latitude,
                 longitude : position.coords.longitude,
@@ -88,7 +95,7 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
                 time : Firebase.ServerValue.TIMESTAMP
             });//set
         }else{
-            ref.child('sharemap').child(ROOMURL).child('users').child(postID).set({
+            ref.child('sharemap').child(ROOMID.roomid).child('users').child(postID).set({
                 name : name,
                 latitude : "",
                 longitude : "",
@@ -99,16 +106,16 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
         return postID;
     }
     //UpdateUSer
-    this.updateUser = function (position,ROOMURL,share) {
+    this.updateUser = function (position,share) {
         if(position){
-            ref.child('sharemap').child(ROOMURL).child('users').child(window.localStorage.getItem([ROOMURL])).update({
+            ref.child('sharemap').child(ROOMID.roomid).child('users').child(window.localStorage.getItem([ROOMID.roomid])).update({
                 latitude : position.coords.latitude,
                 longitude : position.coords.longitude,
                 share : share,
                 time : Firebase.ServerValue.TIMESTAMP
             });//set
         }else{
-            ref.child('sharemap').child(ROOMURL).child('users').child(window.localStorage.getItem([ROOMURL])).update({
+            ref.child('sharemap').child(ROOMID.roomid).child('users').child(window.localStorage.getItem([ROOMID.roomid])).update({
                 latitude : "",
                 longitude : "",
                 share : share,
@@ -117,17 +124,17 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
         }
     }
     //select Message
-    this.referenceMessage = function (ROOMURL) {
-        return ref.child('sharemap').child(ROOMURL).child('message').orderByChild("time");
+    this.referenceMessage = function () {
+        return ref.child('sharemap').child(ROOMID.roomid).child('message').orderByChild("time");
     }
     //AddMessage
     this.registerMessage = function (kind,messageInput) {
-        var postsRef = ref.child("sharemap").child(ROOMURL).child("message");
+        var postsRef = ref.child("sharemap").child(ROOMID.roomid).child("message");
         var newPostRef = postsRef.push();
         var postID = newPostRef.key();
-        ref.child('sharemap').child(ROOMURL).child("message").child(postID).set({
-            key : window.localStorage.getItem([ROOMURL]) ,
-            name : window.localStorage.getItem([ROOMURL+"name"]),
+        ref.child('sharemap').child(ROOMID.roomid).child("message").child(postID).set({
+            key : window.localStorage.getItem([ROOMID.roomid]) ,
+            name : window.localStorage.getItem([ROOMID.roomid+"name"]),
             time : Firebase.ServerValue.TIMESTAMP,
             kind : kind,
             message : messageInput
@@ -135,12 +142,12 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
     }
     //Add MeetUp MArker
     this.registerMeetUpMarker = function (place) {
-        var postsRef = ref.child("sharemap").child(ROOMURL).child("meetup");
+        var postsRef = ref.child("sharemap").child(ROOMID.roomid).child("meetup");
         var newPostRef = postsRef.push();
         var postID = newPostRef.key();
         //Set meetup
-        ref.child('sharemap').child(ROOMURL).child('meetup').child(postID).update({
-            key : window.localStorage.getItem([ROOMURL]),
+        ref.child('sharemap').child(ROOMID.roomid).child('meetup').child(postID).update({
+            key : window.localStorage.getItem([ROOMID.roomid]),
             latitude : place.geometry.location.lat(),
             longitude : place.geometry.location.lng(),
             kind : "search"
@@ -149,12 +156,12 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
     //Add MeetUp MArker from nothing
     this.registerMeetUpMarkerNothing = function () {
         var latlng = GOOGLE.googlemap.getCenter();
-        var postsRef = ref.child("sharemap").child(ROOMURL).child("meetup");
+        var postsRef = ref.child("sharemap").child(ROOMID.roomid).child("meetup");
         var newPostRef = postsRef.push();
         var postID = newPostRef.key();
         //Set meetup
-        ref.child('sharemap').child(ROOMURL).child('meetup').child(postID).update({
-            key : window.localStorage.getItem([ROOMURL]),
+        ref.child('sharemap').child(ROOMID.roomid).child('meetup').child(postID).update({
+            key : window.localStorage.getItem([ROOMID.roomid]),
             latitude : latlng.lat(),
             longitude : latlng.lng(),
             kind : "nothing"
@@ -163,12 +170,12 @@ myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,
     //update MeetUp MArker
     this.updateMeetUpMarkerNothing = function (key,position) {
         //Set meetup
-        ref.child('sharemap').child(ROOMURL).child('meetup').child(key).update({
+        ref.child('sharemap').child(ROOMID.roomid).child('meetup').child(key).update({
             latitude : position.lat(),
             longitude : position.lng()
         });//set
     }
     this.removeMeetUpMarker = function(){
-        ref.child('sharemap').child(ROOMURL).child("meetup").remove();
+        ref.child('sharemap').child(ROOMID.roomid).child("meetup").remove();
     }
 })
