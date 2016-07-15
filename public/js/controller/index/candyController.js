@@ -4,8 +4,8 @@
 myapp.controller('candyController', function ($scope,$route,$location,$firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService,popupService,GOOGLE,ROOMID,SCREEN) {
     $scope.back = function(){
         ROOMID.roomid = null;
-        $location.path("/");
         $route.reload();
+        $location.path("/");
     }
     //Open messageModal
     $scope.messageModal = function(){

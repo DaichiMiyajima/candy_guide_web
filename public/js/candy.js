@@ -16,10 +16,12 @@ var myapp =
     .config(['$routeProvider', function($routeProvider){
         $routeProvider
             .when('/', {
-                templateUrl: '/views/initial/initial.htm'
+                templateUrl: '/views/initial/initial.htm',
+                reloadOnSearch: false
             })
             .when('/sharemap/:roomid', {
-                templateUrl: '/views/index/index.htm'
+                templateUrl: '/views/index/index.htm',
+                reloadOnSearch: false
             })
             .otherwise({
                 redirectTo: '/'
@@ -55,19 +57,15 @@ var myapp =
     })
     // after starting the application
     .run(function($route,$routeParams,$location,$rootScope,$firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService,popupService,ROOMID,GOOGLE,SCREEN){
-        $rootScope.$on('$routeChangeSuccess', function(ev, next, current){
-            console.log("pass");
-            $('.collapsible').collapsible({
-                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
+        $rootScope.$on('$routeChangeSuccess', function(event, current, previous){
+            $('.collapsible').collapsible({accordion: false});
+            $('.collapsible').collapsible();
             $(".button-collapse").sideNav();
             $('.firsthide').hide();
-            $('.collapsible').collapsible();
             //Init function load map and etc......
             var sharemaps = firebaseService.referenceSharemap();
             $firebaseObject(sharemaps).$loaded().then(function(sharemap) {
                 if(sharemap[ROOMID.roomid]){
-                console.log("pass MAP");
                     var crios = !!navigator.userAgent.match(/crios/i);
                     var safari = !!navigator.userAgent.match(/safari/i);
                     var iphone = !!navigator.userAgent.match(/iphone/i);
@@ -87,6 +85,9 @@ var myapp =
                     //Set GroupName
                     $rootScope.groupname = sharemap[ROOMID.roomid].name;
                     if (navigator.geolocation) {
+                        if(GOOGLE.watchID != "init"){
+                            navigator.geolocation.clearWatch(GOOGLE.watchID);
+                        }
                         navigator.geolocation.getCurrentPosition(function(position) {
                             //If session doesn't exist, sweetalert
                             if(!window.localStorage.getItem([ROOMID.roomid]) && !window.localStorage.getItem([ROOMID.roomid+"name"])){
@@ -196,7 +197,6 @@ var myapp =
                     }
                 }else{
                     //url doesn't exist
-                    console.log("pass TOP");
                     $location.path('/');
                 }
             })
