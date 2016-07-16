@@ -1,5 +1,11 @@
-<link rel="stylesheet" href="../public/css/initial/initial.css">
-<div ng-controller="candyTopController as top">
+<link rel="stylesheet" href="../public/css/top/top.css">
+<script>
+    $('.collapsible').collapsible({accordion: false});
+    $('.collapsible').collapsible();
+    $(".button-collapse").sideNav();
+    $('.firsthide').hide();
+</script>
+<div class="topscreen" ng-controller="candyTopController as top" style="height: 100%;">
     <header>
         <div class="navbar-fixed">
             <nav>
@@ -40,7 +46,7 @@
     </header>
     <main>
         <div style="text-align:center; margin-top:80px; background-color:rgba(209, 209, 209, 0.31); ">
-            <img src="../public/img/initial/Where_are_you--logo.png">
+            <img src="../public/img/top/Where_are_you--logo.png">
         </div>
     </main>
     <footer class="page-footer white" style="background-color:rgba(209, 209, 209, 0.31);">

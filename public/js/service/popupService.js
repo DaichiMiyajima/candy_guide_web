@@ -1,4 +1,7 @@
-myapp.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID) {
+/*global candy, angular, Firebase */
+'use strict';
+
+candy.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID) {
     this.swal_init_on = function (position,callback) {
         swal({
             title: "SHARE YOUR LOCATION!",

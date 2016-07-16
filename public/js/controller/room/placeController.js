@@ -1,5 +1,8 @@
+/*global candy, angular, Firebase */
+'use strict';
+
 //Place Include
-myapp.controller('placeController', function ($scope, $firebaseArray,firebaseService,popupService,ROOMID,GOOGLE) {
+candy.controller('placeController', function ($scope, $firebaseArray,firebaseService,popupService,ROOMID,GOOGLE) {
     //SearchPlace
     $scope.searchPlace = function(text){
         if($("#search_place").val() && $("#search_place").val().length > 0){

@@ -5,7 +5,7 @@
  * The main candy app module
  */
 
-var myapp = 
+var candy = 
     angular.module('candy', ['firebase','ngTouch','ngTouchstart','ngRoute'])
     .config(['$locationProvider', function ($locationProvider) {
         $locationProvider.html5Mode(true);
@@ -16,11 +16,11 @@ var myapp =
     .config(['$routeProvider', function($routeProvider){
         $routeProvider
             .when('/', {
-                templateUrl: '/views/initial/initial.htm',
+                templateUrl: '/views/top/top.htm',
                 reloadOnSearch: false
             })
             .when('/sharemap/:roomid', {
-                templateUrl: '/views/index/index.htm',
+                templateUrl: '/views/room/room.htm',
                 reloadOnSearch: false
             })
             .otherwise({
@@ -58,10 +58,6 @@ var myapp =
     // after starting the application
     .run(function($route,$routeParams,$location,$rootScope,$firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService,popupService,ROOMID,GOOGLE,SCREEN){
         $rootScope.$on('$routeChangeSuccess', function(event, current, previous){
-            $('.collapsible').collapsible({accordion: false});
-            $('.collapsible').collapsible();
-            $(".button-collapse").sideNav();
-            $('.firsthide').hide();
             //Init function load map and etc......
             var sharemaps = firebaseService.referenceSharemap();
             $firebaseObject(sharemaps).$loaded().then(function(sharemap) {

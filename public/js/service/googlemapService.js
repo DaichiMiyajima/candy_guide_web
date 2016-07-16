@@ -1,4 +1,7 @@
-myapp.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
+/*global candy, angular, Firebase */
+'use strict';
+
+candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
     this.loadMap = function (mylatlng) {
         var newLatlng = new google.maps.LatLng(mylatlng.lat()-0.02, mylatlng.lng());
         //create map

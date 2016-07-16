@@ -1,4 +1,7 @@
-myapp.service('gpslocationService', function (firebaseService,popupService,GOOGLE) {
+/*global candy, angular, Firebase */
+'use strict';
+
+candy.service('gpslocationService', function (firebaseService,popupService,GOOGLE) {
     this.currentPosition = function () {
         var count = 0;
         if(GOOGLE.watchID != "off"){

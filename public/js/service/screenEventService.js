@@ -1,4 +1,7 @@
-myapp.service('screenEventService', function (SCREEN) {
+/*global candy, angular, Firebase */
+'use strict';
+
+candy.service('screenEventService', function (SCREEN) {
     //Resize for SmartPhone
     this.resizeBar = function (resize,$event) {
         if(resize == "editor-resizer" || resize == "small material-icons"){

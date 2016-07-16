@@ -45,10 +45,10 @@
     <script src="../public/js/service/gpslocationService.js"></script>
     <script src="../public/js/service/googlemapService.js"></script>
     <script src="../public/js/service/popupService.js"></script>
-    <script src="../public/js/controller/initial/candyTopController.js"></script>
-    <script src="../public/js/controller/index/candyController.js"></script>
-    <script src="../public/js/controller/index/messageController.js"></script>
-    <script src="../public/js/controller/index/placeController.js"></script>
+    <script src="../public/js/controller/top/candyTopController.js"></script>
+    <script src="../public/js/controller/room/candyController.js"></script>
+    <script src="../public/js/controller/room/messageController.js"></script>
+    <script src="../public/js/controller/room/placeController.js"></script>
     <!-- Google Analytics -->
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,6 +61,6 @@
 </head>
 <body>
     <base href="/">
-    <div ng-view></div>
+    <div ng-view style="overflow: scroll;height: 100% !important;"></div>
 </body>
 </html>

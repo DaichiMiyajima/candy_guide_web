@@ -1,4 +1,7 @@
-myapp.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,ROOMID) {
+/*global candy, angular, Firebase */
+'use strict';
+
+candy.service('firebaseService', function (googlemapService,FIREBASE_URL,GOOGLE,ROOMID) {
     var ref = new Firebase(FIREBASE_URL); 
     
     //Add new sharemap

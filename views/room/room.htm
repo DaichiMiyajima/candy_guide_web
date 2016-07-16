@@ -1,15 +1,21 @@
 <!-- Own Css -->
-<link rel="stylesheet" href="../public/css/index/index.css">
-<link rel="stylesheet" href="../public/css/index/rating.css">
-<link rel="stylesheet" href="../public/css/index/include/indexMessage.css">
-<link rel="stylesheet" href="../public/css/index/include/indexPlace.css">
-<link rel="stylesheet" href="../public/css/index/include/indexTravelMode.css">
+<link rel="stylesheet" href="../public/css/room/index.css">
+<link rel="stylesheet" href="../public/css/room/rating.css">
+<link rel="stylesheet" href="../public/css/room/include/indexMessage.css">
+<link rel="stylesheet" href="../public/css/room/include/indexPlace.css">
+<link rel="stylesheet" href="../public/css/room/include/indexTravelMode.css">
+<script>
+    $('.collapsible').collapsible({accordion: false});
+    $('.collapsible').collapsible();
+    $(".button-collapse").sideNav();
+    $('.firsthide').hide();
+</script>
 <div ng-controller="candyController as main">
     <div ng-mousemove="resizeStartMouse($event)" ng-mouseup="resizeEndMouse($event)" ng-mousedown="resizeEndMouse($event)" >
         <!-- Place Include-->
-        <div ng-include = "'/views/index/include/indexPlace.htm'"></div>
+        <div ng-include = "'/views/room/include/indexPlace.htm'"></div>
         <!-- TravelMode Include-->
-        <div ng-include = "'/views/index/include/indexTravelMode.htm'"></div>
+        <div ng-include = "'/views/room/include/indexTravelMode.htm'"></div>
         <!-- Menu Nav -->
         <nav>
             <div class="nav-wrapper white ">
@@ -46,7 +52,7 @@
                 <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"><i class="small material-icons">chat_bubble_outline</i></div>
                 <div class="flex-box" ng-style="flex_box">
                     <!-- Message Include-->
-                    <div ng-include = "'/views/index/include/indexMessage.htm'"></div>
+                    <div ng-include = "'/views/room/include/indexMessage.htm'"></div>
                 </div>
             </div>
         </div>
