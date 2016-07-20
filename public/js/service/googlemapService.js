@@ -144,7 +144,7 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
             if(GOOGLE.infoWindows[adddata.key]){GOOGLE.infoWindows[adddata.key].close()}
             //create infowindow
             var contentStr = '<div style="width: 150px;height: auto !important;word-wrap: break-word;">' + adddata.message + '</div>';
-            infowindow = new google.maps.InfoWindow({
+            var infowindow = new google.maps.InfoWindow({
                 content: contentStr,
                 position:GOOGLE.markers[adddata.key].position,
                 pixelOffset: new google.maps.Size( -8 , -50 ),

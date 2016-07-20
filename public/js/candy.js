@@ -11,8 +11,8 @@ var candy =
         $locationProvider.html5Mode(true);
      }])
     //https://candyguideweb-d7d76.firebaseio.com/
-    //https://candyguide.firebaseio.com/
-    .constant('FIREBASE_URL', 'https://candyguide.firebaseio.com/')
+    //https://candyguide-test.firebaseio.com/
+    .constant('FIREBASE_URL', 'https://candyguide-test.firebaseio.com/')
     .config(['$routeProvider', function($routeProvider){
         $routeProvider
             .when('/', {
@@ -55,13 +55,41 @@ var candy =
             roomid : window.location.pathname.split("/")[2]
         }
     })
+    .factory("FirebaseAuth", ["$firebaseAuth",function($firebaseAuth) {
+        return {
+            auth : "",
+            userAuth : "",
+            userInfo : ""
+        }
+     }])
     // after starting the application
-    .run(function($route,$routeParams,$location,$rootScope,$firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService,popupService,ROOMID,GOOGLE,SCREEN){
+    .run(function($route,$routeParams,$location,$rootScope,$firebaseAuth,$firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService,popupService,ROOMID,GOOGLE,SCREEN,FirebaseAuth){
+        //initialize firebase
+        firebaseService.initialize();
+        firebaseService.facebookRedirect(firebaseService.registerUser).then(function(user){
+            console.log(user);
+            FirebaseAuth.userAuth = firebaseService.getAuth();
+            FirebaseAuth.userInfo = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.userAuth.uid));
+            $rootScope.userInfo = FirebaseAuth.userInfo;
+        });
+        FirebaseAuth.userAuth = firebaseService.getAuth();
+        $rootScope.userAuth = FirebaseAuth.userAuth;
+        console.log(FirebaseAuth.userAuth);
+        if(FirebaseAuth.userAuth && FirebaseAuth.userAuth.uid){
+            FirebaseAuth.userInfo = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.userAuth.uid));
+            $rootScope.userInfo = FirebaseAuth.userInfo;
+        }else{
+            console.log("test NG!!!");
+            firebaseService.registerAuth();
+            var tete = firebaseService.getAuth();
+            console.log(tete);
+        }
+        
         $rootScope.$on('$routeChangeSuccess', function(event, current, previous){
             //Init function load map and etc......
-            var sharemaps = firebaseService.referenceSharemap();
-            $firebaseObject(sharemaps).$loaded().then(function(sharemap) {
-                if(sharemap[ROOMID.roomid]){
+            var rooms = firebaseService.referenceSharemap();
+            $firebaseObject(rooms).$loaded().then(function(room) {
+                if(room[ROOMID.roomid]){
                     var crios = !!navigator.userAgent.match(/crios/i);
                     var safari = !!navigator.userAgent.match(/safari/i);
                     var iphone = !!navigator.userAgent.match(/iphone/i);
@@ -79,7 +107,7 @@ var candy =
                     }
                     SCREEN.messageInputHeight = $('.messageInputAreaDiv').height();
                     //Set GroupName
-                    $rootScope.groupname = sharemap[ROOMID.roomid].name;
+                    $rootScope.groupname = room[ROOMID.roomid].name;
                     if (navigator.geolocation) {
                         if(GOOGLE.watchID != "init"){
                             navigator.geolocation.clearWatch(GOOGLE.watchID);

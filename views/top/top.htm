@@ -11,14 +11,42 @@
             <nav>
                 <div class="nav-wrapper white ">
                     <a class="grey-text groupname">Where are you?</a>
-                    <a data-activates="mobile-demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
-                    <ul class="side-nav" id="mobile-demo">
+                    <a data-activates="menubar" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+                    <ul class="side-nav collection" id="menubar">
+                    <li class="collection-item avatar userinfo">
+                        <div ng-if="userInfo.photoURL">
+                            <img class="circle" src={{userInfo.photoURL}} style="width: 70px;height: 70px;"></img>
+                        </div>
+                        <div ng-if="!userInfo.photoURL">
+                            <i class="material-icons circle gray" style="width: 70px;height: 70px;line-height: 70px;font-size: 30px;">perm_identity</i>
+                        </div>
+                        <div ng-if="userInfo.displayname">
+                            <span class="title ng-binding">{{userInfo.displayname}}</span>
+                        </div>
+                        <div ng-if="!userInfo.displayname">
+                            <span class="title ng-binding" style="padding-top: 28px;font-size: 15px;">NO   NAME</span>
+                        </div>
+                    </li>
+                    <li class="collection-item avatar menulist" ng-click="login()">
+                        <div class="menuContent">
+                            <i class="material-icons circle">perm_identity</i>
+                            <span>Login</span>
+                        </div>
+                    </li>
+                        <!--<div ng-if="userAuth.isAnonymous === true">-->
+                            <li class="collection-item avatar menulist" ng-click="facebooklogin()">
+                                <div class="menuContent">
+                                    <i class="material-icons circle">perm_identity</i>
+                                    <span>FacebookLogin</span>
+                                </div>
+                            </li>
+                        <!--</div>-->
+                        
+                        <!--
                         <li>
                             <div class="menuContent">
-                                <!-- Place this tag where you want the button to render. -->
                                 <a class="github-button" href="https://github.com/DaichiMiyajima/candy_guide_web" data-icon="octicon-star" data-style="mega" data-count-href="/DaichiMiyajima/candy_guide_web/stargazers" data-count-api="/repos/DaichiMiyajima/candy_guide_web#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star DaichiMiyajima/candy_guide_web on GitHub">Star
                                 </a>
-                                <!-- Place this tag in your head or just before your close body tag. -->
                                 <script async defer src="https://buttons.github.io/buttons.js">
                                 </script>
                             </div>
@@ -39,6 +67,7 @@
                                 </script>
                             </div>
                         </li>
+                        -->
                     </ul>
                 </div>
             </nav>

@@ -8,7 +8,7 @@ candy.service('gpslocationService', function (firebaseService,popupService,GOOGL
             if(GOOGLE.watchID != "init"){
                 navigator.geolocation.clearWatch(GOOGLE.watchID);
             }
-            watchID = navigator.geolocation.watchPosition(
+            var watchID = navigator.geolocation.watchPosition(
                 // onSuccess Geolocation
                 function(position) {
                     //within 50m → update user

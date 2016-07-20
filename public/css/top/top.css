@@ -180,9 +180,43 @@ nav ul{
     width:140px !important;
 }
 
-nav ul i{
-    height: 26px !important;
+#menubar{
+    width: 180px !important;
+    background-color: rgba(58, 58, 58, 0.9);
+    border: 1px solid #636262;
 }
+#menubar .userinfo{
+    padding-left: 100px;
+    min-height: 104px;
+    border-bottom: 1px solid #585858;
+    background-color: rgba(58, 58, 58, 0.901961);
+}
+#menubar .userinfo span{
+    color: white;
+    font-family: fantasy;
+    padding-top: 20px;
+    position: absolute;
+}
+
+#menubar .menulist{
+    min-height: 64px;
+    border-bottom: 1px solid #585858;
+    background-color: rgba(58, 58, 58, 0.901961);
+    padding-left: 58px;
+    font-size: 12px;
+}
+
+#menubar .menulist .material-icons{
+    background-color: rgba(240, 248, 255, 0);
+    font-size: 25px;
+}
+
+#menubar .menulist span{
+    color: white;
+    padding-top: 13px;
+    position: absolute;
+}
+
 input{
     font-size: 16px !important;
 }
@@ -192,13 +226,4 @@ input{
     height: 40px;
     position: absolute;
     text-align: center;
-}
-.menuContent{
-    color: #5a5a5a;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.menuContent {
-    padding: 0 30px;
 }

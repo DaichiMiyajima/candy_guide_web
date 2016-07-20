@@ -1,7 +1,7 @@
 /*global candy, angular, Firebase */
 'use strict';
 
-candy.controller('candyTopController', function ($scope,$route,$location,firebaseService,ROOMID) {
+candy.controller('candyTopController', function ($scope,$route,$location,firebaseService,ROOMID,FirebaseAuth) {
     $scope.intomap = function(inputgroupname){
         if(inputgroupname && inputgroupname.length > 0){
             var url = new Date().getTime().toString(16) + new Date().getMilliseconds().toString(16) + Math.floor(10000*Math.random()).toString(16);
@@ -12,5 +12,16 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
                 $route.reload();
             });
         }
+    }
+    $scope.login = function(){
+        if(FirebaseAuth && FirebaseAuth.auth && FirebaseAuth.auth.$getAuth()){
+            console.log("auth:" + FirebaseAuth.auth);
+            firebaseService.registerUser(FirebaseAuth.auth.$getAuth(),"anonymous");
+        }else{
+            firebaseService.registerAuth();
+        }
+    }
+    $scope.facebooklogin = function(){
+        firebase.auth().signInWithRedirect(new firebase.auth.FacebookAuthProvider());
     }
 });

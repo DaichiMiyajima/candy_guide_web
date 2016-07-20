@@ -18,7 +18,7 @@ candy.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID) {
                 return false
             }
             //AddUser
-            var postID = firebaseService.registerUser(inputValue,position,"on");
+            var postID = firebaseService.registerRoomUser(inputValue,position,"on");
             // Store session
             window.localStorage.setItem([ROOMID.roomid],[postID]);
             window.localStorage.setItem([ROOMID.roomid+"name"],[inputValue]);
@@ -51,7 +51,7 @@ candy.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID) {
                     return false
                 }
                 //CreateUser
-                var postID = firebaseService.registerUser(inputValue,"","off");
+                var postID = firebaseService.registerRoomUser(inputValue,"","off");
                 // Store session
                 window.localStorage.setItem([ROOMID.roomid],[postID]);
                 window.localStorage.setItem([ROOMID.roomid+"name"],[inputValue]);
