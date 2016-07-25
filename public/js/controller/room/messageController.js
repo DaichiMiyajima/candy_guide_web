@@ -2,7 +2,14 @@
 'use strict';
 
 //Message Include
-candy.controller('messageController', function ($firebaseArray,firebaseService,ROOMID) {
-    var message = firebaseService.referenceMessage(ROOMID.roomid);
-    this.messages = $firebaseArray(message);
+candy.controller('messageController', function ($scope,$firebaseObject,$firebaseArray,firebaseService,ROOMID) {
+    var message = $firebaseArray(firebaseService.referenceMessage(ROOMID.roomid));
+    firebaseService.joinUserandMessage(firebaseService.selectLoginUser,message).then(function(message){
+        $scope.messages = message;
+    });
+    message.$watch(function(event) {
+        firebaseService.joinUserandMessage(firebaseService.selectLoginUser,message).then(function(message){
+            $scope.messages = message;
+        });
+    });
 });

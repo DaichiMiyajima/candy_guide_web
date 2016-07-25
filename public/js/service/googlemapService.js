@@ -75,49 +75,75 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
         GOOGLE.googlemap.setMapTypeId('Candy');
     }
     // canvasでimage加工
-    this.createMarker = function (latitude,longitude,title,key,callback) {
-        // attach image to bg canvas
-        var bg = document.createElement("canvas");
-        bg.width = 80;
-        bg.height = 80;
-        var bgCtx = bg.getContext("2d");
-        
-        // 線の作成
-        bgCtx.beginPath();
-        //bgCtx.lineCap = "round";
-        bgCtx.strokeStyle = "black";
-        bgCtx.fillStyle = "white";
-        bgCtx.lineWidth = 6;
-        bgCtx.moveTo(28,52);
-        bgCtx.lineTo(35,63);
-        bgCtx.lineTo(42,52);
-        bgCtx.stroke();
-        bgCtx.closePath();
-        bgCtx.fill();
-        //円の作成
-        bgCtx.beginPath();
-        bgCtx.lineWidth = 5;
-        bgCtx.strokeStyle = "black";
-        bgCtx.fillStyle = "white";
-        bgCtx.arc(35, 35, 20, 70 * Math.PI / 180, 110 * Math.PI / 180, true);
-        bgCtx.stroke();
-        bgCtx.fill();
-        
-        //文字の長さ
-        var metrics = bgCtx.measureText(title);
-        bgCtx.lineWidth = 1;
-        bgCtx.strokeStyle = "black";
-        bgCtx.font = "10px 'Gilgongo'";
-        if(metrics.width < 40){
-            bgCtx.strokeText(title, 15+(40-metrics.width)/2, 39,36);
+    this.createMarker = function (latitude, longitude, title, key, provider, photoURL, callback) {
+        if(photoURL){
+            var img =new Image();
+            img.crossOrigin = "Anonymous";
+            img.src = photoURL;
+            img.onload = function(that){
+                var bg = document.createElement("canvas");
+                bg.width = 54;
+                bg.height = 60;
+                var bgCtx = bg.getContext("2d");
+                // 黒枠の作成
+                bgCtx.beginPath();
+                bgCtx.fillStyle = "black";
+                bgCtx.fillRect(0,0,54,54);
+                bgCtx.fill();
+                bgCtx.stroke();
+                // 線の作成
+                bgCtx.beginPath();
+                bgCtx.moveTo(27,60);
+                bgCtx.lineTo(24,54);
+                bgCtx.moveTo(27,60);
+                bgCtx.lineTo(30,54);
+                bgCtx.stroke();
+                bgCtx.drawImage(img, 2, 2,50,50);
+                callback(latitude,longitude,title,key,bg.toDataURL());
+            }
         }else{
-            bgCtx.strokeText(title, 15, 39,39);
+            // attach image to bg canvas
+            var bg = document.createElement("canvas");
+            bg.width = 80;
+            bg.height = 80;
+            var bgCtx = bg.getContext("2d");
+            // 線の作成
+            bgCtx.beginPath();
+            //bgCtx.lineCap = "round";
+            bgCtx.strokeStyle = "black";
+            bgCtx.fillStyle = "white";
+            bgCtx.lineWidth = 6;
+            bgCtx.moveTo(28,52);
+            bgCtx.lineTo(35,63);
+            bgCtx.lineTo(42,52);
+            bgCtx.stroke();
+            bgCtx.closePath();
+            bgCtx.fill();
+            //円の作成
+            bgCtx.beginPath();
+            bgCtx.lineWidth = 5;
+            bgCtx.strokeStyle = "black";
+            bgCtx.fillStyle = "white";
+            bgCtx.arc(35, 35, 20, 70 * Math.PI / 180, 110 * Math.PI / 180, true);
+            bgCtx.stroke();
+            bgCtx.fill();
+            //文字の長さ
+            var metrics = bgCtx.measureText(title);
+            bgCtx.lineWidth = 1;
+            bgCtx.strokeStyle = "black";
+            bgCtx.font = "10px 'Gilgongo'";
+            if(metrics.width < 40){
+                bgCtx.strokeText(title, 15+(40-metrics.width)/2, 39,36);
+            }else{
+                bgCtx.strokeText(title, 15, 39,39);
+            }
+            callback(latitude,longitude,title,key,bg.toDataURL());
         }
-        callback(latitude,longitude,title,key,bg.toDataURL());
     }
     // marker作成
     this.markercreate = function (latitude,longitude,title,key,imagepath) {
-        if(!GOOGLE.markers[key]){
+        console.log("markercreate 1");
+        if(latitude && longitude && title && !GOOGLE.markers[key]){
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(latitude, longitude),
                 map: GOOGLE.googlemap,
@@ -135,7 +161,9 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
             GOOGLE.infoWindows[key].position=new google.maps.LatLng(changedata.latitude, changedata.longitude);
             GOOGLE.infoWindows[key].open(GOOGLE.googlemap);
         }
-        GOOGLE.markers[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
+        if(GOOGLE.markers[key]){
+            GOOGLE.markers[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
+        }
     }
     // create info window
     this.createInfoWindow = function (adddata,key) {

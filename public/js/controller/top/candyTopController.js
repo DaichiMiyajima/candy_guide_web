@@ -14,12 +14,7 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
         }
     }
     $scope.login = function(){
-        if(FirebaseAuth && FirebaseAuth.auth && FirebaseAuth.auth.$getAuth()){
-            console.log("auth:" + FirebaseAuth.auth);
-            firebaseService.registerUser(FirebaseAuth.auth.$getAuth(),"anonymous");
-        }else{
-            firebaseService.registerAuth();
-        }
+        
     }
     $scope.facebooklogin = function(){
         firebase.auth().signInWithRedirect(new firebase.auth.FacebookAuthProvider());

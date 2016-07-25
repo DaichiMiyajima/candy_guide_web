@@ -56,10 +56,19 @@ var candy =
         }
     })
     .factory("FirebaseAuth", ["$firebaseAuth",function($firebaseAuth) {
+        var config = {
+            apiKey: "AIzaSyCgH8GYpKZcG_1uOsGY0yaoQDYPjunClvg",
+            authDomain: "candyguide-test.firebaseapp.com",
+            databaseURL: "https://candyguide-test.firebaseio.com",
+            storageBucket: "candyguide-test.appspot.com",
+        };
+        firebase.initializeApp(config);
         return {
-            auth : "",
+            auth : $firebaseAuth(),
             userAuth : "",
-            userInfo : ""
+            userInfo : "",
+            displayname : "",
+            photoURL : ""
         }
      }])
     // after starting the application
@@ -67,146 +76,95 @@ var candy =
         //initialize firebase
         firebaseService.initialize();
         firebaseService.facebookRedirect(firebaseService.registerUser).then(function(user){
-            console.log(user);
             FirebaseAuth.userAuth = firebaseService.getAuth();
             FirebaseAuth.userInfo = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.userAuth.uid));
             $rootScope.userInfo = FirebaseAuth.userInfo;
         });
-        FirebaseAuth.userAuth = firebaseService.getAuth();
-        $rootScope.userAuth = FirebaseAuth.userAuth;
-        console.log(FirebaseAuth.userAuth);
-        if(FirebaseAuth.userAuth && FirebaseAuth.userAuth.uid){
-            FirebaseAuth.userInfo = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.userAuth.uid));
-            $rootScope.userInfo = FirebaseAuth.userInfo;
-        }else{
-            console.log("test NG!!!");
-            firebaseService.registerAuth();
-            var tete = firebaseService.getAuth();
-            console.log(tete);
-        }
-        
         $rootScope.$on('$routeChangeSuccess', function(event, current, previous){
-            //Init function load map and etc......
-            var rooms = firebaseService.referenceSharemap();
-            $firebaseObject(rooms).$loaded().then(function(room) {
-                if(room[ROOMID.roomid]){
-                    var crios = !!navigator.userAgent.match(/crios/i);
-                    var safari = !!navigator.userAgent.match(/safari/i);
-                    var iphone = !!navigator.userAgent.match(/iphone/i);
-                    var line = !!navigator.userAgent.match(/Line/i);
-                    if(safari && !crios && iphone && !line){
-                        $("#map").css("height","90vh");
-                    }
-                    $rootScope.candy_map_tab = {
-                        "min-height" : 50 + "vh",
-                        "max-height" : 50 + "vh"
-                    }
-                    $rootScope.flex_box = {
-                        "min-height" : 50 + "vh",
-                        "max-height" : 50 + "vh"
-                    }
-                    SCREEN.messageInputHeight = $('.messageInputAreaDiv').height();
-                    //Set GroupName
-                    $rootScope.groupname = room[ROOMID.roomid].name;
-                    if (navigator.geolocation) {
-                        if(GOOGLE.watchID != "init"){
-                            navigator.geolocation.clearWatch(GOOGLE.watchID);
+            // wait for getAuth
+            FirebaseAuth.auth.$waitForSignIn().then(function () {
+                if(FirebaseAuth.auth.$getAuth()){
+                    FirebaseAuth.userInfo = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.auth.$getAuth().uid));
+                    $rootScope.userInfo = FirebaseAuth.userInfo;
+                    FirebaseAuth.userInfo.$loaded().then(function(user) {
+                        FirebaseAuth.displayname = user.displayname;
+                        if(user.photoURL){
+                            FirebaseAuth.photoURL = user.photoURL;
                         }
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            //If session doesn't exist, sweetalert
-                            if(!window.localStorage.getItem([ROOMID.roomid]) && !window.localStorage.getItem([ROOMID.roomid+"name"])){
-                                popupService.swal_init_on(position,function(){
-                                    $rootScope.yourId = window.localStorage.getItem(ROOMID.roomid);
-                                });
-                            }else{
-                                $rootScope.yourId = window.localStorage.getItem(ROOMID.roomid);
-                                //UpdateUser
-                                firebaseService.updateUser(position,"on");
+                    });
+                }
+                //Init function load map and etc......
+                var rooms = firebaseService.referenceSharemap();
+                $firebaseObject(rooms).$loaded().then(function(room) {
+                    if(room[ROOMID.roomid]){
+                        var crios = !!navigator.userAgent.match(/crios/i);
+                        var safari = !!navigator.userAgent.match(/safari/i);
+                        var iphone = !!navigator.userAgent.match(/iphone/i);
+                        var line = !!navigator.userAgent.match(/Line/i);
+                        if(safari && !crios && iphone && !line){
+                            $("#map").css("height","90vh");
+                        }
+                        $rootScope.candy_map_tab = {
+                            "min-height" : 50 + "vh",
+                            "max-height" : 50 + "vh"
+                        }
+                        $rootScope.flex_box = {
+                            "min-height" : 50 + "vh",
+                            "max-height" : 50 + "vh"
+                        }
+                        SCREEN.messageInputHeight = $('.messageInputAreaDiv').height();
+                        
+                        $rootScope.groupname = room[ROOMID.roomid].name;
+                        if (navigator.geolocation) {
+                            if(GOOGLE.watchID != "init"){
+                                navigator.geolocation.clearWatch(GOOGLE.watchID);
                             }
-                            //ifでもelseでも実行
-                            var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                            
-                            // select User
-                            var users = firebaseService.referenceUserOnce();
-                            //init MAp
-                            googlemapService.loadMap(mylatlng);
-                            $firebaseObject(users).$loaded().then(function(user) {
-                                angular.forEach(user, function(value, key) {
-                                    if(value){
-                                        var difference_time = (new Date().getTime() - value["time"]) / (1000 * 60 * 60 * 24);
-                                        if(value["time"] && difference_time < 1){
-                                            googlemapService.createMarker(value["latitude"], value["longitude"], value["name"], key,googlemapService.markercreate);
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                if(FirebaseAuth.auth.$getAuth() && FirebaseAuth.auth.$getAuth().uid){
+                                    var userDatas = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.auth.$getAuth().uid));
+                                    userDatas.$loaded().then(function(userData) {
+                                        if(!userData.displayname){
+                                            popupService.swal_init_on(function(){
+                                                FirebaseAuth.userInfo = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.auth.$getAuth().uid));
+                                                $rootScope.userInfo = FirebaseAuth.userInfo;
+                                                //UpdateUser
+                                                firebaseService.updateUser(position,"on");
+                                                FirebaseAuth.userInfo.$loaded().then(function(user) {
+                                                    FirebaseAuth.displayname = user.displayname;
+                                                });
+                                            });
                                         }
-                                    }
-                                });
-                            });
-                            var infomessages = $firebaseObject(firebaseService.referenceMessage());
-                            infomessages.$loaded().then(function() {
-                                angular.forEach(infomessages, function(value, key) {
-                                    // create and handle info window
-                                    googlemapService.createInfoWindow(value,key);
-                                    googlemapService.handleInfoWindow(value,key);
-                                });
-                            });
-                            //watch position
-                            GOOGLE.watchID = gpslocationService.currentPosition();
-                            //watch add user
-                            firebaseService.referenceAddUser();
-                            //watch change user
-                            firebaseService.referenceChangeUser();
-                            //watch addmessage
-                            firebaseService.referenceAddMessage();
-                            //watch addmessage
-                            firebaseService.referenceAddMeetup();
-                            //watch changemessage
-                            firebaseService.referenceChangeMeetup();
-                            //watch Removemessage
-                            firebaseService.referenceRemoveMeetup();
-                        }, 
-                        // エラー時のコールバック関数は PositionError オブジェクトを受けとる
-                        function(error) {
-                            if(!window.localStorage.getItem([ROOMID.roomid])){
-                                popupService.swal_locationoff(function(){
-                                    $rootScope.yourId = window.localStorage.getItem(ROOMID.roomid);
-                                });
-                            }else{
-                                //UpdateUser
-                                firebaseService.updateUser("","off");
-                            }
-                            GOOGLE.watchID = "off";
-                            //Location on のユーザーがいればそのlocationを参照
-                            var userlocation = firebaseService.referenceUserOn();
-                            $firebaseObject(userlocation).$loaded().then(function(userlocation) {
-                                var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
-                                angular.forEach(userlocation, function(value, key) {
-                                    mylatlng = new google.maps.LatLng(value.latitude, value.longitude);
-                                });
+                                    });
+                                    
+                                }
+                                if(!FirebaseAuth.auth.$getAuth()){
+                                    firebaseService.registerAuth().then(function(user){
+                                        FirebaseAuth.userAuth = user;
+                                        popupService.swal_init_on(function(){
+                                            FirebaseAuth.userInfo = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.auth.$getAuth().uid));
+                                            $rootScope.userInfo = FirebaseAuth.userInfo;
+                                            //UpdateUser
+                                            firebaseService.updateUser(position,"on");
+                                        });
+                                    });
+                                }
+                                //ifでもelseでも実行
+                                var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                                //init MAp
+                                googlemapService.loadMap(mylatlng);
                                 // select User
                                 var users = firebaseService.referenceUserOnce();
-                                //LocationOnのユーザーのLocationを中心地として表示 init MAp
-                                googlemapService.loadMap(mylatlng);
-                                $firebaseObject(users).$loaded().then(function(user) {
-                                    angular.forEach(user, function(value, key) {
-                                        if(value){
-                                            var difference_time = (new Date().getTime() - value["time"]) / DAY_MILLISECOND;
-                                            if(value["time"] && difference_time < 1){
-                                                googlemapService.createMarker(value["latitude"], value["longitude"], value["name"], key,googlemapService.markercreate);
-                                            }
-                                        }
-                                    });
-                                });
-                                var infomessages = $firebaseObject(firebaseService.referenceMessage());
-                                infomessages.$loaded().then(function() {
-                                    angular.forEach(infomessages, function(value, key) {
-                                        // create and handle info window
-                                        googlemapService.createInfoWindow(value,key);
-                                        googlemapService.handleInfoWindow(value,key);
-                                    });
-                                });
+                                //init create Marker
+                                firebaseService.initloadUser(users,firebaseService.selectLoginUser);
+                                //infowindow
+                                var infomessages = firebaseService.referenceMessage();
+                                firebaseService.loadinfowindow(infomessages);
+                                //watch position
+                                GOOGLE.watchID = gpslocationService.currentPosition();
                                 //watch add user
-                                firebaseService.referenceAddUser();
+                                firebaseService.referenceAddUser(firebaseService.selectLoginUser);
                                 //watch change user
-                                firebaseService.referenceChangeUser();
+                                firebaseService.referenceChangeUser(firebaseService.selectLoginUser);
                                 //watch addmessage
                                 firebaseService.referenceAddMessage();
                                 //watch addmessage
@@ -215,14 +173,75 @@ var candy =
                                 firebaseService.referenceChangeMeetup();
                                 //watch Removemessage
                                 firebaseService.referenceRemoveMeetup();
+                            }, 
+                            // エラー時のコールバック関数は PositionError オブジェクトを受けとる
+                            function(error) {//UpdateUser
+                                if(!FirebaseAuth.auth.$getAuth()){
+                                    firebaseService.registerAuth().then(function(user){
+                                        FirebaseAuth.userAuth = user;
+                                        popupService.swal_init_on(function(){
+                                            FirebaseAuth.userInfo = $firebaseObject(firebaseService.selectLoginUser(FirebaseAuth.auth.$getAuth().uid));
+                                            $rootScope.userInfo = FirebaseAuth.userInfo;
+                                            //UpdateUser
+                                            firebaseService.updateUser("","off");
+                                            FirebaseAuth.userInfo.$loaded().then(function(user) {
+                                                FirebaseAuth.displayname = user.displayname;
+                                            });
+                                        });
+                                    });
+                                }
+                                GOOGLE.watchID = "off";
+                                //Location on のユーザーがいればそのlocationを参照
+                                var userlocation = firebaseService.referenceUserOn();
+                                $firebaseObject(userlocation).$loaded().then(function(userlocation) {
+                                    var mylatlng = new google.maps.LatLng("35.690921", "139.700258");
+                                    angular.forEach(userlocation, function(value, key) {
+                                        mylatlng = new google.maps.LatLng(value.latitude, value.longitude);
+                                    });
+                                    // select User
+                                    var users = firebaseService.referenceUserOnce();
+                                    //LocationOnのユーザーのLocationを中心地として表示 init MAp
+                                    googlemapService.loadMap(mylatlng);
+                                    $firebaseObject(users).$loaded().then(function(user) {
+                                        angular.forEach(user, function(value, key) {
+                                            if(value){
+                                                var difference_time = (new Date().getTime() - value["time"]) / DAY_MILLISECOND;
+                                                if(value["time"] && difference_time < 1){
+                                                    googlemapService.createMarker(value["latitude"], value["longitude"], value["name"], key,googlemapService.markercreate);
+                                                }
+                                            }
+                                        });
+                                    });
+                                    var infomessages = $firebaseObject(firebaseService.referenceMessage());
+                                    infomessages.$loaded().then(function() {
+                                        angular.forEach(infomessages, function(value, key) {
+                                            // create and handle info window
+                                            googlemapService.createInfoWindow(value,key);
+                                            googlemapService.handleInfoWindow(value,key);
+                                        });
+                                    });
+                                    //watch add user
+                                    firebaseService.referenceAddUser();
+                                    //watch change user
+                                    firebaseService.referenceChangeUser();
+                                    //watch addmessage
+                                    firebaseService.referenceAddMessage();
+                                    //watch addmessage
+                                    firebaseService.referenceAddMeetup();
+                                    //watch changemessage
+                                    firebaseService.referenceChangeMeetup();
+                                    //watch Removemessage
+                                    firebaseService.referenceRemoveMeetup();
+                                });
                             });
-                        });
+                        }else{
+                        }
                     }else{
+                        //url doesn't exist
+                        $location.path('/');
+                        
                     }
-                }else{
-                    //url doesn't exist
-                    $location.path('/');
-                }
-            })
+                })
+            });
         });
     });
