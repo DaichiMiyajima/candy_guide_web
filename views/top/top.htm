@@ -74,19 +74,59 @@
         </div>
     </header>
     <main>
-        <div style="text-align:center; margin-top:80px; background-color:rgba(209, 209, 209, 0.31); ">
-            <img src="../public/img/top/Where_are_you--logo.png">
+        <div class="row">
+            <div class="col s12 m6 l6">
+                <div style="text-align:center; background-color:rgba(209, 209, 209, 0.31);padding: 1px;">
+                    <img src="../public/img/top/Where_are_you--logo.png" style="width:60%;">
+                    <div class="container">
+                        <div class="input-field">
+                            <input id="groupname" type="text" class="validate" ng-model="inputgroupname">
+                            <label for="groupnamee">Group Name !  Share the group URL with friends !</label>
+                        </div>
+                        <div style="text-align:right; margin-bottom: 20px;">
+                            <a class="waves-effect waves-light btn blue darken-2" id="create_url" ng-click="intomap(inputgroupname)"><i class="material-icons right">send</i>Create Group</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l6">
+                <!-- GLOBAL -->
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="../public/img/global.png" style="max-width: 200px;max-height: 200px;margin: 0 auto;">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">GLOBAL<i class="material-icons right">more_vert</i></span>
+                        <p><a>This is a link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">GLOBAL<i class="material-icons right">close</i></span>
+                        <p>Share your location and message with a lot of people</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- USER ROOM -->
+            <div ng-repeat="userroom in userrooms">
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div ng-if="userroom.photoURL">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="/public/img/office.jpg" style="max-width: 200px;max-height: 200px;margin: 0 auto;">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">{{userroom.name}}<i class="material-icons right">more_vert</i></span>
+                            <p><a>This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">{{userroom.name}}<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-    <footer class="page-footer white" style="background-color:rgba(209, 209, 209, 0.31);">
-        <div class="container" style="width:90%;">
-            <div class="input-field col s6">
-                <input id="groupname" type="text" class="validate" ng-model="inputgroupname">
-                <label for="groupnamee">Group Name</label>
-            </div>
-            <div style="text-align:right; margin-bottom: 20px;">
-                <a class="waves-effect waves-light btn blue darken-2" id="create_url" ng-click="intomap(inputgroupname)"><i class="material-icons right">send</i>Get Started</a>
-            </div>
-        </div>
-    </footer>
 </div>

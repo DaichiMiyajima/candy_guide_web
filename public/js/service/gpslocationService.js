@@ -14,7 +14,7 @@ candy.service('gpslocationService', function (firebaseService,popupService,GOOGL
                     //within 50m → update user
                     if(position.coords.accuracy <= 10000){
                         //UpdateUser
-                        firebaseService.updateUser(position,"on");
+                        firebaseService.updateUserLocation(position,"on");
                         if(count < 1){
                             count = count + 1;
                             //panto

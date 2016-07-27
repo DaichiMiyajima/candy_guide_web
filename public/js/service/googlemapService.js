@@ -142,8 +142,7 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
     }
     // marker作成
     this.markercreate = function (latitude,longitude,title,key,imagepath) {
-        console.log("markercreate 1");
-        if(latitude && longitude && title && !GOOGLE.markers[key]){
+        if(latitude && longitude && title && !GOOGLE.markers[ROOMID.roomid + key]){
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(latitude, longitude),
                 map: GOOGLE.googlemap,
@@ -151,45 +150,45 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
                 title: title//,
                 //draggable: true
             });
-            GOOGLE.markers[key] = marker;
+            GOOGLE.markers[ROOMID.roomid + key] = marker;
         }
     }
     // marker Change
     this.changeMarker = function (changedata,key) {
-        if(GOOGLE.infoWindows[key]){
-            GOOGLE.infoWindows[key].close();
-            GOOGLE.infoWindows[key].position=new google.maps.LatLng(changedata.latitude, changedata.longitude);
-            GOOGLE.infoWindows[key].open(GOOGLE.googlemap);
+        if(GOOGLE.infoWindows[ROOMID.roomid + key]){
+            GOOGLE.infoWindows[ROOMID.roomid + key].close();
+            GOOGLE.infoWindows[ROOMID.roomid + key].position=new google.maps.LatLng(changedata.latitude, changedata.longitude);
+            GOOGLE.infoWindows[ROOMID.roomid + key].open(GOOGLE.googlemap);
         }
-        if(GOOGLE.markers[key]){
-            GOOGLE.markers[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
+        if(GOOGLE.markers[ROOMID.roomid + key]){
+            GOOGLE.markers[ROOMID.roomid + key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
         }
     }
     // create info window
     this.createInfoWindow = function (adddata,key) {
-        if(GOOGLE.markers[adddata.key] && GOOGLE.markers[adddata.key].position){
+        if(GOOGLE.markers[ROOMID.roomid + adddata.key] && GOOGLE.markers[ROOMID.roomid + adddata.key].position){
             //delete infowindow
-            if(GOOGLE.infoWindows[adddata.key]){GOOGLE.infoWindows[adddata.key].close()}
+            if(GOOGLE.infoWindows[ROOMID.roomid + adddata.key]){GOOGLE.infoWindows[ROOMID.roomid + adddata.key].close()}
             //create infowindow
             var contentStr = '<div style="width: 150px;height: auto !important;word-wrap: break-word;">' + adddata.message + '</div>';
             var infowindow = new google.maps.InfoWindow({
                 content: contentStr,
-                position:GOOGLE.markers[adddata.key].position,
+                position:GOOGLE.markers[ROOMID.roomid + adddata.key].position,
                 pixelOffset: new google.maps.Size( -8 , -50 ),
                 disableAutoPan: true
             });
-            GOOGLE.infoWindows[adddata.key] = infowindow;
+            GOOGLE.infoWindows[ROOMID.roomid + adddata.key] = infowindow;
         }
     }
     // handle info window
     this.handleInfoWindow = function (adddata,key) {
-        if(GOOGLE.infoWindows && GOOGLE.infoWindows[adddata.key]){
-            GOOGLE.infoWindows[adddata.key].open(GOOGLE.googlemap);
+        if(GOOGLE.infoWindows && GOOGLE.infoWindows[ROOMID.roomid + adddata.key]){
+            GOOGLE.infoWindows[ROOMID.roomid + adddata.key].open(GOOGLE.googlemap);
         }
     }
     // create meetup marker
     this.meetupCreateMarkers = function (adddata,key,callbak){
-        if(!GOOGLE.markers_meet[key]){
+        if(!GOOGLE.markers_meet[ROOMID.roomid + key]){
             if(adddata.key == window.localStorage.getItem([ROOMID.roomid])){
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(adddata.latitude, adddata.longitude),
@@ -197,18 +196,18 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
                     icon : "../img/meetUpMarker.png",
                     draggable: true
                 });
-                GOOGLE.markers_meet[key] = marker;
+                GOOGLE.markers_meet[ROOMID.roomid + key] = marker;
                 //MARKER VALUE
                 MARKER.latitude = adddata.latitude;
                 MARKER.longitude = adddata.longitude;
                 
                 google.maps.event.addListener(
-                    GOOGLE.markers_meet[key],
+                    GOOGLE.markers_meet[ROOMID.roomid + key],
                     'drag',
                 function(event) {
                 });
                 google.maps.event.addListener(
-                    GOOGLE.markers_meet[key],
+                    GOOGLE.markers_meet[ROOMID.roomid + key],
                     'dragend',
                 function(event) {
                     var position = this.position;
@@ -222,17 +221,17 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
                     icon : "../img/meetUpMarker.png",
                     map: GOOGLE.googlemap
                 });
-                GOOGLE.markers_meet[key] = marker;
+                GOOGLE.markers_meet[ROOMID.roomid + key] = marker;
             }
         }
     }
     // change meet up marker
     this.meetupChangeMarkers = function (changedata,key){
-        GOOGLE.markers_meet[key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
+        GOOGLE.markers_meet[ROOMID.roomid + key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
     }
     // Remove meet up marker
     this.meetupRemoveMarkers = function (removedata,key){
-        GOOGLE.markers_meet[key].setMap(null);
-        delete GOOGLE.markers_meet[key];
+        GOOGLE.markers_meet[ROOMID.roomid + key].setMap(null);
+        delete GOOGLE.markers_meet[ROOMID.roomid + key];
     }
 })

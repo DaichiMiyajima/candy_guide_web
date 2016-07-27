@@ -1,7 +1,7 @@
 /*global candy, angular, Firebase */
 'use strict';
 
-candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseObject,googlemapService,FIREBASE_URL,GOOGLE,ROOMID,FirebaseAuth) {
+candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$firebaseObject,googlemapService,FIREBASE_URL,GOOGLE,ROOMID,FirebaseAuth) {
     var ref;
     // Initialize
     this.initialize = function(){
@@ -66,14 +66,11 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseObject,goog
     }
     //Init create marker
     this.initloadUser = function(users,callback){
-        console.log(users);
         $firebaseObject(users).$loaded().then(function(user) {
-            console.log(user);
             angular.forEach(user, function(value, key) {
                 if(value.share == "on"){
                     var userslocation = callback(key);
                     $firebaseObject(userslocation).$loaded().then(function(userlocation) {
-                        console.log(userlocation);
                         if(userlocation.displayname && userlocation.latitude && userlocation.longitude){
                             googlemapService.createMarker(userlocation.latitude, userlocation.longitude, userlocation.displayname, key, userlocation.provider, userlocation.photoURL,googlemapService.markercreate);
                         }
@@ -98,12 +95,10 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseObject,goog
     }
     //watch add user
     this.referenceAddUser = function(callback){
-        console.log("referenceAddUser 1");
         ref.child('room').child(ROOMID.roomid).child('roomusers').on('child_added', function(snapshot, addChildKey) {
             var userslocation = callback(snapshot.key);
             $firebaseObject(userslocation).$loaded().then(function(userlocation) {
                 if(userlocation.displayname && userlocation.latitude && userlocation.longitude){
-                    console.log("referenceAddUser 2");
                     googlemapService.createMarker(userlocation.latitude, userlocation.longitude, userlocation.displayname, snapshot.key, userlocation.provider, userlocation.photoURL,googlemapService.markercreate);
                 }
             });
@@ -185,6 +180,7 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseObject,goog
     }
     //UpdateUSer
     this.updateUser = function (position,share) {
+        var deferred = $q.defer();
         if(share == "on"){
             ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).update({
                 latitude : position.coords.latitude,
@@ -195,6 +191,10 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseObject,goog
                 share : share,
                 time : new Date().getTime()
             });//set
+            ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child("rooms").child(ROOMID.roomid).set({
+                time : new Date().getTime()
+            });//set
+            deferred.resolve();
         }else{
             ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).update({
                 latitude : position.coords.latitude,
@@ -203,6 +203,42 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseObject,goog
             });//set
             ref.child('room').child(ROOMID.roomid).child('roomusers').child(FirebaseAuth.auth.$getAuth().uid).update({
                 share : share,
+                time : new Date().getTime()
+            });//set
+            ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child("rooms").child(ROOMID.roomid).set({
+                time : new Date().getTime()
+            });//set
+            deferred.resolve();
+        }
+        return deferred.promise;
+    }
+    
+    //update location
+    this.updateUserLocation = function (position,share) {
+        if(share == "on"){
+            ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).update({
+                latitude : position.coords.latitude,
+                longitude : position.coords.longitude,
+                time : new Date().getTime()
+            });//set
+            ref.child('room').child(ROOMID.roomid).child('roomusers').child(FirebaseAuth.auth.$getAuth().uid).update({
+                share : share,
+                time : new Date().getTime()
+            });//set
+            ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child("rooms").child(ROOMID.roomid).update({
+                time : new Date().getTime()
+            });//set
+        }else{
+            ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).update({
+                latitude : position.coords.latitude,
+                longitude : position.coords.longitude,
+                time : new Date().getTime()
+            });//set
+            ref.child('room').child(ROOMID.roomid).child('roomusers').child(FirebaseAuth.auth.$getAuth().uid).update({
+                share : share,
+                time : new Date().getTime()
+            });//set
+            ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child("rooms").child(ROOMID.roomid).update({
                 time : new Date().getTime()
             });//set
         }
@@ -217,7 +253,6 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseObject,goog
         var usermessage = new Array();
         var i = 0;
         message.$loaded().then(function(messageData) {
-            console.log("pass" + i);
             angular.forEach(messageData, function(value, key) {
                 var user = selectLoginUser(value.key);
                 $firebaseObject(user).$loaded().then(function(userinfo) {
@@ -277,5 +312,25 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseObject,goog
     }
     this.removeMeetUpMarker = function(){
         ref.child('room').child(ROOMID.roomid).child("meetup").remove();
+    }
+    
+    //Select User Room and return user room info
+    this.referenceUserRooms = function(){
+        var userRooms = ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child('rooms');
+        var deferred = $q.defer();
+        var userRoomsArray = new Array();
+        var i = 0;
+        $firebaseArray(userRooms).$loaded().then(function(userRoom) {
+            angular.forEach(userRoom, function(value, key) {
+                var room = ref.child('room').child(value.$id);
+                $firebaseObject(room).$loaded().then(function(roominfo) {
+                    value["name"] = roominfo.name
+                });
+                userRoomsArray[i] = value;
+                i = i + 1;
+            });
+            deferred.resolve(userRoomsArray);
+        });
+        return deferred.promise;
     }
 })

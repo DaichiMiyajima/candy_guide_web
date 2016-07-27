@@ -48,6 +48,10 @@ nav ul{
 nav ul i{
     height: 26px !important;
 }
+nav ul li:hover{
+    background: rgba(86, 161, 255, 1);
+    color : white;
+}
 /* nav end */
 
 .backbutton{
@@ -206,9 +210,9 @@ span:after {
     color: #5a5a5a;
     margin: 0 auto;
     text-align: center;
-    border: 1px solid rgb(204, 204, 204);
+    border: 1px dotted rgb(222, 222, 222);
     box-shadow: 10px saddlebrown;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.16),0 2px 4px 0 rgba(0,0,0,0.12);
+    /*box-shadow: 0 1px 2px 0 rgba(0,0,0,0.16),0 2px 4px 0 rgba(0,0,0,0.12);*/
 }
 /* GroupName end*/
 
