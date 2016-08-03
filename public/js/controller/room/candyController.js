@@ -7,6 +7,7 @@ candy.controller('candyController', function ($scope,$route,$location,$firebaseO
         ROOMID.roomid = null;
         $route.reload();
         $location.path("/");
+        GOOGLE.markers = new Array();
     }
     //Open messageModal
     $scope.messageModal = function(){
