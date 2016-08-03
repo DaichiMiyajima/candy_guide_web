@@ -96,7 +96,8 @@ var candy =
                 //Init function load map and etc......
                 var rooms = firebaseService.referenceSharemap();
                 $firebaseObject(rooms).$loaded().then(function(room) {
-                    if(room[ROOMID.roomid]){
+                    if(room[ROOMID.roomid] || ROOMID.roomid == "global"){
+                        $rootScope.roomid = ROOMID.roomid;
                         var crios = !!navigator.userAgent.match(/crios/i);
                         var safari = !!navigator.userAgent.match(/safari/i);
                         var iphone = !!navigator.userAgent.match(/iphone/i);
@@ -112,7 +113,7 @@ var candy =
                             "min-height" : 50 + "vh",
                             "max-height" : 50 + "vh"
                         }
-                        SCREEN.messageInputHeight = $('.messageInputAreaDiv').height();
+                        SCREEN.messageInputHeight = 43;
                         
                         $rootScope.groupname = room[ROOMID.roomid].name;
                         if (navigator.geolocation) {
@@ -235,8 +236,14 @@ var candy =
                         }else{
                         }
                     }else{
-                        firebaseService.referenceUserRooms().then(function(roomusers){
+                        var userRooms = $firebaseArray(firebaseService.referenceUserrooms());
+                        firebaseService.joinUserandRoom(userRooms).then(function(roomusers){
                             $rootScope.userrooms = roomusers;
+                        });
+                        userRooms.$watch(function(event) {
+                            firebaseService.joinUserandRoom(userRooms).then(function(roomusers){
+                                $rootScope.userrooms = roomusers;
+                            });
                         });
                         //url doesn't exist
                         $location.path('/');

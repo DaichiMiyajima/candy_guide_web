@@ -142,6 +142,7 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
     }
     // marker作成
     this.markercreate = function (latitude,longitude,title,key,imagepath) {
+        console.log(GOOGLE.markers);
         if(latitude && longitude && title && !GOOGLE.markers[ROOMID.roomid + key]){
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(latitude, longitude),
@@ -163,6 +164,11 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
         if(GOOGLE.markers[ROOMID.roomid + key]){
             GOOGLE.markers[ROOMID.roomid + key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
         }
+    }
+    // Remove meet up marker
+    this.removeMarker = function (removedata,key){
+        GOOGLE.markers[ROOMID.roomid + key].setMap(null);
+        delete GOOGLE.markers[ROOMID.roomid + key];
     }
     // create info window
     this.createInfoWindow = function (adddata,key) {

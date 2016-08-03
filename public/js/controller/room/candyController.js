@@ -3,6 +3,7 @@
 
 candy.controller('candyController', function ($scope,$route,$location,$firebaseObject, $firebaseArray,firebaseService,screenEventService,gpslocationService,googlemapService,popupService,GOOGLE,ROOMID,SCREEN,FirebaseAuth) {
     $scope.back = function(){
+        $('.toast').hide();
         ROOMID.roomid = null;
         $route.reload();
         $location.path("/");

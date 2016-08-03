@@ -97,22 +97,30 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
     this.referenceAddUser = function(callback){
         ref.child('room').child(ROOMID.roomid).child('roomusers').on('child_added', function(snapshot, addChildKey) {
             var userslocation = callback(snapshot.key);
-            $firebaseObject(userslocation).$loaded().then(function(userlocation) {
-                if(userlocation.displayname && userlocation.latitude && userlocation.longitude){
-                    googlemapService.createMarker(userlocation.latitude, userlocation.longitude, userlocation.displayname, snapshot.key, userlocation.provider, userlocation.photoURL,googlemapService.markercreate);
-                }
-            });
+            if(snapshot.val().share == "on"){
+                $firebaseObject(userslocation).$loaded().then(function(userlocation) {
+                    if(userlocation.displayname && userlocation.latitude && userlocation.longitude){
+                        googlemapService.createMarker(userlocation.latitude, userlocation.longitude, userlocation.displayname, snapshot.key, userlocation.provider, userlocation.photoURL,googlemapService.markercreate);
+                    }
+                });
+            }
         });
     }
     //watch change user
     this.referenceChangeUser = function(callback){
-        ref.child('room').child(ROOMID.roomid).child('roomusers').orderByChild("share").equalTo("on").on('child_changed', function(snapshot, changeChildKey) {
-            var userslocation = callback(snapshot.key);
-            $firebaseObject(userslocation).$loaded().then(function(userlocation) {
-                if(userlocation.displayname && userlocation.latitude && userlocation.longitude){
-                    googlemapService.changeMarker(userlocation,snapshot.key);
-                }
-            });
+        ref.child('room').child(ROOMID.roomid).child('roomusers').on('child_changed', function(snapshot, changeChildKey) {
+            if(snapshot.val().share == "on"){
+                var userslocation = callback(snapshot.key);
+                $firebaseObject(userslocation).$loaded().then(function(userlocation) {
+                    if(userlocation.displayname && userlocation.latitude && userlocation.longitude){
+                        googlemapService.changeMarker(userlocation,snapshot.key);
+                        //IF share is off to on, this logic works
+                        googlemapService.createMarker(userlocation.latitude, userlocation.longitude, userlocation.displayname, snapshot.key, userlocation.provider, userlocation.photoURL,googlemapService.markercreate);
+                    }
+                });
+            }else{
+                googlemapService.removeMarker(snapshot.val(),snapshot.key);
+            }
         });
     }
     //watch addmessage
@@ -123,13 +131,13 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
             googlemapService.createInfoWindow(adddata,snapshot.key);
             googlemapService.handleInfoWindow(adddata,snapshot.key);
             if(adddata.kind=="message"){
-                Materialize.toast("[" + adddata.displayname + "]" + " : " + adddata.message, 5000, 'rounded message') 
+                //Materialize.toast("[" + adddata.displayname + "]" + " : " + adddata.message, 5000, 'rounded message') 
             }else if(adddata.kind=="attend" || adddata.kind=="meetup"){
-                Materialize.toast(adddata.message , 5000, 'rounded attend meetup');
+                //Materialize.toast(adddata.message , 5000, 'rounded attend meetup');
             }else if(adddata.kind=="meetupremove"){
-                Materialize.toast(adddata.message , 5000, 'rounded meetupremove');
+                //Materialize.toast(adddata.message , 5000, 'rounded meetupremove');
             }else if(adddata.kind=="meetupchange"){
-                Materialize.toast(adddata.message , 5000, 'rounded meetupchange');
+                //Materialize.toast(adddata.message , 5000, 'rounded meetupchange');
             }
         });
     }
@@ -314,17 +322,23 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
         ref.child('room').child(ROOMID.roomid).child("meetup").remove();
     }
     
+    this.referenceUserrooms = function(){
+        return ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child('rooms');
+    }
+    
     //Select User Room and return user room info
-    this.referenceUserRooms = function(){
-        var userRooms = ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child('rooms');
+    this.joinUserandRoom = function(userRooms){
         var deferred = $q.defer();
         var userRoomsArray = new Array();
         var i = 0;
-        $firebaseArray(userRooms).$loaded().then(function(userRoom) {
+        userRooms.$loaded().then(function(userRoom) {
             angular.forEach(userRoom, function(value, key) {
                 var room = ref.child('room').child(value.$id);
                 $firebaseObject(room).$loaded().then(function(roominfo) {
-                    value["name"] = roominfo.name
+                    value["name"] = roominfo.name;
+                    value["photoURL"] = roominfo.photoURL;
+                    value["userNumber"] = Object.keys(roominfo.roomusers).length;
+                    value["share"] = roominfo.roomusers[FirebaseAuth.auth.$getAuth().uid].share;
                 });
                 userRoomsArray[i] = value;
                 i = i + 1;
@@ -332,5 +346,16 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
             deferred.resolve(userRoomsArray);
         });
         return deferred.promise;
+    }
+    //update MeetUp MArker
+    this.updateLocationSettings = function (kind,userroom) {
+        //Set meetup
+        ref.child('room').child(userroom.$id).child('roomusers').child(FirebaseAuth.auth.$getAuth().uid).update({
+            share : kind,
+            time : new Date().getTime()
+        });//set
+        ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child('rooms').child(userroom.$id).update({
+            time : new Date().getTime()
+        });//set
     }
 })

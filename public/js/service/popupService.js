@@ -126,4 +126,22 @@ candy.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID,Fir
                 }
             });
     }
+    
+    this.swal_change_locationshare = function (kind,userroom) {
+        swal({
+            title: "Location Settings",
+            type: "warning",
+            text: "Do you change location setting to " + kind + " ?",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "OK",
+            closeOnConfirm: true,
+            showCancelButton: true
+            },
+        function(isConfirm){
+            if (isConfirm) {
+                //update User and roomusers
+                firebaseService.updateLocationSettings(kind,userroom);
+            }
+        });
+    }
 })

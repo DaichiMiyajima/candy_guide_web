@@ -46,6 +46,7 @@ candy.service('screenEventService', function (SCREEN) {
     this.onFocus = function () {
         //only for iphone or ipad
         if(navigator.userAgent.indexOf("iPad") > 1 || navigator.userAgent.indexOf("iPhone") > 1){
+            console.log("agent pass");
             $('.messageInputAreaDiv').css('height', 130 + "px");
             if($('.flex-box').height() < $('.messageInputArea').height()){
                 var mapHeight = window.innerHeight - $('.editor-resizer').height() - $('.messageInputArea').height() - $('.nav-wrapper').height();
