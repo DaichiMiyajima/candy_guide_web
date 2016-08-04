@@ -7,7 +7,13 @@ candy.controller('candyController', function ($scope,$route,$location,$firebaseO
         ROOMID.roomid = null;
         $route.reload();
         $location.path("/");
+        
         GOOGLE.markers = new Array();
+        GOOGLE.markers_meet = new Array();
+        GOOGLE.infoWindows = new Array();
+        GOOGLE.watchID = "init";
+        GOOGLE.googlemap = "";
+        
     }
     //Open messageModal
     $scope.messageModal = function(){
