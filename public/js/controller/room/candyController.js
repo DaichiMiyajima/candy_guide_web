@@ -12,7 +12,7 @@ candy.controller('candyController', function ($scope,$route,$location,$firebaseO
         GOOGLE.markers_meet = new Array();
         GOOGLE.infoWindows = new Array();
         GOOGLE.watchID = "init";
-        GOOGLE.googlemap = "";
+        
         
     }
     //Open messageModal
