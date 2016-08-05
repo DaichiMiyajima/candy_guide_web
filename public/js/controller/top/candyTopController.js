@@ -19,13 +19,16 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
     $scope.facebooklogin = function(){
         firebase.auth().signInWithRedirect(new firebase.auth.FacebookAuthProvider());
     }
-    $scope.gotomap = function(roomURL){
+    $scope.gotomap = function(roomURL,roomshare){
+        console.log(roomshare);
         if(roomURL != "global"){
             ROOMID.roomid = roomURL;
+            ROOMID.roomshare = roomshare;
             $location.path('/sharemap/' + roomURL);
         }else{
             firebaseService.registerSharemap("global","GLOBAL",function(){
                 ROOMID.roomid = "global";
+                ROOMID.roomshare = roomshare;
                 $scope.inputgroupname = "GLOBAL";
                 $location.path("/sharemap/"+ROOMID.roomid);
                 $route.reload();
@@ -33,8 +36,6 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
         }
     }
     $scope.changeShare = function(userroom,kind){
-        console.log(userroom);
-        console.log(kind);
         popupService.swal_change_locationshare(kind,userroom);
     }
 });

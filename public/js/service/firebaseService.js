@@ -338,7 +338,9 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
                     value["name"] = roominfo.name;
                     value["photoURL"] = roominfo.photoURL;
                     value["userNumber"] = Object.keys(roominfo.roomusers).length;
-                    value["share"] = roominfo.roomusers[FirebaseAuth.auth.$getAuth().uid].share;
+                    if(roominfo.roomusers[FirebaseAuth.auth.$getAuth().uid]){
+                        value["share"] = roominfo.roomusers[FirebaseAuth.auth.$getAuth().uid].share;
+                    }
                 });
                 userRoomsArray[i] = value;
                 i = i + 1;
