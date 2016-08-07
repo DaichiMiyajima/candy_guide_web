@@ -11,7 +11,7 @@
     -moz-box-shadow: 0 0 12px #999999;
     -webkit-box-shadow: 0 0 12px #999999;
     box-shadow: 0 0 12px #999999;
-    color: #ffffff;
+    color: black;
     opacity: 0.8;
 }
 
@@ -21,13 +21,22 @@
     box-sizing: border-box;
 }
 
-#toast-container-chat span {
+#toast-container-chat .span {
     float: left;
     font-size: 10px;
-    color: white;
+    color: black;
     font-family: fantasy;
     margin-left : 3px;
     margin-top: 6px;
+}
+#toast-container-chat .yourspan {
+    float: right;
+    font-size: 10px;
+    color: black;
+    font-family: fantasy;
+    margin-left : 3px;
+    margin-top: 6px;
+    margin-right: 5px;
 }
 .messagelist{
     display: block; 
@@ -40,20 +49,30 @@
     line-height: 1 ;
     padding: 2px;
 }
+.toast-yourname{
+    padding: 4px;
+    border-bottom: 1px solid white;
+    margin-top: -15px;
+    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
+}
 .toast-name{
     padding: 4px;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #a2a2a2;
     margin-top: -15px;
-    background: rgba(39, 0, 255, 0.75);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
+}
+.toast-your{
+    float:right;
+    background: rgb(0, 251, 114);
 }
 .toast-info{
-    background : rgba(39, 0, 255, 0.85);
 }
 .toast-success{
     background : rgb(0, 90, 255);
+    color: white !important;
 }
 .toast-error{
     background : rgba(255, 0, 0, 0.87);
+    color: white !important;
 }
 /* message tab-end */

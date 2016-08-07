@@ -1,3 +1,2 @@
 User-agent: *
-Disallow: /views/adminwork.ejs
-Sitemap: http://moonart-craft.com/sitemap.xml
+Sitemap: https://bruwbird.com/sitemap.xml
