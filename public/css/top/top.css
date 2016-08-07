@@ -114,6 +114,12 @@ body {
 
 main {
     flex: 1 0 auto;
+    padding-bottom: 70px;
+    -webkit-overflow-scrolling: touch;
+}
+
+main div{
+    -webkit-overflow-scrolling: touch;
 }
 
 /* label color */
