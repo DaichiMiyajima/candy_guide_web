@@ -112,11 +112,17 @@ body {
     flex-direction: column;
 }
 
+header {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
 main {
     flex: 1 0 auto;
     padding-bottom: 70px;
     -webkit-overflow-scrolling: touch;
     overflow: scroll;
+    height: 100% !important;
 }
 
 main div{
