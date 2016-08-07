@@ -116,6 +116,7 @@ main {
     flex: 1 0 auto;
     padding-bottom: 70px;
     -webkit-overflow-scrolling: touch;
+    overflow: scroll;
 }
 
 main div{
