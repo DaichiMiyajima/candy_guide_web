@@ -121,6 +121,7 @@ main {
 
 main div{
     -webkit-overflow-scrolling: touch;
+    overflow: scroll;
 }
 
 /* label color */
