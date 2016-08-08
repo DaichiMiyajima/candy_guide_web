@@ -228,6 +228,21 @@ nav ul{
     position: absolute;
 }
 
+.roomlist{
+    padding: 0px !important;
+    height: 100% !important;
+}
+
+.roomlocation{
+    padding: 0px;
+    height: 70px;
+    line-height: 70px;
+    width: 50%;
+    float: left;
+    box-shadow:none;
+    border-radius: 0px;
+}
+
 input{
     font-size: 16px !important;
 }

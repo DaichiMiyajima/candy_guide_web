@@ -129,7 +129,7 @@
                                                 <img class="circle" src={{userroom.photoURL}} style="width: 40px;height: 40px;float: left;box-shadow: 0 0 12px #999999;"></img>
                                             </div>
                                             <div ng-if="!userroom.photoURL || !userroom.photoURL.length > 0" style="float: left;">
-                                                <i class="material-icons circle gray" style="width: 40px;height: 40px;padding: 9px;background: rgba(255, 212, 92, 0.73);color: white;">assignment_ind</i>
+                                                <i class="material-icons circle gray" style="width: 40px;height: 40px;padding: 9px;background: rgba(255, 212, 92, 0.73);color: white;">group</i>
                                             </div>
                                         </td>
                                         <td style="width: 40%;padding-left:5px;padding:0px">
@@ -138,23 +138,36 @@
                                             <li><label style="font-size: 1rem;color: #ff0000;" style="width: 25%;">{{userroom.userNumber}}</label> people join</li>
                                             </ul>
                                         </td>
-                                        <td><span class="card-title activator grey-text text-darken-4">aaaaaaaaa</span></td>
-                                        <td style="width: 40%;padding:0px;">
-                                            <div ng-if="userroom.share === 'on'">
-                                                <a class="waves-effect waves-light btn" style="padding: 0px;height: 100%;line-height: 70px;width: 50%;float: left;">While</a>
-                                                <a class="waves-effect waves-light btn disabled" style="padding: 0px;height: 100%;line-height: 70px;width: 50%;float: left;" ng-click="changeShare(userroom,'off')">Never</a>
-                                            </div>
-                                            <div ng-if="userroom.share === 'off'">
-                                                <a class="waves-effect waves-light btn disabled" style="padding: 0px;height: 100%;line-height: 70px;width: 50%;float: left;" ng-click="changeShare(userroom,'on')">While</a>
-                                                <a class="waves-effect waves-light btn" style="padding: 0px;height: 100%;line-height: 70px;width: 50%;float: left;">Never</a>
-                                            </div>
-                                        </td>
+                                        <td style="width: 40%;padding-right:30px;"><span class="card-title activator grey-text text-darken-4"><i class="material-icons right">apps</i></span></td>
                                     </tr>
                                 </table>
                         </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">GLOBAL<i class="material-icons right">close</i></span>
-                            <p>Share your location and message with a lot of people. This room has a lot of people. We enjoy talk.</p>
+                        <div class="card-reveal roomlist">
+                            <table>
+                                <tr>
+                                    <td style="width: 7px;padding:0px;"><p style="-webkit-writing-mode: vertical-rl;margin: 0px;">Location</p></td>
+                                    <td style="width: 30%;padding:0px;">
+                                        <div ng-if="userroom.share === 'on'">
+                                            <a class="waves-effect waves-light btn roomlocation"><i class="material-icons">location_on</i></a>
+                                            <a class="waves-effect waves-light btn disabled roomlocation" ng-click="changeShare(userroom,'off')"><i class="material-icons large">location_off</i></a>
+                                        </div>
+                                        <div ng-if="userroom.share === 'off'">
+                                            <a class="waves-effect waves-light btn disabled roomlocation" ng-click="changeShare(userroom,'on')"><i class="material-icons large">location_on</i></a>
+                                            <a class="waves-effect waves-light btn roomlocation"><i class="material-icons">location_off</i></a>
+                                        </div>
+                                    </td>
+                                    <td style="width: 7px;padding:0px;"><p style="-webkit-writing-mode: vertical-rl;margin: 0px;">Setting</p></td>
+                                    <td style="width: 20%;padding:0px;">
+                                        <a class="waves-effect waves-light btn red roomlocation" style="width:100%" ng-click="roomleave()">Leave</a>
+                                    </td>
+                                    <td style="width: 20%;padding:0px;">
+                                        <a class="waves-effect waves-light btn yellow roomlocation" style="width:100%" ng-click="roomsetting()"><i class="material-icons">mode_edit</i></a>
+                                    </td>
+                                    <td style="text-align: center;padding: 0px;">
+                                        <span class="card-title grey-text text-darken-4" style="margin-top:8px;"><i class="material-icons center">close</i></span>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
