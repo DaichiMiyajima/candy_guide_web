@@ -125,11 +125,6 @@ main {
     height: 100% !important;
 }
 
-main div{
-    -webkit-overflow-scrolling: touch;
-    overflow: scroll;
-}
-
 /* label color */
 .input-field label {
     color: gray !important;
