@@ -232,10 +232,13 @@ nav ul{
     padding: 0px !important;
     height: 100% !important;
 }
+.roomlist table{
+    height: 100%;
+}
 
 .roomlocation{
     padding: 0px;
-    height: 70px;
+    height: 71px;
     line-height: 70px;
     width: 50%;
     float: left;
