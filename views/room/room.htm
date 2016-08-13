@@ -18,11 +18,11 @@
         <div ng-include = "'/views/room/include/indexTravelMode.htm'"></div>
         <!-- Menu Nav -->
         <nav>
-            <div class="nav-wrapper white ">
+            <div class="nav-wrapper white " style="background: #343436 !important;z-index: 101;">
                 <!-- When release, we hide backScreen -->
-                <a class="grey-text backbutton" ng-click="back()" style=""> &lt; </a>
-                <a class="grey-text groupname">{{groupname}}</a>
-                <a data-activates="demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+                <a class="white-text backbutton" ng-click="back()" style=""> &lt; </a>
+                <a class="white-text groupname">{{roominformation.name}}</a>
+                <a data-activates="demo" class="button-collapse white-text"><i class="material-icons">menu</i></a>
                 <ul class="side-nav" id="demo">
                     <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons">my_location</i><span>MyLocation</span></div></li>
                     <div ng-if="roomid !== 'global'">
@@ -33,6 +33,9 @@
             </div>
         </nav>
         
+        <div ng-if="roominformation.photoURL || roominformation.photoURL.length > 0">
+            <img class="circle" src={{roominformation.photoURL}} style="position: absolute;z-index: 10;width: 40px;height: 40px;float: left;box-shadow: 0 0 12px #999999;">
+        </div>
         <!-- Geolocation OFF -->
         <!--
         <div id="geolocationOff" class="firsthide">
@@ -50,8 +53,8 @@
                     <div id="map"></div>
                 </section>
             </div>
-            <div class="messageBox">
-                <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"><i class="small material-icons">chat_bubble_outline</i></div>
+            <div class="messageBox" style="z-index: 1000;">
+                <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"><i class="small material-icons">drag_handle</i></div>
                 <div class="flex-box" ng-style="flex_box">
                     <!-- Message Include-->
                     <div ng-include = "'/views/room/include/indexMessage.htm'"></div>

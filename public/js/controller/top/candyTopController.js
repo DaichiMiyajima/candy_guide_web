@@ -1,6 +1,20 @@
 /*global candy, angular, Firebase */
 'use strict';
 
+candy.directive('fileModel', ["$parse", function ($parse) {
+    return {
+        restrict : 'A',
+        link     : function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            element.bind("change", function () {
+                scope.$apply(function () {
+                    model.assign(scope, element[0].files);
+                });
+            });
+        }
+    };
+}]);
+
 candy.controller('candyTopController', function ($scope,$route,$location,firebaseService,ROOMID,FirebaseAuth,popupService) {
     $scope.intomap = function(inputgroupname){
         if(inputgroupname && inputgroupname.length > 0){
@@ -37,5 +51,42 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
     }
     $scope.changeShare = function(userroom,kind){
         popupService.swal_change_locationshare(kind,userroom);
+    }
+    $scope.roomsetting = function(userroom){
+        $scope.userroominfo = userroom;
+        $('#roomImage').val('');
+        $scope.photosPreview = [];
+        $('#modal1').openModal();
+    }
+    //select image
+    $scope.$watch('imageFile',function(imageFile){
+        console.log(imageFile);
+        if(imageFile){
+            $scope.photosPreview = [];
+            for(var i=0; i<imageFile.length; i++){
+                if(!imageFile[i] || !imageFile[i].type.match("image.*")){
+                    console.log('このファイルは写真ではありません。 : ' + imageFile[i].name); 
+                    return;
+                }
+                var reader = new FileReader();
+                reader.readAsDataURL(imageFile[i]);
+                reader.onload = function(theFile){
+                    $scope.$apply(function(){
+                        $scope.photosPreview.push(theFile.target.result);
+                    });
+                }
+            }
+        }
+    });
+    
+    $scope.roomSettingChange = function(userroominfo,roomDescription,imageFile){
+        console.log(imageFile);
+        if(!imageFile){
+            imageFile = ""
+        }else{
+            imageFile = imageFile[0]
+        }
+        console.log(imageFile);
+        firebaseService.uploadRoomImage(userroominfo,roomDescription,imageFile);
     }
 });

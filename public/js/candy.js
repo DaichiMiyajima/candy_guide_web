@@ -116,7 +116,7 @@ var candy =
                         }
                         SCREEN.messageInputHeight = 43;
                         
-                        $rootScope.groupname = room[ROOMID.roomid].name;
+                        $rootScope.roominformation = room[ROOMID.roomid]
                         if (navigator.geolocation) {
                             if(GOOGLE.watchID != "init"){
                                 navigator.geolocation.clearWatch(GOOGLE.watchID);
@@ -152,7 +152,7 @@ var candy =
                             }, 
                             // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                             function(error) {//UpdateUser
-                                authService.userauthentication("","off").then(function() {
+                                authService.userauthentication(position,"on").then(function() {
                                     GOOGLE.watchID = "off";
                                     //Location on のユーザーがいればそのlocationを参照
                                     var userlocation = firebaseService.referenceUserOn();

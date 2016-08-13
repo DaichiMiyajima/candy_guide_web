@@ -9,9 +9,9 @@
     <header>
         <div class="navbar-fixed">
             <nav>
-                <div class="nav-wrapper white ">
-                    <a class="grey-text groupname">Where are you?</a>
-                    <a data-activates="menubar" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+                <div class="nav-wrapper white " style="background: #343436 !important;">
+                    <a class="white-text groupname">Where are you?</a>
+                    <a data-activates="menubar" class="button-collapse white-text"><i class="material-icons">menu</i></a>
                     <ul class="side-nav collection" id="menubar">
                     <li class="collection-item avatar userinfo">
                         <div ng-if="userInfo.photoURL">
@@ -145,7 +145,7 @@
                         <div class="card-reveal roomlist">
                             <table>
                                 <tr>
-                                    <td style="width: 8%;padding:0px;"><p style="-webkit-writing-mode: vertical-rl;margin: 0px auto;">Location</p></td>
+                                    <td style="width: 8%;padding:0px;"><p style="-webkit-writing-mode: vertical-rl;margin: 0px auto;">GPS</p></td>
                                     <td style="width: 30%;padding:0px;">
                                         <div ng-if="userroom.share === 'on'">
                                             <a class="waves-effect waves-light btn roomlocation"><i class="material-icons">location_on</i></a>
@@ -161,7 +161,7 @@
                                         <a class="waves-effect waves-light btn red roomlocation" style="width:100%" ng-click="roomleave()">Leave</a>
                                     </td>
                                     <td style="width: 20%;padding:0px;">
-                                        <a class="waves-effect waves-light btn yellow roomlocation" style="width:100%" ng-click="roomsetting()"><i class="material-icons">mode_edit</i></a>
+                                        <a class="waves-effect waves-light btn yellow roomlocation" style="width:100%" ng-click="roomsetting(userroom)"><i class="material-icons">mode_edit</i></a>
                                     </td>
                                     <td style="width: 14%;text-align: center;padding: 0px;">
                                         <span class="card-title grey-text text-darken-4" style="margin-top:8px;"><i class="material-icons center">close</i></span>
@@ -173,5 +173,38 @@
                 </div>
             </div>
         </div>
+        
+        <!-- room settings -->
+        <div id="modal1" class="modal modal-fixed-footer roomsettingpopup">
+            <div class="modal-content" style="overflow: hidden;">
+                <div style="height: 70px;position: fixed;width: 90%;z-index: 1;">
+                    <div>
+                        <div ng-if="userroominfo.photoURL && userroominfo.photoURL.length > 0">
+                            <img class="circle" src={{userroominfo.photoURL}} style="width: 60px;height: 60px;font-size: 30px;background: rgba(255, 255, 255, 0.73);color: white;position: absolute;"></img>
+                        </div>
+                        <div ng-if="!userroominfo.photoURL || !userroominfo.photoURL.length > 0">
+                            <i class="material-icons circle gray" style="width: 60px;height: 60px;padding: 16px;font-size: 30px;background: rgba(255, 212, 92, 0.73);color: white;position: absolute;">group</i>
+                        </div>
+                        <input id="roomImage" type='file' file-model="imageFile" style="width: 60px;height: 60px;font-size: 0px;text-align: center;margin: 0 auto;position: relative;float: left;opacity: 0; z-index: 100;" />
+                        <li ng-repeat="photo in photosPreview" style="position: absolute;float: left;list-style: none;">
+                            <img ng-src={{photo}} style="width: 60px;height: 60px;float: left;background: white;border-radius: 50%;" />
+                        </li>
+                    </div>
+                    <div class="input-field col s12 m12" style="display: inline-table;margin-left: 10px;">
+                        <input ng-model="userroominfo.name" id="first_name2" type="text" class="validate">
+                        <label class="active" for="first_name2" style="margin-left: -12px;">Room Name</label>
+                    </div>
+                </div>
+                <div class="messageInputAreaDiv" style="z-index: 0;margin-top: 70px;">
+                    <textarea ng-model="roomDescription" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
+                    <label class="active" for="first_name2">Room Description</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="roomSettingChange(userroominfo,roomDescription,imageFile)">Change</a>
+                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+            </div>
+        </div>
+        <!-- room settings end -->
     </main>
 </div>

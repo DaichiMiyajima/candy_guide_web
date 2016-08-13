@@ -3,10 +3,12 @@
 
 candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$firebaseObject,googlemapService,FIREBASE_URL,GOOGLE,ROOMID,FirebaseAuth) {
     var ref;
+    var storage;
     // Initialize
     this.initialize = function(){
         // Initialize Firebase
         ref = firebase.database().ref();
+        storage = firebase.storage().ref();
     }
     //Facebook
     this.facebookRedirect = function(callback){
@@ -205,6 +207,8 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
             deferred.resolve();
         }else{
             ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).update({
+                latitude : position.coords.latitude,
+                longitude : position.coords.longitude,
                 time : new Date().getTime()
             });//set
             ref.child('room').child(ROOMID.roomid).child('roomusers').child(FirebaseAuth.auth.$getAuth().uid).update({
@@ -332,6 +336,16 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
         userRooms.$loaded().then(function(userRoom) {
             angular.forEach(userRoom, function(value, key) {
                 var room = ref.child('room').child(value.$id);
+                /*
+                var roomimages = storage.child('room').child(value.$id).child('roomimage').child(value.$id);
+                roomimages.getDownloadURL().then(function(url) {
+                    console.log(url);
+                }).catch(function(error) {
+                    // Handle any errors
+                    console.log("error");
+                });
+                */
+                
                 $firebaseObject(room).$loaded().then(function(roominfo) {
                     value["name"] = roominfo.name;
                     value["photoURL"] = roominfo.photoURL;
@@ -357,5 +371,33 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
         ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child('rooms').child(userroom.$id).update({
             time : new Date().getTime()
         });//set
+    }
+    //upload Room image file
+    this.uploadRoomImage = function (userroominfo,roomDescription,imageFile){
+        if(!roomDescription){
+            roomDescription = "";
+        }
+        if(imageFile){
+            var uploadTask = storage.child('room/' + userroominfo.$id + '/roomimage/' + userroominfo.$id).put(imageFile);
+            uploadTask.on('state_changed', function(snapshot){
+            }, function(error) {
+            }, function() {
+                // Handle successful uploads on complete
+                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                var downloadURL = uploadTask.snapshot.downloadURL;
+                ref.child('room').child(userroominfo.$id).update({
+                    name : userroominfo.name,
+                    photoURL : downloadURL,
+                    description : roomDescription,
+                    time : new Date().getTime()
+                });//set
+            });
+        }else{
+            ref.child('room').child(userroominfo.$id).update({
+                name : userroominfo.name,
+                description : roomDescription,
+                time : new Date().getTime()
+            });//set
+        }
     }
 })
