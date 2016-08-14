@@ -140,6 +140,8 @@ var candy =
                                     firebaseService.referenceAddUser(firebaseService.selectLoginUser);
                                     //watch change user
                                     firebaseService.referenceChangeUser(firebaseService.selectLoginUser);
+                                    //watch delete user
+                                    firebaseService.referenceDeleteUser();
                                     //watch addmessage
                                     firebaseService.referenceAddMessage();
                                     //watch addmessage
@@ -174,6 +176,8 @@ var candy =
                                         firebaseService.referenceAddUser();
                                         //watch change user
                                         firebaseService.referenceChangeUser();
+                                        //watch delete user
+                                        firebaseService.referenceDeleteUser();
                                         //watch addmessage
                                         firebaseService.referenceAddMessage();
                                         //watch addmessage

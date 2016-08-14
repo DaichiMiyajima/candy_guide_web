@@ -77,14 +77,17 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
             }
         }
     });
-    
-    $scope.roomSettingChange = function(userroominfo,roomDescription,imageFile){
-        console.log(imageFile);
+    //Room Setting
+    $scope.roomSettingChange = function(userroominfo,imageFile){
         if(!imageFile){
             imageFile = ""
         }else{
             imageFile = imageFile[0]
         }
-        firebaseService.uploadRoomImage(userroominfo,roomDescription,imageFile);
+        firebaseService.uploadRoomImage(userroominfo,imageFile);
+    }
+    //Room Leave
+    $scope.roomleave = function(userroom){
+        popupService.swal_leave_room(userroom);
     }
 });

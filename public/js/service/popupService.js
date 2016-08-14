@@ -126,7 +126,7 @@ candy.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID,Fir
                 }
             });
     }
-    
+    //change GPS Setting
     this.swal_change_locationshare = function (kind,userroom) {
         swal({
             title: "Location Settings",
@@ -141,6 +141,24 @@ candy.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID,Fir
             if (isConfirm) {
                 //update User and roomusers
                 firebaseService.updateLocationSettings(kind,userroom);
+            }
+        });
+    }
+    //Leave room
+    this.swal_leave_room = function (userroom) {
+        swal({
+            title: "Leave this ROOM ?",
+            type: "warning",
+            text: "Do you leave this room ?",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "OK",
+            closeOnConfirm: true,
+            showCancelButton: true
+            },
+        function(isConfirm){
+            if (isConfirm) {
+                //leave room
+                firebaseService.deleteRoomUser(userroom);
             }
         });
     }

@@ -158,7 +158,7 @@
                                     </td>
                                     <td style="width: 8%;padding:0px;"><p style="-webkit-writing-mode: vertical-rl;margin: 0px auto;">Setting</p></td>
                                     <td style="width: 20%;padding:0px;">
-                                        <a class="waves-effect waves-light btn red roomlocation" style="width:100%" ng-click="roomleave()">Leave</a>
+                                        <a class="waves-effect waves-light btn red roomlocation" style="width:100%" ng-click="roomleave(userroom)">Leave</a>
                                     </td>
                                     <td style="width: 20%;padding:0px;">
                                         <a class="waves-effect waves-light btn yellow roomlocation" style="width:100%" ng-click="roomsetting(userroom)"><i class="material-icons">mode_edit</i></a>
@@ -196,12 +196,12 @@
                 </div>
             </div>
             <div class="messageInputAreaDiv" style="margin-top: 70px;">
-                <textarea ng-model="roomDescription" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
+                <textarea ng-model="userroominfo.description" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
                 <label class="active" for="first_name2">Room Description</label>
             </div>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="roomSettingChange(userroominfo,roomDescription,imageFile)">Change</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="roomSettingChange(userroominfo,imageFile)">Change</a>
             <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
         </div>
     </div>

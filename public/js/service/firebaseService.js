@@ -125,6 +125,12 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
             }
         });
     }
+    //watch delete user
+    this.referenceDeleteUser = function(){
+        ref.child('room').child(ROOMID.roomid).child('roomusers').on('child_removed', function(snapshot, changeChildKey) {
+            googlemapService.removeMarker(snapshot.val(),snapshot.key);
+        });
+    }
     //watch addmessage
     this.referenceAddMessage = function(){
         ref.child('room').child(ROOMID.roomid).child('message').limitToLast(1).on('child_added', function(snapshot, addChildKey) {
@@ -349,6 +355,7 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
                 $firebaseObject(room).$loaded().then(function(roominfo) {
                     value["name"] = roominfo.name;
                     value["photoURL"] = roominfo.photoURL;
+                    value["description"] = roominfo.description;
                     value["userNumber"] = Object.keys(roominfo.roomusers).length;
                     if(roominfo.roomusers[FirebaseAuth.auth.$getAuth().uid]){
                         value["share"] = roominfo.roomusers[FirebaseAuth.auth.$getAuth().uid].share;
@@ -373,9 +380,9 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
         });//set
     }
     //upload Room image file
-    this.uploadRoomImage = function (userroominfo,roomDescription,imageFile){
-        if(!roomDescription){
-            roomDescription = "";
+    this.uploadRoomImage = function (userroominfo,imageFile){
+        if(!userroominfo.description){
+            userroominfo.description = "";
         }
         if(imageFile){
             var uploadTask = storage.child('room/' + userroominfo.$id + '/roomimage/' + userroominfo.$id).put(imageFile);
@@ -385,19 +392,31 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
                 // Handle successful uploads on complete
                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 var downloadURL = uploadTask.snapshot.downloadURL;
+                console.log(downloadURL);
                 ref.child('room').child(userroominfo.$id).update({
                     name : userroominfo.name,
                     photoURL : downloadURL,
-                    description : roomDescription,
+                    description : userroominfo.description,
+                    time : new Date().getTime()
+                });//set
+                ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child("rooms").child(userroominfo.$id).update({
                     time : new Date().getTime()
                 });//set
             });
         }else{
             ref.child('room').child(userroominfo.$id).update({
                 name : userroominfo.name,
-                description : roomDescription,
+                description : userroominfo.description,
+                time : new Date().getTime()
+            });//set
+            ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child("rooms").child(userroominfo.$id).update({
                 time : new Date().getTime()
             });//set
         }
+    }
+    //leave the particular room
+    this.deleteRoomUser = function(userroom){
+        ref.child('room').child(userroom.$id).child("roomusers").child(FirebaseAuth.auth.$getAuth().uid).remove();
+        ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child("rooms").child(userroom.$id).remove();
     }
 })

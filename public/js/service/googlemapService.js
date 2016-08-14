@@ -164,7 +164,7 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
             GOOGLE.markers[ROOMID.roomid + key].setPosition(new google.maps.LatLng(changedata.latitude, changedata.longitude));
         }
     }
-    // Remove meet up marker
+    // Remove marker
     this.removeMarker = function (removedata,key){
         GOOGLE.markers[ROOMID.roomid + key].setMap(null);
         delete GOOGLE.markers[ROOMID.roomid + key];
