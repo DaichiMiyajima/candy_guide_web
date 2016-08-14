@@ -142,7 +142,6 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
     }
     // marker作成
     this.markercreate = function (latitude,longitude,title,key,imagepath) {
-        console.log(GOOGLE.markers);
         if(latitude && longitude && title && !GOOGLE.markers[ROOMID.roomid + key]){
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(latitude, longitude),

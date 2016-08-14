@@ -173,38 +173,37 @@
                 </div>
             </div>
         </div>
-        
-        <!-- room settings -->
-        <div id="modal1" class="modal modal-fixed-footer roomsettingpopup">
-            <div class="modal-content" style="overflow: hidden;">
-                <div style="height: 70px;position: fixed;width: 90%;">
-                    <div>
-                        <div ng-if="userroominfo.photoURL && userroominfo.photoURL.length > 0">
-                            <img class="circle" src={{userroominfo.photoURL}} style="width: 60px;height: 60px;font-size: 30px;background: rgba(255, 255, 255, 0.73);color: white;position: absolute;"></img>
-                        </div>
-                        <div ng-if="!userroominfo.photoURL || !userroominfo.photoURL.length > 0">
-                            <i class="material-icons circle gray" style="width: 60px;height: 60px;padding: 16px;font-size: 30px;background: rgba(255, 212, 92, 0.73);color: white;position: absolute;">group</i>
-                        </div>
-                        <input id="roomImage" type='file' file-model="imageFile" style="width: 60px;height: 60px;font-size: 0px;text-align: center;margin: 0 auto;position: relative;float: left;opacity: 0; z-index: 10;" />
-                        <li ng-repeat="photo in photosPreview" style="position: absolute;float: left;list-style: none;">
-                            <img ng-src={{photo}} style="width: 60px;height: 60px;float: left;background: white;border-radius: 50%;" />
-                        </li>
+    </main>
+    <!-- room settings -->
+    <div id="modal1" class="modal modal-fixed-footer roomsettingpopup">
+        <div class="modal-content" style="overflow: hidden;">
+            <div style="height: 70px;position: fixed;width: 90%;">
+                <div>
+                    <div ng-if="userroominfo.photoURL && userroominfo.photoURL.length > 0">
+                        <img class="circle" src={{userroominfo.photoURL}} style="width: 60px;height: 60px;font-size: 30px;background: rgba(255, 255, 255, 0.73);color: white;position: absolute;"></img>
                     </div>
-                    <div class="input-field col s12 m12" style="display: inline-table;margin-left: 10px;">
-                        <input ng-model="userroominfo.name" id="first_name2" type="text" class="validate">
-                        <label class="active" for="first_name2" style="margin-left: -12px;">Room Name</label>
+                    <div ng-if="!userroominfo.photoURL || !userroominfo.photoURL.length > 0">
+                        <i class="material-icons circle gray" style="width: 60px;height: 60px;padding: 16px;font-size: 30px;background: rgba(255, 212, 92, 0.73);color: white;position: absolute;">group</i>
                     </div>
+                    <input id="roomImage" type='file' file-model="imageFile" style="width: 60px;height: 60px;font-size: 0px;text-align: center;margin: 0 auto;position: relative;float: left;opacity: 0; z-index: 10;" />
+                    <li ng-repeat="photo in photosPreview" style="position: absolute;float: left;list-style: none;">
+                        <img ng-src={{photo}} style="width: 60px;height: 60px;float: left;background: white;border-radius: 50%;" />
+                    </li>
                 </div>
-                <div class="messageInputAreaDiv" style="margin-top: 70px;">
-                    <textarea ng-model="roomDescription" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
-                    <label class="active" for="first_name2">Room Description</label>
+                <div class="input-field col s12 m12" style="display: inline-table;margin-left: 10px;">
+                    <input ng-model="userroominfo.name" id="first_name2" type="text" class="validate">
+                    <label class="active" for="first_name2" style="margin-left: -12px;">Room Name</label>
                 </div>
             </div>
-            <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="roomSettingChange(userroominfo,roomDescription,imageFile)">Change</a>
-                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+            <div class="messageInputAreaDiv" style="margin-top: 70px;">
+                <textarea ng-model="roomDescription" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
+                <label class="active" for="first_name2">Room Description</label>
             </div>
         </div>
-        <!-- room settings end -->
-    </main>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="roomSettingChange(userroominfo,roomDescription,imageFile)">Change</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+        </div>
+    </div>
+    <!-- room settings end -->
 </div>

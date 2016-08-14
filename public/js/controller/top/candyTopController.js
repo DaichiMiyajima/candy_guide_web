@@ -60,7 +60,6 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
     }
     //select image
     $scope.$watch('imageFile',function(imageFile){
-        console.log(imageFile);
         if(imageFile){
             $scope.photosPreview = [];
             for(var i=0; i<imageFile.length; i++){
@@ -86,7 +85,6 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
         }else{
             imageFile = imageFile[0]
         }
-        console.log(imageFile);
         firebaseService.uploadRoomImage(userroominfo,roomDescription,imageFile);
     }
 });
