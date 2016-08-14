@@ -7,7 +7,7 @@
 </script>
 <div class="topscreen" ng-controller="candyTopController as top" style="overflow: scroll;height: 100% !important;">
     <header>
-        <div class="navbar-fixed">
+        <div class="navbar-fixed" style="height: 30px !important;line-height: 30px !important;">
             <nav>
                 <div class="nav-wrapper white " style="background: #343436 !important;">
                     <a class="white-text groupname">Where are you?</a>
@@ -177,7 +177,7 @@
         <!-- room settings -->
         <div id="modal1" class="modal modal-fixed-footer roomsettingpopup">
             <div class="modal-content" style="overflow: hidden;">
-                <div style="height: 70px;position: fixed;width: 90%;z-index: 1;">
+                <div style="height: 70px;position: fixed;width: 90%;">
                     <div>
                         <div ng-if="userroominfo.photoURL && userroominfo.photoURL.length > 0">
                             <img class="circle" src={{userroominfo.photoURL}} style="width: 60px;height: 60px;font-size: 30px;background: rgba(255, 255, 255, 0.73);color: white;position: absolute;"></img>
@@ -185,7 +185,7 @@
                         <div ng-if="!userroominfo.photoURL || !userroominfo.photoURL.length > 0">
                             <i class="material-icons circle gray" style="width: 60px;height: 60px;padding: 16px;font-size: 30px;background: rgba(255, 212, 92, 0.73);color: white;position: absolute;">group</i>
                         </div>
-                        <input id="roomImage" type='file' file-model="imageFile" style="width: 60px;height: 60px;font-size: 0px;text-align: center;margin: 0 auto;position: relative;float: left;opacity: 0; z-index: 100;" />
+                        <input id="roomImage" type='file' file-model="imageFile" style="width: 60px;height: 60px;font-size: 0px;text-align: center;margin: 0 auto;position: relative;float: left;opacity: 0; z-index: 10;" />
                         <li ng-repeat="photo in photosPreview" style="position: absolute;float: left;list-style: none;">
                             <img ng-src={{photo}} style="width: 60px;height: 60px;float: left;background: white;border-radius: 50%;" />
                         </li>
@@ -195,7 +195,7 @@
                         <label class="active" for="first_name2" style="margin-left: -12px;">Room Name</label>
                     </div>
                 </div>
-                <div class="messageInputAreaDiv" style="z-index: 0;margin-top: 70px;">
+                <div class="messageInputAreaDiv" style="margin-top: 70px;">
                     <textarea ng-model="roomDescription" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
                     <label class="active" for="first_name2">Room Description</label>
                 </div>

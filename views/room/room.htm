@@ -17,22 +17,23 @@
         <!-- TravelMode Include-->
         <div ng-include = "'/views/room/include/indexTravelMode.htm'"></div>
         <!-- Menu Nav -->
-        <nav>
-            <div class="nav-wrapper white " style="background: #343436 !important;z-index: 101;">
-                <!-- When release, we hide backScreen -->
-                <i class="material-icons" ng-click="back()" style="position: absolute;z-index: 102;line-height: 28px;">keyboard_return</i>
-                <a class="white-text groupname">{{roominformation.name}}</a>
-                <a data-activates="demo" class="button-collapse white-text"><i class="material-icons">menu</i></a>
-                <ul class="side-nav" id="demo">
-                    <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons">my_location</i><span>MyLocation</span></div></li>
-                    <div ng-if="roomid !== 'global'">
-                        <li><div class="menuContent" ng-click="addlocationbutton()"><i class="material-icons">location_on</i><span>Place</span></div></li>
-                        <li><div class="menuContent" ng-click="placeModal()"><i class="material-icons">search</i><span>PlaceSearch</span></div></li>
-                    </div>
-                </ul>
-            </div>
-        </nav>
-        
+        <div class="navbar-fixed" style="height: 30px !important;line-height: 30px !important;">
+            <nav>
+                <div class="nav-wrapper white " style="background: #343436 !important;z-index: 10;">
+                    <!-- When release, we hide backScreen -->
+                    <i class="material-icons" ng-click="back()" style="position: absolute;z-index: 11;line-height: 28px;">keyboard_return</i>
+                    <a class="white-text groupname">{{roominformation.name}}</a>
+                    <a data-activates="demo" class="button-collapse white-text"><i class="material-icons">menu</i></a>
+                    <ul class="side-nav collection" id="demo">
+                        <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons">my_location</i><span>MyLocation</span></div></li>
+                        <div ng-if="roomid !== 'global'">
+                            <li><div class="menuContent" ng-click="addlocationbutton()"><i class="material-icons">location_on</i><span>Place</span></div></li>
+                            <li><div class="menuContent" ng-click="placeModal()"><i class="material-icons">search</i><span>PlaceSearch</span></div></li>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+        </div>
         <div ng-if="roominformation.photoURL || roominformation.photoURL.length > 0">
             <img class="circle" src={{roominformation.photoURL}} style="position: absolute;z-index: 10;width: 40px;height: 40px;float: left;box-shadow: 0 0 12px #999999;">
         </div>
@@ -53,7 +54,7 @@
                     <div id="map"></div>
                 </section>
             </div>
-            <div class="messageBox" style="z-index: 1000;">
+            <div class="messageBox" style="z-index: 12;">
                 <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"><i class="small material-icons">drag_handle</i></div>
                 <div class="flex-box" ng-style="flex_box">
                     <!-- Message Include-->
