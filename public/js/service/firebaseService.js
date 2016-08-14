@@ -270,13 +270,15 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
         var i = 0;
         message.$loaded().then(function(messageData) {
             angular.forEach(messageData, function(value, key) {
-                var user = selectLoginUser(value.key);
-                $firebaseObject(user).$loaded().then(function(userinfo) {
-                    value["displayname"] = userinfo.displayname;
-                    value["photoURL"] = userinfo.photoURL;
-                });
-                usermessage[i] = value;
-                i = i + 1;
+                if(value.kind == "message"){
+                    var user = selectLoginUser(value.key);
+                    $firebaseObject(user).$loaded().then(function(userinfo) {
+                        value["displayname"] = userinfo.displayname;
+                        value["photoURL"] = userinfo.photoURL;
+                    });
+                    usermessage[i] = value;
+                    i = i + 1;
+                }
             });
             deferred.resolve(usermessage);
         });
