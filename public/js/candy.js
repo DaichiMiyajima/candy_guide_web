@@ -154,7 +154,7 @@ var candy =
                             }, 
                             // エラー時のコールバック関数は PositionError オブジェクトを受けとる
                             function(error) {//UpdateUser
-                                authService.userauthentication("","on").then(function() {
+                                authService.userauthentication("","off").then(function() {
                                     GOOGLE.watchID = "off";
                                     //Location on のユーザーがいればそのlocationを参照
                                     var userlocation = firebaseService.referenceUserOn();
