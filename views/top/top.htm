@@ -13,7 +13,7 @@
                     <a class="white-text groupname">Where are you?</a>
                     <a data-activates="menubar" class="button-collapse white-text"><i class="material-icons">menu</i></a>
                     <ul class="side-nav collection" id="menubar">
-                    <li class="collection-item avatar userinfo">
+                    <li class="collection-item avatar userinfo" ng-click="usersetting()">
                         <div ng-if="userInfo.photoURL">
                             <img class="circle" src={{userInfo.photoURL}} style="width: 70px;height: 70px;"></img>
                         </div>
@@ -25,12 +25,6 @@
                         </div>
                         <div ng-if="!userInfo.displayname">
                             <span class="title ng-binding" style="padding-top: 28px;font-size: 15px;">NO   NAME</span>
-                        </div>
-                    </li>
-                    <li class="collection-item avatar menulist" ng-click="login()">
-                        <div class="menuContent">
-                            <i class="material-icons circle">perm_identity</i>
-                            <span>Login</span>
                         </div>
                     </li>
                         <!--<div ng-if="userAuth.isAnonymous === true">-->
@@ -175,7 +169,7 @@
         </div>
     </main>
     <!-- room settings -->
-    <div id="modal1" class="modal modal-fixed-footer roomsettingpopup">
+    <div id="roomSettingModal" class="modal modal-fixed-footer roomsettingpopup">
         <div class="modal-content" style="overflow: hidden;">
             <div style="height: 70px;position: fixed;width: 90%;">
                 <div>
@@ -206,4 +200,36 @@
         </div>
     </div>
     <!-- room settings end -->
+    <!-- user settings -->
+    <div id="userSettingModal" class="modal modal-fixed-footer roomsettingpopup">
+        <div class="modal-content" style="overflow: hidden;">
+            <div style="height: 70px;position: fixed;width: 90%;">
+                <div>
+                    <div ng-if="userInfo.photoURL && userInfo.photoURL.length > 0">
+                        <img class="circle" src={{userInfo.photoURL}} style="width: 60px;height: 60px;font-size: 30px;background: rgba(255, 255, 255, 0.73);color: white;position: absolute;"></img>
+                    </div>
+                    <div ng-if="!userInfo.photoURL || !userInfo.photoURL.length > 0">
+                        <i class="material-icons circle gray" style="width: 60px;height: 60px;padding: 16px;font-size: 30px;background: rgba(255, 212, 92, 0.73);color: white;position: absolute;">group</i>
+                    </div>
+                    <input id="roomImage" type='file' file-model="imageFile" style="width: 60px;height: 60px;font-size: 0px;text-align: center;margin: 0 auto;position: relative;float: left;opacity: 0; z-index: 10;" />
+                    <li ng-repeat="photo in photosPreview" style="position: absolute;float: left;list-style: none;">
+                        <img ng-src={{photo}} style="width: 60px;height: 60px;float: left;background: white;border-radius: 50%;" />
+                    </li>
+                </div>
+                <div class="input-field col s12 m12" style="display: inline-table;margin-left: 10px;">
+                    <input ng-model="userInfo.displayname" id="first_name2" type="text" class="validate">
+                    <label class="active" for="first_name2" style="margin-left: -12px;">User Name</label>
+                </div>
+            </div>
+            <div class="messageInputAreaDiv" style="margin-top: 70px;">
+                <textarea ng-model="userInfo.description" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
+                <label class="active" for="first_name2">User Description</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="roomSettingChange(userInfo,imageFile)">Change</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+        </div>
+    </div>
+    <!-- user settings end -->
 </div>

@@ -31,6 +31,7 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
         
     }
     $scope.facebooklogin = function(){
+        
         firebase.auth().signInWithRedirect(new firebase.auth.FacebookAuthProvider());
     }
     $scope.gotomap = function(roomURL,roomshare){
@@ -56,7 +57,7 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
         $scope.userroominfo = userroom;
         $('#roomImage').val('');
         $scope.photosPreview = [];
-        $('#modal1').openModal();
+        $('#roomSettingModal').openModal();
     }
     //select image
     $scope.$watch('imageFile',function(imageFile){
@@ -89,5 +90,11 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
     //Room Leave
     $scope.roomleave = function(userroom){
         popupService.swal_leave_room(userroom);
+    }
+    //user setting modal
+    $scope.usersetting = function(){
+        console.log(FirebaseAuth.userInfo);
+        $scope.userInfo = FirebaseAuth.userInfo;
+        $('#userSettingModal').openModal();
     }
 });

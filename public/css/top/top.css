@@ -197,14 +197,14 @@ nav ul{
 
 #menubar{
     width: 180px !important;
-    background-color: rgba(58, 58, 58, 0.9);
+    background-color: #343436 !important;
     border: 1px solid #636262;
 }
 #menubar .userinfo{
     padding-left: 100px;
     min-height: 104px;
     border-bottom: 1px solid #585858;
-    background-color: rgba(58, 58, 58, 0.901961);
+    background-color: #343436 !important;
 }
 #menubar .userinfo span{
     color: white;
@@ -216,16 +216,15 @@ nav ul{
 #menubar .menulist{
     min-height: 64px;
     border-bottom: 1px solid #585858;
-    background-color: rgba(58, 58, 58, 0.901961);
+    background-color: #343436 !important;
     padding-left: 58px;
     font-size: 12px;
 }
 
 #menubar .menulist .material-icons{
-    background-color: rgba(240, 248, 255, 0);
+    background-color: #343436 !important;
     font-size: 25px;
     border-bottom: 1px solid #585858;
-    background-color: rgba(58, 58, 58, 0.901961);
 }
 
 #menubar .menulist span{
