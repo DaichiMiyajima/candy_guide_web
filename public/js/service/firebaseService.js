@@ -414,6 +414,32 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
             });//set
         }
     }
+    //upload User image file
+    this.uploadUserImage = function (userinfo,imageFile){
+        if(!userinfo.description){
+            userinfo.description = "";
+        }
+        if(imageFile){
+            var uploadTask = storage.child('users/' + FirebaseAuth.auth.$getAuth().uid + '/userimage/' + FirebaseAuth.auth.$getAuth().uid).put(imageFile);
+            uploadTask.on('state_changed', function(snapshot){
+            }, function(error) {
+            }, function() {
+                var downloadURL = uploadTask.snapshot.downloadURL;
+                ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).update({
+                    displayname : userinfo.displayname,
+                    photoURL : downloadURL,
+                    description : userinfo.description,
+                    time : new Date().getTime()
+                });//set
+            });
+        }else{
+            ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).update({
+                displayname : userinfo.displayname,
+                description : userinfo.description,
+                time : new Date().getTime()
+            });//set
+        }
+    }
     //leave the particular room
     this.deleteRoomUser = function(userroom){
         ref.child('room').child(userroom.$id).child("roomusers").child(FirebaseAuth.auth.$getAuth().uid).remove();

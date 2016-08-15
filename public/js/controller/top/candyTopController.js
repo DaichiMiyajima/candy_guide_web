@@ -55,7 +55,6 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
     }
     $scope.roomsetting = function(userroom){
         $scope.userroominfo = userroom;
-        $('#roomImage').val('');
         $scope.photosPreview = [];
         $('#roomSettingModal').openModal();
     }
@@ -93,8 +92,15 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
     }
     //user setting modal
     $scope.usersetting = function(){
-        console.log(FirebaseAuth.userInfo);
         $scope.userInfo = FirebaseAuth.userInfo;
         $('#userSettingModal').openModal();
+    }
+    $scope.userSettingChange = function(userinfo,imageFile){
+        if(!imageFile){
+            imageFile = ""
+        }else{
+            imageFile = imageFile[0]
+        }
+        firebaseService.uploadUserImage(userinfo,imageFile);
     }
 });

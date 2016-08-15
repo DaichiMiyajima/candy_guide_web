@@ -37,7 +37,6 @@ candy.service('authService', function ($q,$rootScope,$firebaseObject,firebaseSer
                 });
             });
         }
-        console.log("pass");
         return deferred.promise;
     }
 })

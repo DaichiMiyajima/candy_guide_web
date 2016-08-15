@@ -122,7 +122,7 @@ candy.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID,Fir
                     MARKER.latitude = position.lat();
                     MARKER.longitude = position.lng();
                 }else{
-                    GOOGLE.markers_meet[key].setPosition(new google.maps.LatLng(MARKER.latitude, MARKER.longitude));
+                    GOOGLE.markers_meet[ROOMID.roomid + key].setPosition(new google.maps.LatLng(MARKER.latitude, MARKER.longitude));
                 }
             });
     }
