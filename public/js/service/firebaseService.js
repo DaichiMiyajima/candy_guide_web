@@ -213,8 +213,6 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
             deferred.resolve();
         }else{
             ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).update({
-                latitude : position.coords.latitude,
-                longitude : position.coords.longitude,
                 time : new Date().getTime()
             });//set
             ref.child('room').child(ROOMID.roomid).child('roomusers').child(FirebaseAuth.auth.$getAuth().uid).update({
