@@ -1,7 +1,7 @@
 /*global candy, angular, Firebase */
 'use strict';
 
-candy.service('gpslocationService', function (firebaseService,popupService,GOOGLE) {
+candy.service('gpslocationService', function (firebaseService,popupService,ROOMID,GOOGLE) {
     this.currentPosition = function () {
         var count = 0;
         if(GOOGLE.watchID != "off"){
@@ -14,7 +14,7 @@ candy.service('gpslocationService', function (firebaseService,popupService,GOOGL
                     //within 50m → update user
                     if(position.coords.accuracy <= 10000){
                         //UpdateUser
-                        firebaseService.updateUserLocation(position,"on");
+                        firebaseService.updateUserLocation(position,ROOMID.roomshare);
                         if(count < 1){
                             count = count + 1;
                             //panto

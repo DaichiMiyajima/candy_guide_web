@@ -166,8 +166,10 @@ candy.service('googlemapService', function ($injector,GOOGLE,MARKER,ROOMID) {
     }
     // Remove marker
     this.removeMarker = function (removedata,key){
-        GOOGLE.markers[ROOMID.roomid + key].setMap(null);
-        delete GOOGLE.markers[ROOMID.roomid + key];
+        if(GOOGLE.markers[ROOMID.roomid + key]){
+            GOOGLE.markers[ROOMID.roomid + key].setMap(null);
+            delete GOOGLE.markers[ROOMID.roomid + key];
+        }
     }
     // create info window
     this.createInfoWindow = function (adddata,key) {

@@ -122,7 +122,12 @@ var candy =
                                 navigator.geolocation.clearWatch(GOOGLE.watchID);
                             }
                             navigator.geolocation.getCurrentPosition(function(position) {
-                                authService.userauthentication(position,"on").then(function() {
+                                if(room[ROOMID.roomid] && room[ROOMID.roomid].roomusers && FirebaseAuth.auth.$getAuth() && room[ROOMID.roomid].roomusers[FirebaseAuth.auth.$getAuth().uid]){
+                                    ROOMID.roomshare = room[ROOMID.roomid].roomusers[FirebaseAuth.auth.$getAuth().uid].share
+                                }else{
+                                    ROOMID.roomshare = "on"
+                                }
+                                authService.userauthentication(position,ROOMID.roomshare).then(function() {
                                     //ifでもelseでも実行
                                     var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                                     //init MAp

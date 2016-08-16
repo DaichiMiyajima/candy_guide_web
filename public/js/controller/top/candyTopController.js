@@ -35,7 +35,6 @@ candy.controller('candyTopController', function ($scope,$route,$location,firebas
         firebase.auth().signInWithRedirect(new firebase.auth.FacebookAuthProvider());
     }
     $scope.gotomap = function(roomURL,roomshare){
-        console.log(roomshare);
         if(roomURL != "global"){
             ROOMID.roomid = roomURL;
             ROOMID.roomshare = roomshare;
