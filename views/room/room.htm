@@ -38,12 +38,11 @@
             <img class="circle" src={{roominformation.photoURL}} style="position: absolute;z-index: 10;width: 40px;height: 40px;right: 0px;margin-top: 8px;box-shadow: 0 0 12px #999999;">
         </div>
         <!-- Geolocation OFF -->
-        <!--
-        <div id="geolocationOff" class="firsthide">
-            <label>Your location services are unavailable.</label><br/>
-            <label>Settings → Privacy → Location Service → Safari WebSites</label>
+        <div ng-if="roomshare !== 'on'">
+            <div id="geolocationOff">
+                <label>Your GPS setting is OFF</label>
+            </div>
         </div>
-        -->
         <!-- Geolocation OFF end-->
         
         <!-- Flexible Box -->

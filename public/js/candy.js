@@ -123,10 +123,12 @@ var candy =
                             }
                             navigator.geolocation.getCurrentPosition(function(position) {
                                 if(room[ROOMID.roomid] && room[ROOMID.roomid].roomusers && FirebaseAuth.auth.$getAuth() && room[ROOMID.roomid].roomusers[FirebaseAuth.auth.$getAuth().uid]){
-                                    ROOMID.roomshare = room[ROOMID.roomid].roomusers[FirebaseAuth.auth.$getAuth().uid].share
+                                    ROOMID.roomshare = room[ROOMID.roomid].roomusers[FirebaseAuth.auth.$getAuth().uid].share;
                                 }else{
-                                    ROOMID.roomshare = "on"
+                                    ROOMID.roomshare = "on";
                                 }
+                                console.log(ROOMID.roomshare);
+                                $rootScope.roomshare = ROOMID.roomshare;
                                 authService.userauthentication(position,ROOMID.roomshare).then(function() {
                                     //ifでもelseでも実行
                                     var mylatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -161,6 +163,7 @@ var candy =
                             function(error) {//UpdateUser
                                 authService.userauthentication("","off").then(function() {
                                     GOOGLE.watchID = "off";
+                                    $rootScope.roomshare = "off";
                                     //Location on のユーザーがいればそのlocationを参照
                                     var userlocation = firebaseService.referenceUserOn();
                                     $firebaseObject(userlocation).$loaded().then(function(userlocation) {

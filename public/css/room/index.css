@@ -149,7 +149,7 @@ span:after {
 
 /* Geolocation OFF */
 #geolocationOff{
-    height : 70px;
+    height : 30px;
     background : rgba(0, 0, 0, 0.44);
     width : 100%;
     z-index : 1;
