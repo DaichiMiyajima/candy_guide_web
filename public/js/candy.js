@@ -12,7 +12,7 @@ var candy =
      }])
     //https://candyguideweb-d7d76.firebaseio.com/
     //https://candyguide-test.firebaseio.com/
-    .constant('FIREBASE_URL', 'https://candyguide-test.firebaseio.com/')
+    .constant('FIREBASE_URL', 'https://candyguideweb-d7d76.firebaseio.com')
     .config(['$routeProvider', function($routeProvider){
         $routeProvider
             .when('/', {
@@ -60,7 +60,7 @@ var candy =
         var config = {
             apiKey: "AIzaSyBjron8w2ND94NR2l3d_oqdho7Ozc9_hus",
             authDomain: "candyguideweb-d7d76.firebaseapp.com",
-            databaseURL: "https://candyguideweb-d7d76.firebaseio.com/",
+            databaseURL: "https://candyguideweb-d7d76.firebaseio.com",
             storageBucket: "candyguideweb-d7d76.appspot.com",
         };
         firebase.initializeApp(config);
