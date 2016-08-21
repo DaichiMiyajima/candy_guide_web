@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="candy">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author"      content="Daichi Miyajima">
+    <meta property="og:title" content="Where are you?" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bruwbird.com" />
+    <meta property="og:image" content="https://bruwbird.com/public/img/initial/Where_are_you--logo.png" />
+    <meta property="og:site_name" content="bruwbird.com" />
+    <meta property="og:description" content="Share your location with your friends. " />
+    <title>Guide</title>
+    <link rel="canonical" href="http://guide.com" />
+    <link rel="shortcut icon" href="">
+    <!-- firebase url -->
+    <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+    <!-- GeoFire -->
+    <script src="https://cdn.firebase.com/libs/geofire/4.1.1/geofire.min.js"></script>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <!-- sweet alert-->
+    <script src="../public/ext/sweetalert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/ext/sweetalert/sweetalert.css">
+    <!-- idle.js -->
+    <script src="../public/ext/idle.js"></script>
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <!-- Angular.js -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../public/bower_components/ngtouchstart/build/ngTouchstart.min.js"></script>
+    <script type="text/javascript" src="../public/bower_components/ngtouch/build/ngTouch.min.js"></script>
+    <!-- Google Maps -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_7QNqea1T9-S948DkonWIaMNv1jD6RJs&libraries=geometry,places"></script>
+    <script src="../public/js/candy.js"></script>
+    <script src="../public/js/service/firebaseService.js"></script>
+    <script src="../public/js/service/screenEventService.js"></script>
+    <script src="../public/js/service/gpslocationService.js"></script>
+    <script src="../public/js/service/googlemapService.js"></script>
+    <script src="../public/js/service/popupService.js"></script>
+    <script src="../public/js/service/authService.js"></script>
+    <script src="../public/js/controller/top/candyTopController.js"></script>
+    <script src="../public/js/controller/room/candyController.js"></script>
+    <script src="../public/js/controller/room/messageController.js"></script>
+    <script src="../public/js/controller/room/placeController.js"></script>
+</head>
+<body >
+    <base href="/">
+    <div ng-view style="height: 100% !important;"></div>
+</body>
+</html>

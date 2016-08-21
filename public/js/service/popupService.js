@@ -1,5 +1,8 @@
-myapp.service('popupService', function (firebaseService) {
-    this.swal_init_on = function (uniqueurl,position,callback) {
+/*global candy, angular, Firebase */
+'use strict';
+
+candy.service('popupService', function (firebaseService,GOOGLE,MARKER,ROOMID,FirebaseAuth) {
+    this.swal_init_on = function (callback) {
         swal({
             title: "SHARE YOUR LOCATION!",
             text: "Write your name or nickname:",
@@ -14,17 +17,10 @@ myapp.service('popupService', function (firebaseService) {
                 swal.showInputError("You need to write your name!");
                 return false
             }
-            var postsRef = ref.child("sharemap").child(uniqueurl).child('users');
-            var newPostRef = postsRef.push();
-            var postID = newPostRef.key();
             //AddUser
-            firebaseService.registerUser(inputValue,position,uniqueurl,"on",postID);
-            // Store session
-            window.localStorage.setItem([uniqueurl],[postID]);
-            window.localStorage.setItem([uniqueurl+"name"],[inputValue]);
-            yourname = inputValue;
+            firebaseService.registerRoomUser(inputValue,"on");
             //AddMessage
-            firebaseService.registerMessage("attend",yourname + " attend");
+            firebaseService.registerMessage("attend", inputValue + " attend");
             swal({
                 title: "Thank you for Attend",
                 type: "success",
@@ -51,17 +47,10 @@ myapp.service('popupService', function (firebaseService) {
                     swal.showInputError("You need to write your name !!!!!");
                     return false
                 }
-                var postsRef = ref.child("sharemap").child(uniqueurl[2]).child('users');
-                var newPostRef = postsRef.push();
-                var postID = newPostRef.key();
                 //CreateUser
-                firebaseService.registerUser(inputValue,"",uniqueurl[2],"off",postID);
-                // Store session
-                window.localStorage.setItem([uniqueurl[2]],[postID]);
-                window.localStorage.setItem([uniqueurl[2]+"name"],[inputValue]);
+                var postID = firebaseService.registerRoomUser(inputValue,"off");
                 //UpdateUser
                 firebaseService.registerMessage("attend",inputValue + " attend");
-                yourname = inputValue;
                 swal("Nice!", "You are " + inputValue + "(your location doesn't share)", "success");
         },callback);
     }
@@ -92,7 +81,6 @@ myapp.service('popupService', function (firebaseService) {
             },
         function(isConfirm){
             if (isConfirm) {
-                localStorage.removeItem(uniqueurl);
                 window.location.reload();
             }
         });
@@ -109,18 +97,14 @@ myapp.service('popupService', function (firebaseService) {
             },
         function(isConfirm){
             if (isConfirm) {
-                ref.child('sharemap').child(uniqueurl[2]).child("meetup").remove();
-                delete(markers_meet);
-                //Delete route
-                if(directionsDisplayArray[direction_number]){
-                    directionsDisplayArray[direction_number].setMap(null);
-                    directionsDisplayArray[direction_number].setDirections(null);
-                }
-                firebaseService.registerMessage("meetupremove", yourname + " remove marker");
+                //Remove Marker
+                firebaseService.removeMeetUpMarker();
+                GOOGLE.markers_meet = new Array();
+                firebaseService.registerMessage("meetupremove",  FirebaseAuth.displayname + " remove marker");
             }
         });
     }
-    this.swal_dragend = function (uniqueurl,key,position) {
+    this.swal_dragend = function (key,position,adddata) {
         swal({
             title: "Move Marker?",
             type: "warning",
@@ -133,10 +117,49 @@ myapp.service('popupService', function (firebaseService) {
                 if(isConfirm){
                     //update
                     firebaseService.updateMeetUpMarkerNothing(key,position);
-                    setmarkerlocation(position.lat(),position.lng());
+                    firebaseService.registerMessage("meetupchange", FirebaseAuth.displayname +" change marker");
+                    //MARKER VALUE
+                    MARKER.latitude = position.lat();
+                    MARKER.longitude = position.lng();
                 }else{
-                    markers_meet[key].setPosition(new google.maps.LatLng(markerlatitude, markerlongitude));
+                    GOOGLE.markers_meet[ROOMID.roomid + key].setPosition(new google.maps.LatLng(MARKER.latitude, MARKER.longitude));
                 }
             });
+    }
+    //change GPS Setting
+    this.swal_change_locationshare = function (kind,userroom) {
+        swal({
+            title: "Location Settings",
+            type: "warning",
+            text: "Do you change location setting to " + kind + " ?",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "OK",
+            closeOnConfirm: true,
+            showCancelButton: true
+            },
+        function(isConfirm){
+            if (isConfirm) {
+                //update User and roomusers
+                firebaseService.updateLocationSettings(kind,userroom);
+            }
+        });
+    }
+    //Leave room
+    this.swal_leave_room = function (userroom) {
+        swal({
+            title: "Leave this ROOM ?",
+            type: "warning",
+            text: "Do you leave this room ?",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "OK",
+            closeOnConfirm: true,
+            showCancelButton: true
+            },
+        function(isConfirm){
+            if (isConfirm) {
+                //leave room
+                firebaseService.deleteRoomUser(userroom);
+            }
+        });
     }
 })

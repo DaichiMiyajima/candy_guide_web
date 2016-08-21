@@ -20,6 +20,7 @@ nav{
     height: 30px !important;
     line-height: 30px !important;
     background-color: #bdbdbd !important;
+    box-shadow: 0px 0px 0px 0px;
 }
 
 nav .backScreen{
@@ -48,7 +49,21 @@ nav ul{
 nav ul i{
     height: 26px !important;
 }
+nav ul li:hover{
+    background: rgba(86, 161, 255, 1);
+    color : white;
+}
 /* nav end */
+
+.backbutton{
+    font-size: 20px;
+    width: 50px;
+    font-family: sans-serif;
+    /* left: 20px; */
+    position: fixed;
+    text-align: center;
+    z-index: 100;
+}
 
 .fixed-action-btn.horizontal ul li{
     margin: 8px 8px 0 0 !important;
@@ -116,6 +131,13 @@ textarea{
     float : right;
 }
 
+#toast-container .meetupchange{
+    width : 50%;
+    background-color: rgba(255, 153, 0, 0.62);
+    font-size : 14px;
+    float : right;
+}
+
 span:after {
     content: attr(data-shadow-text);
     color: rgb(83,109,254);
@@ -128,7 +150,7 @@ span:after {
 
 /* Geolocation OFF */
 #geolocationOff{
-    height : 70px;
+    height : 30px;
     background : rgba(0, 0, 0, 0.44);
     width : 100%;
     z-index : 1;
@@ -189,9 +211,9 @@ span:after {
     color: #5a5a5a;
     margin: 0 auto;
     text-align: center;
-    border: 1px solid rgb(204, 204, 204);
+    border: 1px dotted rgb(222, 222, 222);
     box-shadow: 10px saddlebrown;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.16),0 2px 4px 0 rgba(0,0,0,0.12);
+    /*box-shadow: 0 1px 2px 0 rgba(0,0,0,0.16),0 2px 4px 0 rgba(0,0,0,0.12);*/
 }
 /* GroupName end*/
 
@@ -254,6 +276,8 @@ img[src*="test"]{
         border-left: 1px solid rgba(255,255,255,0.1);
         border-right: 1px solid rgba(0,0,0,0.4);
         background: #343436;
+        box-shadow: 0.5px 1px 0.5px 1px rgba(179, 179, 179, 0.56);
+        height: 28px;
     }
     .flex-box{
         position: relative;
@@ -269,6 +293,7 @@ img[src*="test"]{
         border-top: 1px solid black;
         box-shadow: 3px 3px 3px 3px #fafafa;
         background: #b7b7b7;
+        z-index: 13;
     }
     .messageInputAreaDiv{
         padding: 8px;

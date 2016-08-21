@@ -1,0 +1,71 @@
+<!-- Own Css -->
+<link rel="stylesheet" href="../public/css/room/index.css">
+<link rel="stylesheet" href="../public/css/room/rating.css">
+<link rel="stylesheet" href="../public/css/room/include/indexMessage.css">
+<link rel="stylesheet" href="../public/css/room/include/indexPlace.css">
+<link rel="stylesheet" href="../public/css/room/include/indexTravelMode.css">
+<script>
+    $('.collapsible').collapsible({accordion: false});
+    $('.collapsible').collapsible();
+    $(".button-collapse").sideNav();
+    $('.firsthide').hide();
+</script>
+<div ng-controller="candyController as main">
+    <div ng-mousemove="resizeStartMouse($event)" ng-mouseup="resizeEndMouse($event)" ng-mousedown="resizeEndMouse($event)" >
+        <!-- Place Include-->
+        <div ng-include = "'/views/room/include/indexPlace.htm'"></div>
+        <!-- TravelMode Include-->
+        <div ng-include = "'/views/room/include/indexTravelMode.htm'"></div>
+        <!-- Menu Nav -->
+        <div class="navbar-fixed" style="height: 30px !important;line-height: 30px !important;">
+            <nav>
+                <div class="nav-wrapper white " style="background: #343436 !important;z-index: 10;">
+                    <!-- When release, we hide backScreen -->
+                    <i class="material-icons" ng-click="back()" style="position: absolute;z-index: 11;line-height: 28px;">keyboard_return</i>
+                    <a class="white-text groupname">{{roominformation.name}}</a>
+                    <a data-activates="demo" class="button-collapse white-text"><i class="material-icons">menu</i></a>
+                    <ul class="side-nav collection" id="demo">
+                        <li><div class="menuContent" ng-click="currentposition()"><i class="material-icons">my_location</i><span>MyLocation</span></div></li>
+                        <div ng-if="roomid !== 'global'">
+                            <li><div class="menuContent" ng-click="addlocationbutton()"><i class="material-icons">location_on</i><span>Place</span></div></li>
+                            <li><div class="menuContent" ng-click="placeModal()"><i class="material-icons">search</i><span>PlaceSearch</span></div></li>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div ng-if="roominformation.photoURL || roominformation.photoURL.length > 0">
+            <img class="circle" src={{roominformation.photoURL}} style="position: absolute;z-index: 10;width: 40px;height: 40px;right: 0px;margin-top: 8px;box-shadow: 0 0 12px #999999;">
+        </div>
+        <!-- Geolocation OFF -->
+        <div ng-if="roomshare !== 'on'">
+            <div id="geolocationOff">
+                <label>Your GPS setting is OFF</label>
+            </div>
+        </div>
+        <!-- Geolocation OFF end-->
+        
+        <!-- Flexible Box -->
+        <div class="flex-container">
+            <!-- Google Map -->
+            <div id="candy_map_tab" ng-style="candy_map_tab">
+                <section class="container-full">
+                    <div id="map"></div>
+                </section>
+            </div>
+            <div class="messageBox" style="z-index: 12;">
+                <div class="editor-resizer" ng-touchmove="resizeStart($event)" ng-touchend="resizeEnd($event)"><i class="small material-icons">drag_handle</i></div>
+                <div class="flex-box" ng-style="flex_box">
+                    <!-- Message Include-->
+                    <div ng-include = "'/views/room/include/indexMessage.htm'"></div>
+                </div>
+            </div>
+        </div>
+        <div class="messageInputArea" ng-style="messageheight">
+            <div class="messageInputAreaDiv">
+                <textarea ng-model="messageInput" id="icon_prefix2" class="materialize-textarea roomtextarea" ng-focus="onfocus()" ng-blur="onblur()" style="height: 24.2px;"></textarea>
+                <a class="waves-effect waves-light btn" id="sendbutton" ng-mousedown="sendMessage(messageInput)">Send</a>
+            </div>
+        </div>
+    </div>
+</div>

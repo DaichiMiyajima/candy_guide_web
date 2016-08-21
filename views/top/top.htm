@@ -1,0 +1,235 @@
+<link rel="stylesheet" href="../public/css/top/top.css">
+<script>
+    $('.collapsible').collapsible({accordion: false});
+    $('.collapsible').collapsible();
+    $(".button-collapse").sideNav();
+    $('.firsthide').hide();
+</script>
+<div class="topscreen" ng-controller="candyTopController as top" style="overflow: scroll;height: 100% !important;">
+    <header>
+        <div class="navbar-fixed" style="height: 30px !important;line-height: 30px !important;">
+            <nav>
+                <div class="nav-wrapper white " style="background: #343436 !important;">
+                    <a class="white-text groupname">Where are you?</a>
+                    <a data-activates="menubar" class="button-collapse white-text"><i class="material-icons">menu</i></a>
+                    <ul class="side-nav collection" id="menubar">
+                    <li class="collection-item avatar userinfo" ng-click="usersetting()">
+                        <div ng-if="userInfo.photoURL">
+                            <img class="circle" src={{userInfo.photoURL}} style="width: 70px;height: 70px;"></img>
+                        </div>
+                        <div ng-if="!userInfo.photoURL">
+                            <i class="material-icons circle gray" style="width: 70px;height: 70px;line-height: 70px;font-size: 30px;">perm_identity</i>
+                        </div>
+                        <div ng-if="userInfo.displayname">
+                            <span class="title ng-binding">{{userInfo.displayname}}</span>
+                        </div>
+                        <div ng-if="!userInfo.displayname">
+                            <span class="title ng-binding" style="padding-top: 28px;font-size: 15px;">NO   NAME</span>
+                        </div>
+                    </li>
+                        <!--<div ng-if="userAuth.isAnonymous === true">-->
+                            <li class="collection-item avatar menulist" ng-click="facebooklogin()">
+                                <div class="menuContent">
+                                    <i class="material-icons circle">perm_identity</i>
+                                    <span>FacebookLogin</span>
+                                </div>
+                            </li>
+                        <!--</div>-->
+                        
+                        <!--
+                        <li>
+                            <div class="menuContent">
+                                <a class="github-button" href="https://github.com/DaichiMiyajima/candy_guide_web" data-icon="octicon-star" data-style="mega" data-count-href="/DaichiMiyajima/candy_guide_web/stargazers" data-count-api="/repos/DaichiMiyajima/candy_guide_web#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star DaichiMiyajima/candy_guide_web on GitHub">Star
+                                </a>
+                                <script async defer src="https://buttons.github.io/buttons.js">
+                                </script>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="menuContent">
+                                <a style="vertical-align:middle;" href="https://twitter.com/share" class="twitter-share-button" data-url="https://bruwbird.com" data-text="Share your location!" data-size="large">Tweet
+                                </a>
+                                <script>
+                                !function(d,s,id){
+                                    var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                                    if(!d.getElementById(id)){js=d.createElement(s);
+                                        js.id=id;
+                                        js.src=p+'://platform.twitter.com/widgets.js';
+                                        fjs.parentNode.insertBefore(js,fjs);
+                                    }
+                                 }(document, 'script', 'twitter-wjs');
+                                </script>
+                            </div>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="row">
+            <div class="col s12 m6 l6">
+                <div class="card" style="background-color:rgba(255, 255, 255, 0.47);padding: 1px;margin: 0.5rem 0 1rem 0;">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img src="../public/img/top/Where_are_you--logo.png" style="width:60%;margin: 0 auto;">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Candy Guide<i class="material-icons right">more_vert</i></span>
+                        <div class="input-field">
+                            <input id="groupname" type="text" class="validate" ng-model="inputgroupname">
+                            <label for="groupnamee" style="color: #000000 !important;">Group Name !  Share the group URL with friends !</label>
+                        </div>
+                        <div style="text-align:right; margin-bottom: 20px;">
+                            <a class="waves-effect waves-light btn blue darken-2" id="create_url" ng-click="intomap(inputgroupname)"><i class="material-icons right">send</i>Create Group</a>
+                        </div>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Candy Guide<i class="material-icons right">close</i></span>
+                        <p>You can share your location with friends in this web site. Firstly you create the group and share your group URL with mail or something.</p>
+                        <p>And then your friends can join the group room.</p>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="col s12 m6 l6">
+                <!-- GLOBAL -->
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="../public/img/global.png" style="max-width: 200px;max-height: 200px;margin: 0 auto;">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">GLOBAL<i class="material-icons right">more_vert</i></span>
+                        <p><a ng-click="gotomap('global','on')">This is GLOBAL ROOM.</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">GLOBAL<i class="material-icons right">close</i></span>
+                        <p>Share your location and message with a lot of people. This room has a lot of people. We enjoy talk.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- USER ROOM -->
+            <div ng-repeat="userroom in userrooms">
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-content" style = "padding: 0px;">
+                                <table style="table-layout: fixed;">
+                                    <tr>
+                                        <td style="width: 20%;">
+                                            <div ng-if="userroom.photoURL && userroom.photoURL.length > 0" style="float: left;">
+                                                <img class="circle" src={{userroom.photoURL}} style="width: 40px;height: 40px;float: left;box-shadow: 0 0 12px #999999;"></img>
+                                            </div>
+                                            <div ng-if="!userroom.photoURL || !userroom.photoURL.length > 0" style="float: left;">
+                                                <i class="material-icons circle gray" style="width: 40px;height: 40px;padding: 9px;background: rgba(255, 212, 92, 0.73);color: white;">group</i>
+                                            </div>
+                                        </td>
+                                        <td style="width: 60%;padding-left:5px;padding:0px">
+                                            <ul>
+                                            <li><a style="width: 40%;" ng-click="gotomap(userroom.$id,userroom.share)">{{userroom.name}}</a></li>
+                                            <li><label style="font-size: 1rem;color: #ff0000;" style="width: 25%;">{{userroom.userNumber}}</label> people join</li>
+                                            </ul>
+                                        </td>
+                                        <td style="width: 20%;padding-right:20px;"><span class="card-title activator grey-text text-darken-4"><i class="material-icons right">apps</i></span></td>
+                                    </tr>
+                                </table>
+                        </div>
+                        <div class="card-reveal roomlist">
+                            <table>
+                                <tr>
+                                    <td style="width: 8%;padding:0px;"><p style="-webkit-writing-mode: vertical-rl;margin: 0px auto;">GPS</p></td>
+                                    <td style="width: 30%;padding:0px;">
+                                        <div ng-if="userroom.share === 'on'">
+                                            <a class="waves-effect waves-light btn roomlocation"><i class="material-icons">location_on</i></a>
+                                            <a class="waves-effect waves-light btn disabled roomlocation" ng-click="changeShare(userroom,'off')"><i class="material-icons large">location_off</i></a>
+                                        </div>
+                                        <div ng-if="userroom.share === 'off'">
+                                            <a class="waves-effect waves-light btn disabled roomlocation" ng-click="changeShare(userroom,'on')"><i class="material-icons large">location_on</i></a>
+                                            <a class="waves-effect waves-light btn roomlocation"><i class="material-icons">location_off</i></a>
+                                        </div>
+                                    </td>
+                                    <td style="width: 8%;padding:0px;"><p style="-webkit-writing-mode: vertical-rl;margin: 0px auto;">Setting</p></td>
+                                    <td style="width: 20%;padding:0px;">
+                                        <a class="waves-effect waves-light btn red roomlocation" style="width:100%" ng-click="roomleave(userroom)">Leave</a>
+                                    </td>
+                                    <td style="width: 20%;padding:0px;">
+                                        <a class="waves-effect waves-light btn yellow roomlocation" style="width:100%" ng-click="roomsetting(userroom)"><i class="material-icons">mode_edit</i></a>
+                                    </td>
+                                    <td style="width: 14%;text-align: center;padding: 0px;">
+                                        <span class="card-title grey-text text-darken-4" style="margin-top:8px;"><i class="material-icons center">close</i></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- room settings -->
+    <div id="roomSettingModal" class="modal modal-fixed-footer roomsettingpopup">
+        <div class="modal-content" style="overflow: hidden;">
+            <div style="height: 70px;position: fixed;width: 90%;">
+                <div>
+                    <div ng-if="userroominfo.photoURL && userroominfo.photoURL.length > 0">
+                        <img class="circle" src={{userroominfo.photoURL}} style="width: 60px;height: 60px;font-size: 30px;background: rgba(255, 255, 255, 0.73);color: white;position: absolute;"></img>
+                    </div>
+                    <div ng-if="!userroominfo.photoURL || !userroominfo.photoURL.length > 0">
+                        <i class="material-icons circle gray" style="width: 60px;height: 60px;padding: 16px;font-size: 30px;background: rgba(255, 212, 92, 0.73);color: white;position: absolute;">group</i>
+                    </div>
+                    <input id="roomImage" type='file' file-model="imageFile" style="width: 60px;height: 60px;font-size: 0px;text-align: center;margin: 0 auto;position: relative;float: left;opacity: 0; z-index: 10;" />
+                    <li ng-repeat="photo in photosPreview" style="position: absolute;float: left;list-style: none;">
+                        <img ng-src={{photo}} style="width: 60px;height: 60px;float: left;background: white;border-radius: 50%;" />
+                    </li>
+                </div>
+                <div class="input-field col s12 m12" style="display: inline-table;margin-left: 10px;">
+                    <input ng-model="userroominfo.name" id="first_name2" type="text" class="validate">
+                    <label class="active" for="first_name2" style="margin-left: -12px;">Room Name</label>
+                </div>
+            </div>
+            <div class="messageInputAreaDiv" style="margin-top: 70px;">
+                <textarea ng-model="userroominfo.description" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
+                <label class="active" for="first_name2">Room Description</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="roomSettingChange(userroominfo,imageFile)">Change</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+        </div>
+    </div>
+    <!-- room settings end -->
+    <!-- user settings -->
+    <div id="userSettingModal" class="modal modal-fixed-footer roomsettingpopup">
+        <div class="modal-content" style="overflow: hidden;">
+            <div style="height: 70px;position: fixed;width: 90%;">
+                <div>
+                    <div ng-if="userInfo.photoURL && userInfo.photoURL.length > 0">
+                        <img class="circle" src={{userInfo.photoURL}} style="width: 60px;height: 60px;font-size: 30px;background: rgba(255, 255, 255, 0.73);color: white;position: absolute;"></img>
+                    </div>
+                    <div ng-if="!userInfo.photoURL || !userInfo.photoURL.length > 0">
+                        <i class="material-icons circle gray" style="width: 60px;height: 60px;padding: 16px;font-size: 30px;background: rgba(255, 212, 92, 0.73);color: white;position: absolute;">group</i>
+                    </div>
+                    <input id="roomImage" type='file' file-model="imageFile" style="width: 60px;height: 60px;font-size: 0px;text-align: center;margin: 0 auto;position: relative;float: left;opacity: 0; z-index: 10;" />
+                    <li ng-repeat="photo in photosPreview" style="position: absolute;float: left;list-style: none;">
+                        <img ng-src={{photo}} style="width: 60px;height: 60px;float: left;background: white;border-radius: 50%;" />
+                    </li>
+                </div>
+                <div class="input-field col s12 m12" style="display: inline-table;margin-left: 10px;">
+                    <input ng-model="userInfo.displayname" id="first_name2" type="text" class="validate">
+                    <label class="active" for="first_name2" style="margin-left: -12px;">User Name</label>
+                </div>
+            </div>
+            <div class="messageInputAreaDiv" style="margin-top: 70px;">
+                <textarea ng-model="userInfo.description" id="icon_prefix2" class="materialize-textarea" style="padding: 0px;margin: 0px;max-height:43px;background: white;"></textarea>
+                <label class="active" for="first_name2">User Description</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="userSettingChange(userInfo,imageFile)">Change</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+        </div>
+    </div>
+    <!-- user settings end -->
+</div>

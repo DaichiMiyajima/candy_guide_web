@@ -2,17 +2,10 @@
 .messageall{
     margin-top : 15px;
 }
-#toast-container-chat > div {
-    -moz-border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    border-radius: 3px 3px 3px 3px;
-    background-position: 15px center;
-    background-repeat: no-repeat;
-    -moz-box-shadow: 0 0 12px #999999;
-    -webkit-box-shadow: 0 0 12px #999999;
-    box-shadow: 0 0 12px #999999;
-    color: black;
-    opacity: 0.8;
+.list{
+    display: inline-block;
+    width : 100%;
+    padding-top: 10px;
 }
 
 #toast-container-chat * {
@@ -20,6 +13,15 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+#toast-container-chat table {
+    width : 20%;
+}
+
+#toast-container-chat table td{
+    padding : 0px;
+}
+
 
 #toast-container-chat .span {
     float: left;
@@ -43,11 +45,21 @@
     text-align: left;
     float: left;
     width: 80%;
-    margin-bottom: 7px !important;
+    margin-bottom: 0px !important;
     white-space: pre-line;
     word-wrap: break-word;
     line-height: 1 ;
     padding: 2px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    -moz-box-shadow: 0 0 12px #999999;
+    -webkit-box-shadow: 0 0 12px #999999;
+    box-shadow: 0 0 12px #999999;
+    color: black;
+    opacity: 0.8;
 }
 .toast-yourname{
     padding: 4px;
@@ -63,16 +75,41 @@
 }
 .toast-your{
     float:right;
-    background: rgb(0, 251, 114);
+    background: rgb(21, 51, 165);
+    color: white !important;
 }
 .toast-info{
 }
 .toast-success{
     background : rgb(0, 90, 255);
     color: white !important;
+    height: 20px;
+    line-height: 5px;
+    text-align: center;
 }
 .toast-error{
     background : rgba(255, 0, 0, 0.87);
     color: white !important;
+    height: 20px;
+    line-height: 5px;
+    text-align: center;
+}
+.toast-change{
+    background : rgba(255, 153, 0, 0.87);
+    color: white !important;
+    height: 20px;
+    line-height: 5px;
+    text-align: center;
+}
+.message_center{
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 60px;
+    text-align: center;
+    margin: 0 auto;
+    height: 20px;
+    line-height: 5px;
+    text-align: center;
+    display: inline-block;
 }
 /* message tab-end */

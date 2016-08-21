@@ -1,3 +1,19 @@
+html {
+    -ms-touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height:101%;
+    text-align: left;
+    position: fixed;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+}
 body::before {
     background-size: cover;
     background-attachment: fixed;
@@ -10,6 +26,23 @@ body::before {
     top: 0;
     position: fixed;
 }
+input{
+    font-size: 16px !important;
+}
+textarea{
+    font-size: 16px !important;
+}
+
+.topscreen{
+    overflow: scroll;
+}
+
+footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+}
+
 .card_title{
      text-align: right;
 }
@@ -18,7 +51,7 @@ body::before {
        (max-width: 600px) and (-webkit-max-device-pixel-ratio: 1.5),
        (max-width: 600px) and (max-resolution: 1.5dppx) {
   body::before {
-    background-image: url('../../img/initial/NYC0099.jpg');
+    background-image: url('../../img/top/NYC0099.jpg');
   }
       .demo-card-wide.mdl-card {
         width: 75%;
@@ -32,7 +65,7 @@ body::before {
        (min-width: 601px) and (max-width: 2048px) and (-webkit-max-device-pixel-ratio: 1.5),
        (min-width: 601px) and (max-width: 2048px) and (max-resolution: 1.5dppx)  {
   body::before {
-    background-image: url('../../img/initial/NYC0099.jpg');
+    background-image: url('../../img/top/NYC0099.jpg');
   }
       .demo-card-wide.mdl-card {
         width: 45%;
@@ -46,7 +79,7 @@ body::before {
        (min-width: 2049px) and (-webkit-max-device-pixel-ratio: 1.5),
        (min-width: 2049px) and (max-resolution: 1.5dppx) {
   body::before {
-    background-image: url('../../img/initial/NYC0099.jpg');
+    background-image: url('../../img/top/NYC0099.jpg');
   }
       .demo-card-wide.mdl-card {
         width: 35%;
@@ -85,8 +118,17 @@ body {
     flex-direction: column;
 }
 
+header {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
 main {
     flex: 1 0 auto;
+    padding-bottom: 70px;
+    -webkit-overflow-scrolling: touch;
+    overflow: scroll;
+    height: 100% !important;
 }
 
 /* label color */
@@ -153,25 +195,73 @@ nav ul{
     width:140px !important;
 }
 
-nav ul i{
-    height: 26px !important;
+#menubar{
+    width: 180px !important;
+    background-color: #343436 !important;
+    border: 1px solid #636262;
 }
+#menubar .userinfo{
+    padding-left: 100px;
+    min-height: 104px;
+    border-bottom: 1px solid #585858;
+    background-color: #343436 !important;
+}
+#menubar .userinfo span{
+    color: white;
+    font-family: fantasy;
+    padding-top: 20px;
+    position: absolute;
+}
+
+#menubar .menulist{
+    min-height: 64px;
+    border-bottom: 1px solid #585858;
+    background-color: #343436 !important;
+    padding-left: 58px;
+    font-size: 12px;
+}
+
+#menubar .menulist .material-icons{
+    background-color: #343436 !important;
+    font-size: 25px;
+    border-bottom: 1px solid #585858;
+}
+
+#menubar .menulist span{
+    color: white;
+    padding-top: 13px;
+    position: absolute;
+}
+
+.roomlist{
+    padding: 0px !important;
+    height: 100% !important;
+}
+
+.roomlocation{
+    padding: 0px;
+    height: 70px;
+    line-height: 70px;
+    width: 50%;
+    float: left;
+    box-shadow:none;
+    border-radius: 0px;
+}
+
+.roomsettingpopup{
+    height: 40% !important;
+    top: 30% !important;
+     z-index: 10000 !important;
+}
+
 input{
     font-size: 16px !important;
 }
 /* nav end */
 .groupname{
     width: 100%;
-    height: 40px;
+    height: 30px;
     position: absolute;
     text-align: center;
 }
-.menuContent{
-    color: #5a5a5a;
-    margin: 0 auto;
-    text-align: center;
-}
 
-.menuContent {
-    padding: 0 30px;
-}

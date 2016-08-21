@@ -1,0 +1,89 @@
+<div ng-controller="messageController as message">
+    <!-- Modal Structure -->
+    <div id="" class="messageall">
+        <div class="">
+            <!-- message tab -->
+            <div style="padding-top: 1px;">
+                <div ng-repeat="message in messages | orderBy:'-time'" class="list">
+                    <div ng-if="message.kind === 'message'">
+                        <div ng-if="userInfo.$id === message.key">
+                            <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                                <div class="messagelist toast-your">
+                                    <div class="toast-yourname">{{message.displayname}}</div>
+                                    <div class="toast-message">{{message.message}}</div>
+                                </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div ng-if="message.photoURL &&message.photoURL.length > 0">
+                                                <img class="circle" src={{message.photoURL}} style="width: 40px;height: 40px;float: right;box-shadow: 0 0 12px #999999;"></img>
+                                            </div>
+                                            <div ng-if="!message.photoURL || !message.photoURL.length > 0">
+                                                <i class="material-icons circle gray" style="width: 40px;height: 40px;padding: 7px;background: gray;color: white;float: right">perm_identity</i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class ="yourspan">{{ message.time | date:'MM/dd hh:mm' : timezone}}</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div ng-if="userInfo.$id !== message.key">
+                            <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                                <div class="messagelist toast-info">
+                                    <div class="toast-name">{{message.displayname}}</div>
+                                    <div class="toast-message">{{message.message}}</div>
+                                </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div ng-if="message.photoURL &&message.photoURL.length > 0">
+                                                <img class="circle" src={{message.photoURL}} style="width: 40px;height: 40px;float: left;box-shadow: 0 0 12px #999999;"></img>
+                                            </div>
+                                            <div ng-if="!message.photoURL || !message.photoURL.length > 0">
+                                                <i class="material-icons circle gray" style="width: 40px;height: 40px;padding: 7px;background: gray;color: white;">perm_identity</i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class ="span">{{ message.time | date:'MM/dd hh:mm' : timezone}}</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="message.kind === 'attend' || message.kind == 'meetup'" class = "message_center">
+                        <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                            <div class="messagelist toast-success">
+                                <div class="toast-message">{{message.message}}</div>
+                            </div>
+                            <span class ="span">{{ message.time | date:'hh:mm' : timezone}}</span>
+                        </div>
+                    </div>
+                    <div ng-if="message.kind === 'meetupremove'" class = "message_center">
+                        <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                            <div class="messagelist toast-error">
+                                <div class="toast-message">{{message.message}}</div>
+                            </div>
+                            <span class ="span">{{ message.time | date:'hh:mm' : timezone}}</span>
+                        </div>
+                    </div>
+                    <div ng-if="message.kind === 'meetupchange'" class = "message_center">
+                        <div id="toast-container-chat" class="toast-top-right" aria-live="polite" role="alert" style="position: initial !important;margin: 5px 5px 5px 5px;">
+                            <div class="messagelist toast-change">
+                                <div class="toast-message">{{message.message}}</div>
+                            </div>
+                            <span class ="span">{{ message.time | date:'hh:mm' : timezone}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Structure end -->
+</div>
