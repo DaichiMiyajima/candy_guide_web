@@ -58,10 +58,10 @@ var candy =
     })
     .factory("FirebaseAuth", ["$firebaseAuth",function($firebaseAuth) {
         var config = {
-            apiKey: "AIzaSyCgH8GYpKZcG_1uOsGY0yaoQDYPjunClvg",
-            authDomain: "candyguide-test.firebaseapp.com",
-            databaseURL: "https://candyguide-test.firebaseio.com",
-            storageBucket: "candyguide-test.appspot.com",
+            apiKey: "AIzaSyBjron8w2ND94NR2l3d_oqdho7Ozc9_hus",
+            authDomain: "candyguideweb-d7d76.firebaseapp.com",
+            databaseURL: "https://candyguideweb-d7d76.firebaseio.com/",
+            storageBucket: "candyguideweb-d7d76.appspot.com",
         };
         firebase.initializeApp(config);
         return {
