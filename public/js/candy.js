@@ -141,6 +141,8 @@ var candy =
                                     //infowindow
                                     var infomessages = firebaseService.referenceMessage();
                                     firebaseService.loadinfowindow(infomessages);
+                                    
+                                    firebaseService.test();
                                     //watch position
                                     GOOGLE.watchID = gpslocationService.currentPosition();
                                     //watch add user

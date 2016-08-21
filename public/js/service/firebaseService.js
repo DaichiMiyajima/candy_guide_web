@@ -445,4 +445,17 @@ candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$fire
         ref.child('room').child(userroom.$id).child("roomusers").child(FirebaseAuth.auth.$getAuth().uid).remove();
         ref.child('users').child(FirebaseAuth.auth.$getAuth().uid).child("rooms").child(userroom.$id).remove();
     }
+    
+    this.test = function(){
+        ref.child('.info').on('value', function(snapshot, addChildKey) {
+            console.log(snapshot.val());
+        });
+        var idle = new Idle({
+            onHidden : function(){console.log(new Date().getTime()+":User is not looking at page")},
+			onVisible : function(){console.log(new Date().getTime()+":User started looking at page again")},
+			onAway : function(){console.log(new Date().getTime()+":away")},
+			onAwayBack : function(){console.log(new Date().getTime()+":back")},
+            awayTimeout : 10000
+        }).start();
+    }
 })

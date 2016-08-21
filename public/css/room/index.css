@@ -276,7 +276,7 @@ img[src*="test"]{
         border-left: 1px solid rgba(255,255,255,0.1);
         border-right: 1px solid rgba(0,0,0,0.4);
         background: #343436;
-        box-shadow: 1px 2px 1px 2px rgba(179, 179, 179, 0.56);
+        box-shadow: 0.5px 1px 0.5px 1px rgba(179, 179, 179, 0.56);
         height: 28px;
     }
     .flex-box{
