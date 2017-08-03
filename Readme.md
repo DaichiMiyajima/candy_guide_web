@@ -5,7 +5,7 @@ Where are you?
 
  [Where are you?](https://bruwbird.com/) is a launching of realtime location sharing service.
 
-![](https://github.com/DaichiMiyajima/candy_guide_web/tree/master/public/img/top/Where_are_you--logo.png)
+![](https://github.com/DaichiMiyajima/candy_guide_web/blob/master/public/img/top/Where_are_you--logo.png)
 
 ## Stuff
 1. [node.js](https://nodejs.org/en/)
