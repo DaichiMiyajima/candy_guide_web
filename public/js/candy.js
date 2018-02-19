@@ -10,9 +10,6 @@ var candy =
     .config(['$locationProvider', function ($locationProvider) {
         $locationProvider.html5Mode(true);
      }])
-    //https://candyguideweb-d7d76.firebaseio.com/
-    //https://candyguide-test.firebaseio.com/
-    .constant('FIREBASE_URL', 'https://candyguide-test.firebaseio.com/')
     .config(['$routeProvider', function($routeProvider){
         $routeProvider
             .when('/', {
@@ -58,10 +55,10 @@ var candy =
     })
     .factory("FirebaseAuth", ["$firebaseAuth",function($firebaseAuth) {
         var config = {
-            apiKey: "AIzaSyCgH8GYpKZcG_1uOsGY0yaoQDYPjunClvg",
-            authDomain: "candyguide-test.firebaseapp.com",
-            databaseURL: "https://candyguide-test.firebaseio.com",
-            storageBucket: "candyguide-test.appspot.com",
+            apiKey: "AIzaSyBO-hP85qXuHJVQmanTSdjPnsZbhdqWs7k",
+            authDomain: "candyguide-1ddd8.firebaseapp.com",
+            databaseURL: "https://candyguide-1ddd8.firebaseio.com",
+            storageBucket: "candyguide-1ddd8.appspot.com",
         };
         firebase.initializeApp(config);
         return {

@@ -1,7 +1,7 @@
 /*global candy, angular, Firebase */
 'use strict';
 
-candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$firebaseObject,googlemapService,FIREBASE_URL,GOOGLE,ROOMID,FirebaseAuth) {
+candy.service('firebaseService', function ($q,$firebaseAuth,$firebaseArray,$firebaseObject,googlemapService,GOOGLE,ROOMID,FirebaseAuth) {
     var ref;
     var storage;
     // Initialize
